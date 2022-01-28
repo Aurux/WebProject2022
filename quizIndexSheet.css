@@ -1,0 +1,135 @@
+* {
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+body {
+    /*background-color: #C5D86D;*/
+    background:  url(bg.jpg);
+    background-size: 100%;
+    background-position: 0px 0px;
+}
+
+header {
+    background-color: rgb(6, 72, 102);
+    background-size: 100%;
+    background-position: 0px 0px;
+    color: #ffffff;
+    text-align: center;
+    font-size: 80px;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    padding: 50px;
+}
+
+
+.login {
+    font-size: 24px;
+    margin: auto;
+    width: 350px;
+    height: 200px;
+    border: solid 10px #2e294e;
+    border-radius: 10px;
+    background-color: white;
+    /* Center child horizontally*/
+    display: flex;
+    justify-content: center;
+  }
+
+#navi {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #f83434
+}
+
+li {
+    float: left;
+}
+
+li a {
+    display: inline-block;
+    color: white;
+    text-align: center;
+    padding:14px 16px;
+    text-decoration: none;
+}
+
+li a:hover:not(.active) {
+    background-color: #2e294e;
+}
+
+
+.active {
+    background-color: #1b7199;
+} 
+
+form {
+    text-align: center;
+}
+
+footer {
+    text-align: center;
+    font-size: 15px;
+}
+
+.container { 
+    height: 100px;
+    position: relative;
+  }
+  
+.center {
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+  }
+
+  div.quizBody{
+    background-color:rgba(0,0,0,0.5);
+    color:#fff;
+    padding: 150px 100px 500px 100px
+}
+
+div.quizBody{
+    width: 1200px;
+    margin: 0px auto 0px auto;
+    border-radius: 2px;
+
+}
+
+p#quizP1{
+    margin: 15px;
+}
+h1#h1{
+    margin: 15px;
+}
+
+a.start{
+    display:inline-block;
+    color:#fff;
+    background:#f83434;
+    border:1px;
+    padding:6px 13px;
+    text-decoration: none;
+}
+
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	border: 0;
+	vertical-align: baseline;
+}
