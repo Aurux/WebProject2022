@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>Enroll</title>
+        <link rel="stylesheet" type="text/css" href="quizIndexSheet.css"/>
+        <script type="text/javascript" src="validate.js"></script>
+    </head>
+    <title>Moodle Login</title>
+    <body>
+        <header>Bowling Univeristy Moodle</header>
+        <ul id="navi">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="enroll.html">Enroll</a></li>
+            <li><a href="help.html">Help</a></li>
+            <li><a href="QuizIndex.html">Quiz</a></li>
+        </ul>
+    <body>
+        <div id="enroll">
+            <form name="frmRegister" id="frmRegister" method="post" action="doEnroll.php" onsubmit=" return validate()"  >
+        
+                <table>
+                    <tr><td>Forename<br><input name="frmForename" type="textbox" placeholder="Your first name..." required/><br><p1 id="fname" style="display:none">Must be 2-64 characters long<br>using only upper and lowercase letters.</p1></td></tr>
+                    <tr><td>Surname<br><input name="frmSurname"  type="textbox" placeholder="Your last name..." required/><br><p1 id="sname" style="display:none">Must be 2-64 characters long<br>using only upper and lowercase letters.</p1></td></tr>
+        
+                    <tr><td>Gender<br>
+                        <label><input name="frmGender" value="male" type="radio" required>Male</label><br>
+                        <label><input name="frmGender" value="female" type="radio">Female</label><br>
+                        <label><input name="frmGender" value="other" type="radio">Other</label></td></tr>
+        
+                    <tr><td>Date of birth<br><input name="frmDateOfBirth" type="date"><br><p1 id="dob" style="display:none">Please enter a valid date of birth.</p1></td></tr>
+                    <tr><td>Age<br><input name="frmAge"  type="textbox" placeholder="Your age..." required/><br><p1 id="ageCorrect" style="display:none">Age does not match date of birth.</p1><p1 id="ageAllow" style="display:none">You are not old enough to register.</p1></td></tr>
+                    <tr><td>Course<br><select name="frmCourse" required><option value="">Please select...</option><option value="Databases">Databases</option><option value="Websites">Websites</option><option value="Networks">Networks</option></select></td></tr>
+                    <tr><td>Today's date<br><input name="frmDateReg" type="date"><br><p1 id="date" style="display:none">Please enter today's date.</p1></td></tr>
+                    <tr><td style="text-align: center;"><input type="button" value="Clear All" onclick="clearAll()">&nbsp;&nbsp;&nbsp;<input type="submit" onclick="submitted = true;" value="Submit"/></td></tr>
+                
+                </table>
+                
+                 
+        
+            </form>
+        </div>
+
+
+    </body>
+</html>
