@@ -7,6 +7,11 @@ function validate()
     var nameRe = /^[a-zA-Z]{2,64}$/;
     var ageRe = /^[0-9]{1,3}$/;
 
+    var passRe = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/gm
+
+    // RFC5322 compliant email regex sourced from https://emailregex.com/
+    var emailRe = /(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/
+
     // Forename Check
     var fnamePass = nameRe.test(document.forms["frmRegister"]["frmForename"].value);
     // Surname Check
@@ -18,55 +23,31 @@ function validate()
     var dobStart = new Date(1900, 0, 1, 0, 0, 0, 0);
     var dobDate = new Date(parseInt(dobSplit[0]), parseInt(dobSplit[1]) - 1, parseInt(dobSplit[2]), 0, 0, 0, 0);
     
-    /* Original code for DOB verification before I realised that I could just do it using Date objects.
-    if (parseInt(dobSplit[0]) > 1900 & parseInt(dobSplit[0]) <= currentDate.getFullYear())
-    {
-        if (parseInt(dobSplit[0]) == currentDate.getFullYear() & parseInt(dobSplit[1]) <= (currentDate.getMonth() + 1) & parseInt(dobSplit[2]) <= currentDate.getUTCDate())
-        {
-            var dobPass = true;
-        }
-        if (parseInt(dobSplit[0]) != currentDate.getFullYear())
-        {
-            var dobPass = true;
-        }
-    }
-    */
+    
     
     if (dobDate >= dobStart & dobDate < currentDate)
     {
         var dobPass = true;
     }
-    // Age check
-    var ageCorrect = false;
-    var ageAllowed = false;
-    var age = document.forms["frmRegister"]["frmAge"].value;
-    // 12 years and 150 years in ms, roughly accounting for leap years.
-    var minAge = 1000 * 60 * 60 * 24 * 365.25 * 12
-    var maxAge = 1000 * 60 * 60 * 24 * 365.25 * 150
+    // Email Check
+    var emailPass = emailRe.test(document.forms["frmRegister"]["frmEmail"].value);
+    if (document.forms["frmRegister"]["frmEmail"].value == document.forms["frmRegister"]["frmEmailConf"].value) {
+        var emailMatch = true;
+    }
+    else {
+        var emailMatch = false;
+    }
 
-    var ageDist = currentDate - dobDate;
-    var ageDistYears = Math.floor(ageDist / 1000 / 60 / 60 / 24 / 365.25);
-    
-    if (ageDistYears == age & ageRe.test(age) == true)
-    {
-        var ageCorrect = true;
-    }
-    if (ageDist > minAge & ageDist < maxAge)
-    {
-        var ageAllowed = true;
-    }
-    
+    // Password Check
 
-    // Checking todays date.
-    var datePass = false;
-    var todayDate = document.forms["frmRegister"]["frmDateReg"].value;
-    var dateSplit = todayDate.split("-");
-    
-    if (parseInt(dateSplit[0]) == currentDate.getFullYear() & parseInt(dateSplit[1]) == (currentDate.getMonth() + 1) & parseInt(dateSplit[2]) == currentDate.getUTCDate())
-    {
-        var datePass = true;
+    var pwdPass = passRe.test(document.forms["frmRegister"]["frmPassword"].value);
+    if (document.forms["frmRegister"]["frmPassword"].value == document.forms["frmRegister"]["frmPasswordConf"].value) {
+        var pwdMatch = true;
     }
-    
+    else {
+        var pwdMatch = false;
+    }
+
     // Checking all pass flags, if some info is found to be incorrect then hidden text will appear below the incorrect input. It is removed once the input is corrected.
     
 
@@ -79,37 +60,45 @@ function validate()
             if (dobPass == true)
             {                     
                 document.getElementById("dob").style.display = "none";           
-                if (ageCorrect == true)
+                if (emailMatch == true)
                 {
-                    document.getElementById("ageCorrect").style.display = "none";
-                    if (ageAllowed == true)
+                    document.getElementById("email2").style.display = "none";
+                    if (emailPass == true)
                     {    
-                        document.getElementById("ageAllow").style.display = "none";                                                                    
-                        if (datePass == true)
+                        document.getElementById("email").style.display = "none";                                                                    
+                        if (pwdMatch == true)
                         {
-                            document.getElementById("date").style.display = "none";
-                            fullPass = true;
-                            alert("Successfully registered!")
-                            window.onbeforeunload = null;
-                            return true;
-                            
+                            document.getElementById("pword2").style.display = "none";
+                            if (pwdPass == true)
+                            {
+                                document.getElementById("pword").style.display = "none";
+                                fullPass = true;
+                                alert("Successfully registered!")
+                                window.onbeforeunload = null;
+                                return true;
+                            }
+                            else
+                            {
+                                document.getElementById("pword").style.display = "block";
+                                return false;
+                            }
                         }
                         else
                         {
-                            document.getElementById("date").style.display = "block";
+                            document.getElementById("pword2").style.display = "block";
                             return false;
                         }
                     }
                     else
                     {
-                        document.getElementById("ageAllow").style.display = "block";
+                        document.getElementById("email").style.display = "block";
                         return false;
                     }
                     
                 }
                 else
                 {
-                    document.getElementById("ageCorrect").style.display = "block";
+                    document.getElementById("email2").style.display = "block";
                     return false;
                 }
             }
@@ -130,12 +119,19 @@ function validate()
         document.getElementById("fname").style.display = "block";
         return false;
     }
-    
-    
+        
+        
 
 
-    
+        
 }
+
+    
+    
+
+
+    
+
 
 // Confirm clearing the form
 function clearAll()
@@ -176,4 +172,4 @@ window.onbeforeunload = function() {
     return 'You have entered information, are you sure you want to leave?';
     
     
-};
+}
