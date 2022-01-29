@@ -34,6 +34,34 @@ header {
     justify-content: center;
   }
 
+#enroll table {
+    position: fixed;
+    top: 60%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: 5px solid #333;
+    border-radius: 5px;
+    background-image: linear-gradient(30deg, #88888F 0%, rgb(6, 72, 102) 100%);
+}
+#enroll td {
+    padding: 10px;
+}
+
+
+#enroll input[type=text] {
+    width: 100%;
+    padding: 12px 20px;
+    border: 4px solid #f83434;
+    box-sizing: border-box;
+}
+
+#enroll input[type=button], input[type=submit] {
+    background-color: #f83434;
+    border: none;
+    width: 40%;
+
+}
+
 #navi {
     list-style-type: none;
     margin: 0;
@@ -132,4 +160,3 @@ time, mark, audio, video {
 	margin: 0;
 	border: 0;
 	vertical-align: baseline;
-}
