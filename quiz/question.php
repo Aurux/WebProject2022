@@ -18,7 +18,7 @@
 <html>
     <head>
         <title>Quiz</title>
-        <link rel="stylesheet" type="text/css" href="style.css"/>
+        <link rel="stylesheet" type="text/css" href="quiz.css"/>
     </head>
     <title>Moodle Login</title>
     <body>
@@ -47,8 +47,11 @@
                     <input type="submit" value="submit" />
                     <input type="hidden" name="number" value="<?php echo $number; ?>" />
                 </form>
+
             </div>
         </main>
+
+
     </body>
 </html>
 
