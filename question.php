@@ -44,8 +44,12 @@
                             <li><input name="choice" type="radio" value="<?php echo $row['id']; ?>" /><?php echo $row['text']; ?></li><br>
                         <?php endwhile; ?>
                     </ul>
-                    <input type="submit" value="submit" />
-                    <input type="hidden" name="number" value="<?php echo $number; ?>" />
+
+                     <div class = "button">
+                        <input type="submit" value="Submit"/>
+                        <input type="hidden" name="number" value="<?php echo $number; ?>" />
+                     </div>
+
                 </form>
                 </div>
             </div>

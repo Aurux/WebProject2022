@@ -104,9 +104,6 @@ footer {
     padding: 150px 100px 500px 100px;
     overflow:auto;
     margin:0 auto;
-}
-
-div.container{
     width: 1200px;
     margin: 0px auto 0px auto;
     border-radius: 2px;
@@ -159,6 +156,32 @@ div.final{
 }
 p.question{
     font-size: 20px;
+}
+
+.restart {
+    margin: 0;
+    position: absolute;
+    top: 60%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+  }
+
+a.reset{
+    display:inline-block;
+    color:#fff;
+    background:#f83434;
+    border:1px;
+    padding:6px 13px;
+    text-decoration: none;
+}
+
+.button{
+    display:inline-block;
+    width:15%;
+    color:#fff;
+    border:1px;
+    padding:100px;
 }
 
 html, body, div, span, applet, object, iframe,
