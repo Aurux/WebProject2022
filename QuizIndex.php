@@ -10,7 +10,7 @@
 
 <html>
     <head>
-        <link rel="stylesheet" type="text/css" href="quiz.css"/>
+        <link rel="stylesheet" type="text/css" href="style.css"/>
     </head>
     <title>Moodle Login</title>
     <body>
