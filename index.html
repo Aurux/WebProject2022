@@ -8,22 +8,22 @@
     <body>
         <header>Bowling University Moodle</header>
         <ul id="navi">
-            <li><a href="index.html">Login</a></li>
+            <li><a class="active" href="index.html">Login</a></li>
             <li><a href="Enroll.html">Enroll</a></li>
             <li><a href="Help.html">Help</a></li>
             <li><a href="QuizIndex.php">Quiz</a></li>
         </ul> 
         <br><br>
-        <div class="login">
+        <div id="login">
             <form>
                 Login
                 <br>
-                <input type="text" name="IDinput" placeholder="ID Number">
-                <br><br>
+                <input type="textbox" name="IDinput" placeholder="ID Number">
+                <br>
                 <br>
                 <input type="password" name="password" placeholder="Password">
                 <br><br>
-                <button type="button" name="submit">Submit</button>
+                <input type="submit" onclick="submitted = true;" value="Submit"/>
             </form>
         </div>
     </body>
