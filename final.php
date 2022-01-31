@@ -10,7 +10,9 @@
     </head>
     <title>Moodle Login</title>
     <body>
-        <header>Bowling Univeristy Moodle</header>
+        <header>
+        <img src="logo.png" alt="Trulli" width="100" height="80">
+        Bowling Univeristy Moodle</header>
         <ul id="navi">
             <li><a href="index.html">Home</a></li>
             <li><a href="enroll.html">Enroll</a></li>
@@ -19,11 +21,14 @@
     <body>
         <main>
             <div class="container">
-                <h2>You're done!</h2>
-                <p>Congrats</p>
-                <P>Final score: <?php echo $_SESSION['score']; ?></P>
-                <a href="question.php?n=1" type="reset">Take again</a>
-
+                <div class="final">
+                    <h2>You're done!</h2>
+                    <p>Congrats</p>
+                    <P>Final score: <?php echo $_SESSION['score']; ?>/15</P>
+                    <div class = "restart">
+                        <a href="question.php?n=1" class="reset" value ="<?php unset($_SESSION['score']); ?>">Take again</a>
+                    </div>
+                </div>
             </div>
         </main>
     </body>

@@ -23,7 +23,7 @@
     <title>Moodle Login</title>
     <body>
         <header>
-          <img src="logo.png" alt="Trulli" width="130" height="100">
+        <img src="logo.png" alt="Trulli" width="100" height="80">
           Bowling Univeristy Moodle
         </header>
         <ul id="navi">
@@ -35,18 +35,23 @@
         <main>
             <div class="container">
                 <div class="current">Question <?php echo $question['question_number']; ?> of 15</div><br>
-                <P class="question">
+                <p class="question">
                     <?php echo $question['text']; ?>
-                </P><br>
+                </p><br>
                 <form method="post" action="process.php">
                     <ul class="choices">
                         <?php while($row = $choices->fetch_assoc()): ?>
                             <li><input name="choice" type="radio" value="<?php echo $row['id']; ?>" /><?php echo $row['text']; ?></li><br>
                         <?php endwhile; ?>
                     </ul>
-                    <input type="submit" value="submit" />
-                    <input type="hidden" name="number" value="<?php echo $number; ?>" />
+
+                     <div class = "button">
+                        <input type="submit" value="Submit"/>
+                        <input type="hidden" name="number" value="<?php echo $number; ?>" />
+                     </div>
+
                 </form>
+                </div>
             </div>
         </main>
     </body>

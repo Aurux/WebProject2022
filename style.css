@@ -3,7 +3,6 @@
 }
 
 body {
-    /*background-color: #C5D86D;*/
     background:  url(bg.jpg);
     background-size: 100%;
     background-position: 0px 0px;
@@ -15,11 +14,10 @@ header {
     background-position: 0px 0px;
     color: #ffffff;
     text-align: center;
-    font-size: 80px;
+    font-size: 50px;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-    padding: 50px;
+    padding: 20px;
 }
-
 
 .login {
     font-size: 24px;
@@ -100,32 +98,25 @@ footer {
     font-size: 15px;
 }
 
-.container { 
-    height: 100px;
-    position: relative;
-  }
+.container{
+    background-color:rgba(0,0,0,0.5);
+    color:#fff;
+    padding: 150px 100px 500px 100px;
+    overflow:auto;
+    margin:0 auto;
+    width: 1200px;
+    margin: 0px auto 0px auto;
+    border-radius: 2px;
+}
   
 .center {
     margin: 0;
     position: absolute;
-    top: 50%;
+    top: 70%;
     left: 50%;
     -ms-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
   }
-
-  div.quizBody{
-    background-color:rgba(0,0,0,0.5);
-    color:#fff;
-    padding: 150px 100px 500px 100px
-}
-
-div.quizBody{
-    width: 1200px;
-    margin: 0px auto 0px auto;
-    border-radius: 2px;
-
-}
 
 p#quizP1{
     margin: 15px;
@@ -144,11 +135,54 @@ a.start{
 }
 
 .current{
+    font-size:20px;
     padding:10px;
     border:#f83434 double 1px;
     margin:20px 0 10px 0;
 }
 
+.choices{
+    line-height: 1.6em;
+    font-size:20px;
+}
+
+div.font{
+    font-size: 20px;
+}
+
+div.final{
+    line-height: 2em;
+
+}
+p.question{
+    font-size: 20px;
+}
+
+.restart {
+    margin: 0;
+    position: absolute;
+    top: 60%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+  }
+
+a.reset{
+    display:inline-block;
+    color:#fff;
+    background:#f83434;
+    border:1px;
+    padding:6px 13px;
+    text-decoration: none;
+}
+
+.button{
+    display:inline-block;
+    width:15%;
+    color:#fff;
+    border:1px;
+    padding:100px;
+}
 
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
