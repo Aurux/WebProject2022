@@ -15,7 +15,7 @@
     <title>Moodle Login</title>
     <body>
         <header>
-          <img src="logo.png" alt="Trulli" width="130" height="100">
+          <img src="logo.png" alt="Trulli" width="100" height="80">
           Bowling Univeristy Moodle
         </header>
         <ul id="navi">
@@ -23,7 +23,7 @@
             <li><a href="enroll.html">Enroll</a></li>
             <li><a href="help.html">Help</a></li>
         </ul>
-        <div class ="quizBody">
+        <div class ="container">
           <h1 id ="h1">
             Bowling quiz</h1>
           <br>
@@ -32,11 +32,9 @@
             of a series of multiple choice questions. You will have one attempt to complete the quiz. <br><br> Results will be recorded.
             The quiz will consist of 10 questions on the subject of bowling, and will take about 5-10 minutes to complete. 
             In order to pass you must score over 40% or over of the total marks.</p>      
-          <div class="container">
             <div class="center">
               <a href="question.php?n=1" class="start">Start Quiz</a>
             </div>
-          </div> 
         </div>
     <body>
     <footer>
