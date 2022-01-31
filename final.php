@@ -5,7 +5,7 @@
 <html>
     <head>
         <title>Quiz</title>
-        <link rel="stylesheet" type="text/css" href="quiz.css"/>
+        <link rel="stylesheet" type="text/css" href="style.css"/>
         <script type="text/javascript" src="quiz.js"></script>
     </head>
     <title>Moodle Login</title>
