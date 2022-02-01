@@ -15,7 +15,7 @@
     <title>Moodle Login</title>
     <body>
         <header>
-          <img src="logo.png" alt="Trulli" width="100" height="80">
+          <img src="images/logo.png" alt="Trulli" width="100" height="80">
           Bowling Univeristy Moodle
         </header>
         <ul id="navi">
