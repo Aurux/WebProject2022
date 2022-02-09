@@ -22,6 +22,10 @@
             <li><a href="index.html">Home</a></li>
             <li><a href="enroll.html">Enroll</a></li>
             <li><a href="help.html">Help</a></li>
+            <li><a class="active" href="QuizIndex.php">Quiz</a></li>
+            <li><a href="calendar.php">Calendar</a></li>
+            <li><a href="assessments.php">Assessments</a></li>
+            <li><a href="timetable.php">Timetable</a></li>
         </ul>
         <div class ="container">
           <h1 id ="h1">
