@@ -10,7 +10,6 @@
    $number = (int) $_GET['n'];
    $query = "SELECT * FROM `choices` WHERE question_number = $number";
    $choices = $mysqli->query($query) or die($mysqli->error.__LINE__);
-
 ?>
 
 <!DOCTYPE html>
@@ -30,6 +29,10 @@
             <li><a href="index.html">Home</a></li>
             <li><a href="enroll.html">Enroll</a></li>
             <li><a href="help.html">Help</a></li>
+            <li><a class="active" href="QuizIndex.php">Quiz</a></li>
+            <li><a href="calendar.php">Calendar</a></li>
+            <li><a href="assessments.php">Assessments</a></li>
+            <li><a href="timetable.php">Timetable</a></li>
         </ul>
     <body>
         <main>
@@ -49,7 +52,6 @@
                         <input type="submit" value="Submit"/>
                         <input type="hidden" name="number" value="<?php echo $number; ?>" />
                      </div>
-
                 </form>
                 </div>
             </div>
