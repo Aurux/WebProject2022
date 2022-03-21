@@ -17,7 +17,4 @@ function connectDB($dbExists) {
 
 
 
-
-
-
 ?>

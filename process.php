@@ -13,14 +13,14 @@
         //get total
         $query = "SELECT * FROM `questions`";
         //results
-        $results = $mysqli->query($query) or die($mysqli->error.__LINE__);
+        $results = $conn->query($query) or die($conn->error.__LINE__);
         $total = $results->num_rows;
 
         //get correct choice
 
         $query = "SELECT * FROM `choices` WHERE question_number = $number AND is_correct = 1";
     
-        $result = $mysqli->query($query) or die($mysqli->error.__LINE__);
+        $result = $conn->query($query) or die($conn->error.__LINE__);
 
         $row = $result->fetch_assoc();
 
