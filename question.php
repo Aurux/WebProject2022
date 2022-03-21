@@ -6,7 +6,7 @@
    $result = $mysqli->query($query) or die($mysqli->error.__LINE__);
    $question = $result->fetch_assoc();
 
-
+   
    $number = (int) $_GET['n'];
    $query = "SELECT * FROM `choices` WHERE question_number = $number";
    $choices = $mysqli->query($query) or die($mysqli->error.__LINE__);
@@ -23,7 +23,7 @@
     <body>
         <header>
         <img src="images/logo.png" alt="Trulli" width="100" height="80">
-          Bowling Univeristy Moodle
+          Bowling University Moodle
         </header>
         <ul id="navi">
             <li><a href="index.html">Home</a></li>
@@ -39,12 +39,12 @@
             <div class="container">
                 <div class="current">Question <?php echo $question['question_number']; ?> of 15</div><br>
                 <p class="question">
-                    <?php echo $question['text']; ?>
+                    <?php echo $question['question_text']; ?>
                 </p><br>
                 <form method="post" action="process.php">
                     <ul class="choices">
                         <?php while($row = $choices->fetch_assoc()): ?>
-                            <li><input name="choice" type="radio" value="<?php echo $row['id']; ?>" /><?php echo $row['text']; ?></li><br>
+                            <li><input name="choice" type="radio" value="<?php echo $row['id']; ?>" /><?php echo $row['choices_text']; ?></li><br>
                         <?php endwhile; ?>
                     </ul>
 

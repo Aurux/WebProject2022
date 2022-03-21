@@ -9,7 +9,7 @@
     <body>
         <header>
           <img src="images/logo.png" alt="Trulli" width="100" height="80">
-          Bowling Univeristy Moodle
+          Bowling University Moodle
         </header>
         <ul id="navi">
         <li><a href="index.html">Home</a></li>
