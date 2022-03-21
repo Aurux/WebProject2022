@@ -3,7 +3,7 @@
 $db_host = 'localhost:3307';
 $db_name = 'quizdatabase';
 $db_user = 'root';
-$db_pass = '';
+$db_pass = 'traffic-surprise-pungent';
 
 //create mysqli object
 $mysqli = new mysqli($db_host, $db_user, $db_pass, $db_name);
