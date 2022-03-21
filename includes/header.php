@@ -1,3 +1,7 @@
+<?php
+    include("scripts/functions.php");
+?>
+
 <head>
         <link rel="stylesheet" type="text/css" href="style.css"/>
 </head>
