@@ -185,53 +185,26 @@ a.reset{
 }
 
 
-.myTimetable {
-    margin: 0;
-    position: absolute;
-    top: 57%;
-    left: 50%;
-    -ms-transform: translate(-50%, -50%);
-    transform: translate(-50%, -50%);
-    width:60%;
-    height:650px;
-    border-collapse: collapse;
-    table-layout: fixed;
-  }
+  .table THEAD {
+      font-size: 50px;
+      word-spacing: 20px;
+  } 
 
-  h1{
-      color: #ffffff;
-      text-align: center;
-      padding:10px;
-  }
-  
-  .myTimetable THEAD{
-    color: #FFFFFF;
-  }
-  
-  .myTimetable TBODY {
-    background-color: #ffffff;
-  }
-  
-  .myTimetable TD {
-    border: 1px solid black;
-    padding: 6px;
+  .table TD {
+    padding:10px;
     text-align: center;
   }
-  .myTimetable TBODY TR TD:first-child {
+  .table TBODY TR TD:first-child {
     background-color: rgb(6, 72, 102);
     font-weight: bold;
     color: #ffffff;
   }
   
-  .subject {
-    font-size: 12pt;
-    margin-bottom:4px;
-  }
-  
-  .room {
-    font-size: 10pt;
-    font-style: italic;
-  }
+  .table{
+    line-height: 3em;
+    font-size: 15px;
+    color:rgb(255, 255, 255);
+  }   
 
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
