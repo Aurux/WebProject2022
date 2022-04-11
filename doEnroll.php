@@ -1,5 +1,4 @@
-<?php include 'database.php'; ?>
-<?php session_start(); ?>
+<?php include 'header.php'; ?>
 <?php
 
     $fn = $_POST['frmForename'];
