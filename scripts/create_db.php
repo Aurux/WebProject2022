@@ -1,5 +1,5 @@
 <?php
-    require_once("functions.php");
+    require_once("scripts/functions.php");
     $conn = connectDatabase(false);
 
     $sql = "CREATE DATABASE IF NOT EXISTS bowlingDB";
@@ -9,13 +9,13 @@
     $sql = "USE bowlingDB";
     mysqli_query($conn, $sql);
 
-    $sql = "CREATE TABLE IF NOT EXISTS users (
-                username VARCHAR(20) PRIMARY KEY,
-                forename VARCHAR(30) NOT NULL,
-                surname VARCHAR(50) NOT NULL,
-                type ENUM('student', 'tutor') NOT NULL,
-                password VARCHAR(255) NOT NULL,
-                authorised TINYINT
+    $sql = "CREATE TABLE IF NOT EXISTS `users` (
+                `username` VARCHAR(20) PRIMARY KEY,
+                `forename` VARCHAR(30) NOT NULL,
+                `surname` VARCHAR(50) NOT NULL,
+                `type` ENUM('student', 'tutor') NOT NULL,
+                `password` VARCHAR(255) NOT NULL,
+                `authorised` TINYINT
             )";
 
 
