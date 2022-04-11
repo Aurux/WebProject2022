@@ -1,5 +1,5 @@
 <?php
-    require_once("functions.php");
+    include("functions.php");
     $conn = connectDB(false);
 
     $sql = "CREATE DATABASE IF NOT EXISTS bowling_DB";
@@ -27,7 +27,7 @@
       )";
 
     if (mysqli_query($conn, $sql)) echo "<p>TABLE choices CREATED.</p>";
-	else echo "<p>TABLE choices FAILED TO BE CREATED: " . mysqli_error($conn) . "</p>";
+	  else echo "<p>TABLE choices FAILED TO BE CREATED: " . mysqli_error($conn) . "</p>";
       
     $sql = "INSERT INTO `choices` (`id`, `question_number`, `is_correct`, `choices_text`) VALUES
       (1, 1, 0, '8'),

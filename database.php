@@ -1,7 +1,7 @@
 <?php
 //create connnection credentials
-$db_host = 'localhost:3307';
-$db_name = 'quizdatabase';
+$db_host = 'localhost:3306';
+$db_name = 'bowling_DB';
 $db_user = 'root';
 $db_pass = 'traffic-surprise-pungent';
 

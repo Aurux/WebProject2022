@@ -2,7 +2,7 @@
 
 function connectDB($dbExists) {
     //create connnection credentials
-    $db_host = 'localhost:3306';
+    $db_host = 'localhost';
     $db_name = 'quizdatabase';
     $db_user = 'root';
     $db_pass = 'traffic-surprise-pungent';

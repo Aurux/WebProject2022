@@ -1,5 +1,6 @@
 <?php
-    include("scripts/functions.php");
+    require("scripts/functions.php");
+
 ?>
 
 <head>

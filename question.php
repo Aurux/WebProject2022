@@ -2,6 +2,7 @@
     $title = "Bowling Moodle";
     include("includes/header.php");
     include("includes/nav.php");
+    require_once("scripts/create_db.php");
     include 'database.php'; 
 ?>
 <?php session_start(); ?>
