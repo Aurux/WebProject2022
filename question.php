@@ -1,11 +1,22 @@
 <?php 
     $title = "Bowling Moodle";
     include("includes/header.php");
-    include("includes/nav.php");
-    require_once("scripts/create_db.php");
-    include 'database.php'; 
+    include("includes/nav.php"); 
 ?>
-<?php session_start(); ?>
+<?php
+
+$query ="SELECT * FROM questions";
+$results = $conn->query($query) or die($conn->error.__LINE__);
+
+$number = (int) $_GET['n'];
+$query = "SELECT * FROM `questions` WHERE question_number = $number";
+$result = $conn->query($query) or die($conn->error.__LINE__);
+$question = $result->fetch_assoc();
+
+
+$number = (int) $_GET['n'];
+$query = "SELECT * FROM `choices` WHERE question_number = $number";
+$choices = $conn->query($query) or die($conn->error.__LINE__);?>
 
 <main>
     <div class="container">

@@ -1,9 +1,9 @@
 <?php
 
-function connectDB($dbExists) {
+function connectDatabase($dbExists) {
     //create connnection credentials
-    $db_host = 'localhost';
-    $db_name = 'quizdatabase';
+    $db_host = 'localhost:3307';
+    $db_name = 'bowlingDB';
     $db_user = 'root';
     $db_pass = 'traffic-surprise-pungent';
 
@@ -12,9 +12,6 @@ function connectDB($dbExists) {
     else $conn = mysqli_connect($db_host, $db_name, $db_pass);
 
     return $conn;
-
 }
-
-
 
 ?>
