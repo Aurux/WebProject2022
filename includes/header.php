@@ -1,5 +1,7 @@
 <?php
-    include("scripts/functions.php");
+    require("scripts/functions.php");
+    $conn = connectDatabase(true);
+    session_start();
 ?>
 
 <head>
