@@ -11,3 +11,7 @@
         else showEnrollForm();
     ?>
 </div>
+
+<?php
+include("includes/footer.php");
+?>
