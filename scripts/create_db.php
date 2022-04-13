@@ -10,9 +10,10 @@
     mysqli_query($conn, $sql);
 
     $sql = "CREATE TABLE IF NOT EXISTS users (
-                username VARCHAR(20) PRIMARY KEY,
+                username VARCHAR(20) AUTO_INCREMENT = 100000 PRIMARY KEY,
                 forename VARCHAR(30) NOT NULL,
                 surname VARCHAR(50) NOT NULL,
+                email VARCHAR(255) NOT NULL,
                 uType ENUM('student', 'tutor') NOT NULL,
                 pass VARCHAR(255) NOT NULL,
                 authorised TINYINT

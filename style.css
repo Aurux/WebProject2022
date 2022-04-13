@@ -60,6 +60,13 @@ header {
 
 }
 
+#enroll p {
+    text-align: center;
+    color: white;
+    top: 80%;
+    font-size: large;
+}
+
 #navi {
     list-style-type: none;
     margin: 0;
