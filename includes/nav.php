@@ -1,5 +1,6 @@
 <ul id="navi">
-            <li><a href="index.php">Login</a></li>
+            <li><a href="index.php">Home</a></li>
+            <li><a href="login.php">Login</a></li>
             <li><a href="enroll.php">Enroll</a></li>
             <li><a href="help.php">Help</a></li>
             <li><a href="QuizIndex.php">Quiz</a></li>

@@ -61,10 +61,12 @@ header {
 }
 
 #enroll p {
+    position: relative;
     text-align: center;
     color: white;
-    top: 80%;
+    top: 200;
     font-size: large;
+    width: 100%;
 }
 
 #navi {
@@ -101,8 +103,12 @@ form {
 }
 
 footer {
+    position: fixed;
+    bottom:0;
     text-align: center;
     font-size: 15px;
+    height: 20px;
+    width: 100%;
 }
 
 .container{

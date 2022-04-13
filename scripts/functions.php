@@ -60,12 +60,67 @@ function processEnroll($conn) {
 
     $show_result = $sql_result->fetch_array()['username'] ?? '';
     
-    if ($result == True) $result = "<br><br><br><br><p>You have enrolled succesfully! Your login ID is: " . $show_result . "</p>";
-
+    if ($result == True) {
+        $result = "<br><br><br><br><p>You have enrolled succesfully! Your login ID is: " . $show_result . "</p>";
+        $_SESSION["username"] = $show_result;
+    }
     else $result = "<p>Enrollment failed, please try again in a little while.</p>";
 
     return $result;
 }
 
+function showLogin() {
+    echo '
+    <form method="POST" action="login.php">
+        <table>
+            <tr><td>User ID<br><input name="userID" type="textbox" placeholder="Your user ID..." required/></td></tr>
+            <tr><td>Password<br><input name="userPass" type="password" placeholder="Your password..." required/></td></tr>
+            <tr><td style="text-align: center;"><input type="submit" value="Submit"/></td></tr>
+        
+        </table>
+    
+    </form>
+    ';
+}
+
+function processLogin($conn) {
+    extract($_POST);
+    $sql = "SELECT * FROM users WHERE username = '$userID'";
+    $result = mysqli_query($conn, $sql);
+
+    $rowcount = mysqli_num_rows($result);
+    if ($rowcount == 1) {
+
+        $row = mysqli_fetch_array($result);
+        extract($row);
+
+        
+        if (password_verify($userPass, $pass)) {
+            
+            
+            $_SESSION["loggedIn"] = True;
+            $_SESSION["username"] = $username;
+            $_SESSION["forename"] = $forename;
+            $_SESSION["surname"] = $surname;
+            $_SESSION["uType"] = $uType;
+
+            $returnVar = "<p>Welcome to the lanes, $forename! <br> You will be automatically redirected to the $uType home in 5 seconds. If this doesn't work, please click <a href='{$uType}_home.php'>here.</a></p>";
+            header("refresh:5; url={$uType}_home.php");
+        }
+        else {
+            $returnVar = "<p>Something seems to be incorrect with the details you have provided. Please try again.<br>If you are a new student please enroll before attempting to login.</p>";
+        }
+
+        
+    }
+    if ($rowcount > 1) {
+        $returnVar = "<p>There is something wrong with your account, please contact the system administrator.</p>";
+    }
+    if ($rowcount == 0) {
+        $returnVar = "<p>Something seems to be incorrect with the details you have provided. Please try again.<br>If you are a new student please enroll before attempting to login.</p>";
+    }
+
+    return $returnVar;
+}
 
 ?>
