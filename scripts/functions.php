@@ -123,8 +123,26 @@ function processLogin($conn) {
     return $returnVar;
 }
 
-function showStudentHome() {
-    return "<h1>Your Student Home Page</h1>";
+function showStudentHome($conn, $username) {
+
+    $sql = "SELECT * FROM courses WHERE courseID = (SELECT courseID FROM studentCourses WHERE username = '$username')";
+    // NEEDS FIXING - Can only seem to get a single record.
+    
+    $result = mysqli_query($conn, $sql); 
+
+    
+    
+
+    echo "<h1>Your Student Home Page</h1><br><h2>Your Courses</h2>";
+
+    echo "<table>";
+
+    while($row = mysqli_fetch_array($result)){
+        echo '<tr><td>'. htmlspecialchars($row['courseName']) .'</td>
+        <td>Credits: '. htmlspecialchars($row['courseCredits']) . '</td></tr>';
+    }
+
+    echo "</table>";
 }
 
 function showTutorHome() {
