@@ -111,10 +111,8 @@
 
     if (mysqli_query($conn, $sql)) echo "<p>TABLE questions CREATED.</p>";
     else echo "<p>TABLE questions FAILED TO BE CREATED: " . mysqli_error($conn) . "</p>";
+    
 
-    INSERT INTO `questions` (`question_number`, `question_text`) VALUES
-    (1, 'How many pins are displayed in a single bowling lane?'),
-=======
     $sql = "INSERT INTO questions (question_number, question_text) VALUES
     (1, 'How many pins in bowling?'),
 
