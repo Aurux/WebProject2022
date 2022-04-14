@@ -1,5 +1,5 @@
 <?php
-    $title = "Login";
+    $title = "Tutor Home";
     require_once("includes/header.php");
     include("includes/nav.php");
 ?>

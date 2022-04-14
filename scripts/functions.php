@@ -98,14 +98,14 @@ function processLogin($conn) {
         if (password_verify($userPass, $pass)) {
             
             
-            $_SESSION["loggedIn"] = True;
+            $_SESSION["loggedIn"] = true;
             $_SESSION["username"] = $username;
             $_SESSION["forename"] = $forename;
             $_SESSION["surname"] = $surname;
             $_SESSION["uType"] = $uType;
 
-            $returnVar = "<p>Welcome to the lanes, $forename! <br> You will be automatically redirected to the $uType home in 5 seconds. If this doesn't work, please click <a href='{$uType}_home.php'>here.</a></p>";
-            header("refresh:5; url={$uType}_home.php");
+            $returnVar = "<p>Welcome to the lanes, $forename! <br> You will be automatically redirected to the $uType home. If this doesn't work, please click <a href='{$uType}_home.php'>here.</a></p>";
+            header("refresh:2; url={$uType}_home.php");
         }
         else {
             $returnVar = "<p>Something seems to be incorrect with the details you have provided. Please try again.<br>If you are a new student please enroll before attempting to login.</p>";
