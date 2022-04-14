@@ -1,6 +1,6 @@
 
 <?php
-    $title = "Bowling Moodle";
+    $title = "Moodle Quiz";
     include("includes/header.php");
     include("includes/nav.php");
 ?>
