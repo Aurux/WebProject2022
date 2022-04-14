@@ -99,7 +99,7 @@
     
     
     INSERT INTO `questions` (`question_number`, `question_text`) VALUES
-    (1, 'How many pins in bowling?'),
+    (1, 'How many pins are displayed in a single bowling lane?'),
     (2, 'How many holes are drilled as finger holes?'),
     (3, 'What is the score of a perfect game in bowling?'),
     (4, 'If you bowl 11 strikes and your final ball leaves one pin what is your score?'),
