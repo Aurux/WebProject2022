@@ -1,34 +1,27 @@
 fullPass = false;
             
-function validate()
+function validate(event)
 {   
+    event.preventDefault();
     let currentDate = new Date();
     // Regex 
     var nameRe = /^[a-zA-Z]{2,64}$/;
     var ageRe = /^[0-9]{1,3}$/;
 
-    var passRe = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/gm
+    var passRe = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/gm;
 
     // RFC5322 compliant email regex sourced from https://emailregex.com/
-    var emailRe = /(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/
+    var emailRe = /(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/;
 
     // Forename Check
     var fnamePass = nameRe.test(document.forms["frmRegister"]["frmForename"].value);
     // Surname Check
     var snamePass = nameRe.test(document.forms["frmRegister"]["frmSurname"].value);
-    // Date of birth check
-    var dobPass = false;
-    var dob = document.forms["frmRegister"]["frmDateOfBirth"].value;
-    var dobSplit = dob.split("-");
-    var dobStart = new Date(1900, 0, 1, 0, 0, 0, 0);
-    var dobDate = new Date(parseInt(dobSplit[0]), parseInt(dobSplit[1]) - 1, parseInt(dobSplit[2]), 0, 0, 0, 0);
     
     
     
-    if (dobDate >= dobStart & dobDate < currentDate)
-    {
-        var dobPass = true;
-    }
+    
+    
     // Email Check
     var emailPass = emailRe.test(document.forms["frmRegister"]["frmEmail"].value);
     if (document.forms["frmRegister"]["frmEmail"].value == document.forms["frmRegister"]["frmEmailConf"].value) {
@@ -57,10 +50,7 @@ function validate()
         if (snamePass == true)
         {    
             document.getElementById("sname").style.display = "none";                          
-            if (dobPass == true)
-            {                     
-                document.getElementById("dob").style.display = "none";           
-                if (emailMatch == true)
+            if (emailMatch == true)
                 {
                     document.getElementById("email2").style.display = "none";
                     if (emailPass == true)
@@ -101,12 +91,6 @@ function validate()
                     document.getElementById("email2").style.display = "block";
                     return false;
                 }
-            }
-            else
-            {
-                document.getElementById("dob").style.display = "block";
-                return false;
-            }
         }
         else
         {

@@ -1,5 +1,5 @@
 <?php
-    require_once("functions.php");
+    require_once("scripts/functions.php");
     $conn = connectDatabase(false);
 
     $sql = "CREATE DATABASE IF NOT EXISTS bowlingDB";
@@ -10,24 +10,30 @@
     mysqli_query($conn, $sql);
 
     $sql = "CREATE TABLE IF NOT EXISTS users (
-                username VARCHAR(20) PRIMARY KEY,
+                username VARCHAR(20) AUTO_INCREMENT = 100000 PRIMARY KEY,
                 forename VARCHAR(30) NOT NULL,
                 surname VARCHAR(50) NOT NULL,
-                type ENUM('student', 'tutor') NOT NULL,
-                password VARCHAR(255) NOT NULL,
+                email VARCHAR(255) NOT NULL,
+                uType ENUM('student', 'tutor') NOT NULL,
+                pass VARCHAR(255) NOT NULL,
                 authorised TINYINT
             )";
 
-
-    $sql = "CREATE TABLE `choices` (
-      `id` int(11) NOT NULL,
-      `question_number` int(11) NOT NULL,
-      `is_correct` tinyint(1) NOT NULL DEFAULT 0,
-      `choices_text` text NOT NULL
-    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
     
+  if (mysqli_query($conn, $sql)) echo "<p>TABLE users CREATED.</p>";
+  else echo "<p>TABLE users FAILED TO BE CREATED: " . mysqli_error($conn) . "</p>";
 
-    INSERT INTO `choices` (`id`, `question_number`, `is_correct`, `choices_text`) VALUES
+    $sql = "CREATE TABLE choices (
+      id int(11) NOT NULL,
+      question_number int(11) NOT NULL,
+      is_correct tinyint(1) NOT NULL DEFAULT 0,
+      choices_text text NOT NULL
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;";
+
+  if (mysqli_query($conn, $sql)) echo "<p>TABLE choices CREATED.</p>";
+  else echo "<p>TABLE choices FAILED TO BE CREATED: " . mysqli_error($conn) . "</p>";
+    
+    $sql = "INSERT INTO choices (id, question_number, is_correct, choices_text) VALUES
     (1, 1, 0, '8'),
     (2, 1, 1, '10'),
     (3, 1, 0, '9'),
@@ -85,21 +91,33 @@
     (55, 15, 0, 'duckpin'),
     (56, 15, 0, 'candlepin');
     
-    ALTER TABLE `choices`
-      ADD PRIMARY KEY (`id`);
+    ALTER TABLE choices
+      ADD PRIMARY KEY (id);
 
-    ALTER TABLE `choices`
-      MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=57";
+    ALTER TABLE choices
+      MODIFY id int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=57";
     
+    
+      if ($conn->multi_query($sql) === TRUE) {
+        echo "New record created successfully";
+      } else {
+        echo "Error: " . $sql . "<br>" . $conn->error;
+      }
 
-    $sql = "CREATE TABLE `questions` (
-      `question_number` int(11) NOT NULL,
-      `question_text` text NOT NULL
-    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-    
-    
+    $sql = "CREATE TABLE questions (
+      question_number int(11) NOT NULL,
+      question_text text NOT NULL
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;";
+
+    if (mysqli_query($conn, $sql)) echo "<p>TABLE questions CREATED.</p>";
+    else echo "<p>TABLE questions FAILED TO BE CREATED: " . mysqli_error($conn) . "</p>";
+
     INSERT INTO `questions` (`question_number`, `question_text`) VALUES
     (1, 'How many pins are displayed in a single bowling lane?'),
+=======
+    $sql = "INSERT INTO questions (question_number, question_text) VALUES
+    (1, 'How many pins in bowling?'),
+
     (2, 'How many holes are drilled as finger holes?'),
     (3, 'What is the score of a perfect game in bowling?'),
     (4, 'If you bowl 11 strikes and your final ball leaves one pin what is your score?'),
@@ -115,15 +133,18 @@
     (14, 'What is the maximum amount of times one can go up and release the ball in a single game?'),
     (15, 'Which of the following is not a bowling game?');
     
-    ALTER TABLE `questions`
-      ADD PRIMARY KEY (`question_number`);
+    ALTER TABLE questions
+      ADD PRIMARY KEY (question_number);
 
-    ALTER TABLE `questions`
-      MODIFY `question_number` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16";
+    ALTER TABLE questions
+      MODIFY question_number int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16";
     
-
-    if (mysqli_query($conn, $sql)) echo "<p>TABLE users CREATED.</p>";
-	  else echo "<p>TABLE users FAILED TO BE CREATED: " . mysqli_error($conn) . "</p>";
+      if ($conn->multi_query($sql) === TRUE) {
+        echo "New record created successfully";
+      } else {
+        echo "Error: " . $sql . "<br>" . $conn->error;
+      }
+    
 
     mysqli_close($conn);
 ?>
