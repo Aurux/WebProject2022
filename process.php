@@ -1,6 +1,5 @@
-<?php include 'database.php'; ?>
-<?php session_start(); ?>
-<?Php
+<?php include("includes/header.php");
+
     //check score
     if(!isset($_SESSION['score'])){
         $_SESSION['score'] = 0;
