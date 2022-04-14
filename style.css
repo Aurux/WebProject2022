@@ -236,3 +236,23 @@ time, mark, audio, video {
 	border: 0;
 	vertical-align: baseline;
 }
+
+#userInfo {
+    
+    position: fixed;
+    float: left;
+    font-size: small;
+    border: 5px solid #f83434;
+    color: black;
+    border-radius: 10px;
+    background-color: white;
+    margin: auto;
+    width:fit-content;
+    height: fit-content;
+    padding: 10px;
+}
+
+#homeContent h1 {
+    text-align: center;
+    color: white;
+}
