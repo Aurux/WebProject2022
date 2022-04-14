@@ -123,4 +123,17 @@ function processLogin($conn) {
     return $returnVar;
 }
 
+function showStudentHome() {
+    return "<h1>Your Student Home Page</h1>";
+}
+
+function showTutorHome() {
+    return "<h1>Your Tutor Home Page</h1>";
+}
+
+
+function consoleLog($message) {
+    echo '<script>console.log("' . $message . '");</script>';
+}
+
 ?>
