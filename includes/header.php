@@ -10,6 +10,12 @@
         <link rel="icon" type="image/x-icon" href="/images/logo.png">
 </head>
 <header>
+    <?php
+    if ($_SESSION["loggedIn"] == true) echo '<div id="userInfo">'.
+    $_SESSION["forename"] .' '. $_SESSION["surname"].'<br>
+        User ID: '. $_SESSION["username"] .
+    '</div>';
+    ?>
 <img src="images/logo.png"  width="100" height="80">
 Bowling University Moodle
 </header>
