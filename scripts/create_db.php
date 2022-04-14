@@ -3,8 +3,8 @@
     $conn = connectDatabase(false);
 
     $sql = "CREATE DATABASE IF NOT EXISTS bowlingDB";
-    if (mysqli_query($conn, $sql)) echo "DB created.";
-    else echo "DB failed to be created: " . mysqli_error($conn);
+    if (mysqli_query($conn, $sql)) consoleLog("DB created.");
+    else consoleLog("DB failed to be created: " . mysqli_error($conn));
 
     $sql = "USE bowlingDB";
     mysqli_query($conn, $sql);
@@ -117,8 +117,10 @@
 
             ALTER TABLE questions MODIFY question_number int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;";
     
-    if ($conn->multi_query($sql) === TRUE) echo "<p>ALL GOOD.</p>";
-    else echo "<p>TABLE(s) FAILED TO BE CREATED: " . mysqli_error($conn) . "</p>";
+    if ($conn->multi_query($sql) === TRUE) consoleLog("Table creation successful!");
+    else {
+      consoleLog("TABLE(s) FAILED TO BE CREATED: " . mysqli_error($conn));
+    }
     
 
     mysqli_close($conn);
