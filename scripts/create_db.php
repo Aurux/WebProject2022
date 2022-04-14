@@ -115,7 +115,36 @@
             
             ALTER TABLE questions ADD PRIMARY KEY (question_number);
 
-            ALTER TABLE questions MODIFY question_number int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;";
+            ALTER TABLE questions MODIFY question_number int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+            
+            CREATE TABLE IF NOT EXISTS courses (
+                courseID INT AUTO_INCREMENT,
+                courseName VARCHAR(50) NOT NULL,
+                courseCredits int,
+                PRIMARY KEY (courseID)
+                );
+            
+            INSERT INTO courses (courseName, courseCredits) VALUES
+                ('Introduction to Bowling', 80),
+                ('Intermediate Bowling', 80),
+                ('Advanced Bowling', 80),
+                ('Alley Management', 40),
+                ('Strike Animation', 60),
+                ('Lane Oiling', 20);
+                
+
+            CREATE TABLE IF NOT EXISTS studentCourses (
+                username int,
+                courseID int,
+                FOREIGN KEY(username) REFERENCES users(username)
+                ON UPDATE CASCADE ON DELETE RESTRICT,
+                FOREIGN KEY(courseID) REFERENCES courses(courseID)
+                ON UPDATE CASCADE ON DELETE RESTRICT
+                
+                );
+            
+            
+            ";
 
     if ($conn->multi_query($sql) === TRUE) consoleLog("Table creation successful!");
     else {
