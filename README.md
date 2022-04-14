@@ -3,7 +3,7 @@
 CSCCORE2 Level I Web Project
 
 Team: Team Name
--> Ben Wilson, Dan Glancy, Pat Francey
+-> Ben Wilson, Dan Glancy
 
 ## To-Do List
 
