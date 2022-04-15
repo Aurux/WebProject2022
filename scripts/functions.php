@@ -165,7 +165,7 @@ function showTutorHome($conn) {
     $result = mysqli_query($conn, $sql);
 
     
-    echo "<h1>Your Tutor Home Page</h1>";
+    echo "<h1>Your Tutor Home Page</h1><br>";
 
     echo "<table id='courseTable'><caption>Courses</caption><th>Course</th><th>Credits</th>";
 

@@ -43,7 +43,7 @@
         }
     }
     else {
-        echo "<tr><td>There are no students on this course.</td></tr>";
+        echo "<br><br><br>There are no students on this course.";
     }
-    echo "</table>";
+    echo "</table><input style='text-align:center;' class='backButton' type='button' onclick='window.location.reload();' value='Go back'>";
 ?>
