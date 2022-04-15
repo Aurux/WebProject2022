@@ -3,12 +3,15 @@
     require("scripts/functions.php");
     $conn = connectDatabase(true);
 
-    var_dump($_POST);
-    consoleLog("POST DATA: ".$_POST["courseID"]);
+    
     $courseID = $_POST["courseID"];
-    consoleLog("variable: ".$courseID);
-    //$sql = "SELECT courseName FROM courses WHERE courseID = '$courseID'";
-    //$courseName = mysqli_fetch_field(mysqli_query($conn, $sql));
+    
+    $sql = "SELECT courseName FROM courses WHERE courseID = '$courseID'";
+    $result = mysqli_query($conn, $sql);
+
+    while($row = mysqli_fetch_array($result)) {
+        $courseName = $row["courseName"];
+    }
 
   
 
@@ -30,7 +33,7 @@
     $result = mysqli_query($conn, $sql);
     $numrows = mysqli_num_rows($result);
 
-    echo "<table id='courseTable'><caption>Course Name</caption>";
+    echo "<table id='courseTable'><caption>$courseName Students</caption>";
 
     if ($numrows >= 1){
         echo "<th>Name</th><th>ID</th>";
