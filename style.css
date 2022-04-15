@@ -252,7 +252,30 @@ time, mark, audio, video {
     padding: 10px;
 }
 
+#studentHomeContent {
+    color: white;
+}
+
 #homeContent h1 {
     text-align: center;
+}
+
+#studentHomeContent h1 {
+    text-align: center;
+}
+
+
+#studentHomeContent caption {
+    text-align: center;
+    font-weight: bold;
+    font-size: medium;
     color: white;
+}
+
+#studentHomeContent table {
+    width: 20%;
+    text-align: center;
+    border: 5px solid #f83434;
+    border-radius: 10px;
+    background-color: white;
 }

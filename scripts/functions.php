@@ -125,24 +125,31 @@ function processLogin($conn) {
 
 function showStudentHome($conn, $username) {
 
-    $sql = "SELECT * FROM courses WHERE courseID = (SELECT courseID FROM studentCourses WHERE username = '$username')";
-    // NEEDS FIXING - Can only seem to get a single record.
-    
+    $sql = "SELECT courseID FROM studentCourses WHERE username = '$username';";
     $result = mysqli_query($conn, $sql); 
 
+    while($row = mysqli_fetch_array($result)) {
+        $courseRow[] = $row["courseID"];
+    }
     
     
 
-    echo "<h1>Your Student Home Page</h1><br><h2>Your Courses</h2>";
+    $sql = "SELECT * FROM courses WHERE courseID IN(" . implode(',', $courseRow) . ")";
 
-    echo "<table>";
+
+    $result = mysqli_query($conn, $sql);
+    
+
+    echo "<h1>Your Student Home Page</h1><br>";
+
+    echo "<aside><table><caption>Your Courses</caption><th>Course</th><th>Credits</th>";
 
     while($row = mysqli_fetch_array($result)){
         echo '<tr><td>'. htmlspecialchars($row['courseName']) .'</td>
-        <td>Credits: '. htmlspecialchars($row['courseCredits']) . '</td></tr>';
+        <td>'. htmlspecialchars($row['courseCredits']) . '</td></tr>';
     }
 
-    echo "</table>";
+    echo "</table></aside>";
 }
 
 function showTutorHome() {

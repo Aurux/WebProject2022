@@ -5,7 +5,7 @@
 ?>
 
 
-<div id="homeContent">
+<div id="studentHomeContent">
     <?php
         if ($_SESSION["loggedIn"] && $_SESSION["uType"] == "student")  showStudentHome($conn, $_SESSION["username"]);
         else echo "<h1>403 Forbidden - You don't have permission to access this.</h1>";
