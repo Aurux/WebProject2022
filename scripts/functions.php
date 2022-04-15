@@ -133,27 +133,51 @@ function showStudentHome($conn, $username) {
     }
     
     
-
-    $sql = "SELECT * FROM courses WHERE courseID IN(" . implode(',', $courseRow) . ")";
-
-
+    try {
+        $sql = "SELECT * FROM courses WHERE courseID IN(" . implode(',', $courseRow) . ")";
+    }
+    catch (TypeError $e){
+        consoleLog($e);
+    }
     $result = mysqli_query($conn, $sql);
-    
+    $numrows = mysqli_num_rows($result);
 
     echo "<h1>Your Student Home Page</h1><br>";
 
-    echo "<aside><table><caption>Your Courses</caption><th>Course</th><th>Credits</th>";
+    echo "<aside><table><caption>Your Courses</caption>";
 
-    while($row = mysqli_fetch_array($result)){
-        echo '<tr><td>'. htmlspecialchars($row['courseName']) .'</td>
-        <td>'. htmlspecialchars($row['courseCredits']) . '</td></tr>';
+    if ($numrows >= 1){
+        echo "<th>Course</th><th>Credits</th>";
+        while($row = mysqli_fetch_array($result)){
+            echo '<tr><td>'. htmlspecialchars($row['courseName']) .'</td>
+            <td>'. htmlspecialchars($row['courseCredits']) . '</td></tr>';
+        }
     }
-
+    else {
+        echo "<tr><td>You have not been assigned to any courses.</td></tr>";
+    }
     echo "</table></aside>";
 }
 
-function showTutorHome() {
-    return "<h1>Your Tutor Home Page</h1>";
+function showTutorHome($conn) {
+
+    $sql = "SELECT * FROM courses;";
+    $result = mysqli_query($conn, $sql);
+
+    
+    echo "<h1>Your Tutor Home Page</h1>";
+
+    echo "<table id='courseTable'><caption>Courses</caption><th>Course</th><th>Credits</th>";
+
+    while($row = mysqli_fetch_array($result)){
+        echo '<tr><td>'. htmlspecialchars($row['courseName']) .'</td>
+        <td>'. htmlspecialchars($row['courseCredits']) . '</td>
+        <td><input type="button" class="tutorButtons" value="View Students" name="'.$row["courseID"].'" onclick="viewStudents('.$row["courseID"].')"></td>
+        <td><input type="button" class="tutorButtons" value="Upload Material" onclick="uploadMaterial.php"></td>
+        </tr>';
+    }
+
+    echo "</table>";
 }
 
 
