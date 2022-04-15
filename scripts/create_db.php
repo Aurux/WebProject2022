@@ -136,12 +136,15 @@
             CREATE TABLE IF NOT EXISTS studentCourses (
                 username int,
                 courseID int,
+                completion decimal(3,2) DEFAULT 0,
                 FOREIGN KEY(username) REFERENCES users(username)
                 ON UPDATE CASCADE ON DELETE RESTRICT,
                 FOREIGN KEY(courseID) REFERENCES courses(courseID)
                 ON UPDATE CASCADE ON DELETE RESTRICT
                 
                 );
+
+            
             
             
             ";
