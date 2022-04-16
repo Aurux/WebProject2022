@@ -39,7 +39,3 @@ $choices = $conn->query($query) or die($conn->error.__LINE__);?>
         </div>
     </div>
 </main>
-
-<?php
-
-?>

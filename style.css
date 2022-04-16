@@ -1,3 +1,4 @@
+
 * {
     font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
@@ -198,26 +199,29 @@ a.reset{
 }
 
 
-  .table THEAD {
-      font-size: 50px;
-      word-spacing: 20px;
-  } 
-
-  .table TD {
-    padding:10px;
-    text-align: center;
-  }
-  .table TBODY TR TD:first-child {
-    background-color: rgb(6, 72, 102);
-    font-weight: bold;
-    color: #ffffff;
+.timetable {
+    width:100%;
+    border-collapse: collapse;
+    table-layout: fixed;
   }
   
-  .table{
-    line-height: 3em;
-    font-size: 15px;
-    color:rgb(255, 255, 255);
-  }   
+  .timetable THEAD{
+    color: #FFFFFF;
+  }
+  
+  .timetable TBODY {
+    background-color: #ffffff;
+  }
+  
+  .timetable TD {
+    border: 1px solid black;
+    padding: 6px;
+    text-align: center;
+  }
+  .timetable TBODY TR TD:first-child {
+    background-color: #1b7199;
+    font-weight: bold;
+  } 
 
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
@@ -308,4 +312,3 @@ time, mark, audio, video {
     background-color: white;
     margin-left: auto;
     margin-right: auto;
-}

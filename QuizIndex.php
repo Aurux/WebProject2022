@@ -2,7 +2,7 @@
 <?php
     $title = "Moodle Quiz";
     include("includes/header.php");
-    include("includes/nav.php");
+    include("includes/nav.php");  
 ?>
 
 <body>

@@ -25,15 +25,11 @@ function showEnrollForm() {
         
         <tr><td>Email<br><input name="frmEmail"  type="textbox" placeholder="Your email..." required/><br><p1 id="email" style="display:none">Please enter a valid email address.</p1></td>
         <td>Confirm Email<br><input name="frmEmailConf"  type="textbox" placeholder="Confirm Email..." required/><br><p1 id="email2" style="display:none">Email must match.</p1></td></tr>
-
         <tr><td>Password<br><input name="frmPassword"  type="password" placeholder="Enter password" required/><br><p1 id="pword" style="display:none">Must be 8-32 characters long using upper and lower case<br>and contain at least one number.</p1></td>
         <td>Confirm Password<br><input name="frmPasswordConf"  type="password" placeholder="Confirm password" required/><br><p1 id="pword2" style="display:none">Passwords must match.</p1></td></tr>
-
-
         <tr><td>Account Type<br>
                 <label><input name="frmType" value="student" type="radio" required>Student</label><br>
                 <label><input name="frmType" value="tutor" type="radio">Tutor</label><br></td>
-
         
         
         
@@ -42,7 +38,6 @@ function showEnrollForm() {
     </table>
     
      
-
     </form>';
 }
 

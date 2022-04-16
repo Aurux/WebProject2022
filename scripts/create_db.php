@@ -21,7 +21,6 @@
                 );
             
             ALTER TABLE users AUTO_INCREMENT=100000;
-
             CREATE TABLE IF NOT EXISTS choices (
                 id int(11) NOT NULL,
                 question_number int(11) NOT NULL,
@@ -88,7 +87,6 @@
     
             ALTER TABLE choices
             ADD PRIMARY KEY (id);
-
             ALTER TABLE choices
             MODIFY id int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=57;
       
