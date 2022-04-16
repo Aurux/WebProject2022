@@ -8,7 +8,7 @@
 <ul id="navi">
             
             <?php
-                if($_SESSION["loggedIn"] == true) echo '<li><a href="' . $_SESSION["uType"] .'_home.php">Home</a></li>';
+                if($_SESSION["loggedIn"] == true) echo '<li><a href="' . $_SESSION["uType"] .'_home.php">Your Home</a></li>';
                 else echo '<li><a href="index.php">Home</a></li>';
 
                 if($_SESSION["loggedIn"] != true) echo '<li><a href="enroll.php">Enroll</a></li>';
