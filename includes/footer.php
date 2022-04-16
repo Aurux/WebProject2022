@@ -1,3 +1,3 @@
 <footer>
-    Website by Team Name, 2021
+    At Bowling Univeristy, our lecturers don't go on strike - they teach you to strike.
 </footer>

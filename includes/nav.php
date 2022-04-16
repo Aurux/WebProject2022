@@ -1,10 +1,31 @@
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js">
+    function logout(){
+
+    }
+
+</script>
+
 <ul id="navi">
-            <li><a href="index.php">Home</a></li>
-            <li><a href="login.php">Login</a></li>
-            <li><a href="enroll.php">Enroll</a></li>
-            <li><a href="help.php">Help</a></li>
+            
+            <?php
+                if($_SESSION["loggedIn"] == true) echo '<li><a href="' . $_SESSION["uType"] .'_home.php">Home</a></li>';
+                else echo '<li><a href="index.php">Home</a></li>';
+
+                if($_SESSION["loggedIn"] != true) echo '<li><a href="enroll.php">Enroll</a></li>';
+
+                if($_SESSION["loggedIn"] == true) echo '<li><a href="calendar.php">Calendar</a></li>
+                <li><a href="assessments.php">Assessments</a></li>
+                <li><a href="timetable.php">Timetable</a></li>';
+
+                if($_SESSION["loggedIn"] == true) echo "<li style=\"float:right;\"><a href=\"logout.php\">Logout</a></li>";
+                else echo "<li style=\"float:right;\"><a href=\"login.php\">Login</a></li>";
+                 
+            ?>
+            
+            
+            <li style="float:right;"><a href="help.php">Help</a></li>
+            
+            
+
             <li><a href="QuizIndex.php">Quiz</a></li>
-            <li><a href="calendar.php">Calendar</a></li>
-            <li><a href="assessments.php">Assessments</a></li>
-            <li><a href="timetable.php">Timetable</a></li>
         </ul> 

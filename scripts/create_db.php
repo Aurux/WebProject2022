@@ -112,6 +112,7 @@
                 (15, 'Which of the following is not a bowling game?');
             
             ALTER TABLE questions ADD PRIMARY KEY (question_number);
+
             ALTER TABLE questions MODIFY question_number int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
             
             CREATE TABLE IF NOT EXISTS courses (
@@ -129,6 +130,7 @@
                 ('Strike Animation', 60),
                 ('Lane Oiling', 20);
                 
+
             CREATE TABLE IF NOT EXISTS studentCourses (
                 username int,
                 courseID int,
@@ -139,6 +141,7 @@
                 ON UPDATE CASCADE ON DELETE RESTRICT
                 
                 );
+
             
             
             
