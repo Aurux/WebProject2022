@@ -6,19 +6,20 @@
 ?>
 
 <div class="container">
-<h1>Student timetable</h1><br>
 <table class="timetable">
     <tr>
-        <th>courseID</th>
-        <th>time</th>
-        <th>monday</th>
-        <th>tuesday</th>
-        <th>wednesday</th>
-        <th>thursday</th>
-        <th>friday</th>
+        <th>Course ID</th>
+        <th>Time</th>
+        <th>Monday</th>
+        <th>Tuesday</th>
+        <th>Wednesday</th>
+        <th>Thursday</th>
+        <th>Friday</th>
     </tr>
     <?php
-    $sql ="SELECT courseID, time, monday, tuesday, wednesday, thursday, friday FROM timetable WHERE courseID='1'";
+    if ($_SESSION["loggedIn"] && $_SESSION["uType"] == "student") echo "<h1>Your Timetable</h1>";
+    else echo "<h1>403 Forbidden - You don't have permission to access this.</h1>";
+    $sql ="SELECT courseID, time, monday, tuesday, wednesday, thursday, friday FROM timetable WHERE courseID='3'";
     $result = $conn->query($sql);
 
     if($result -> num_rows > 0) {
