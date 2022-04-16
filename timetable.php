@@ -17,9 +17,10 @@
         <th>Friday</th>
     </tr>
     <?php
-    if ($_SESSION["loggedIn"] && $_SESSION["uType"] == "student") echo "<h1>Your Timetable</h1>";
+    if ($_SESSION["loggedIn"] && $_SESSION["uType"] == "student") echo "<h1>Your Timetable</h1><br>";
     else echo "<h1>403 Forbidden - You don't have permission to access this.</h1>";
-    $sql ="SELECT courseID, time, monday, tuesday, wednesday, thursday, friday FROM timetable WHERE courseID='3'";
+    
+    $sql ="SELECT courseID, time, monday, tuesday, wednesday, thursday, friday FROM timetable WHERE courseID='4'";
     $result = $conn->query($sql);
 
     if($result -> num_rows > 0) {

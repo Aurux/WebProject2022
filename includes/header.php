@@ -11,6 +11,7 @@
 </head>
 <header>
     <?php
+    error_reporting(E_ALL ^ E_WARNING); 
     if ($_SESSION["loggedIn"] == true) echo '<div id="userInfo">'.
     $_SESSION["forename"] .' '. $_SESSION["surname"].'<br>
         User ID: '. $_SESSION["username"] .

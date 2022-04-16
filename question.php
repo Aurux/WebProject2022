@@ -16,7 +16,10 @@ $question = $result->fetch_assoc();
 
 $number = (int) $_GET['n'];
 $query = "SELECT * FROM `choices` WHERE question_number = $number";
-$choices = $conn->query($query) or die($conn->error.__LINE__);?>
+$choices = $conn->query($query) or die($conn->error.__LINE__);
+
+if ($_SESSION["loggedIn"] && $_SESSION["uType"] == "student");
+    else echo "<h1>403 Forbidden - You don't have permission to access this.</h1>";?>
 
 <main>
     <div class="container">

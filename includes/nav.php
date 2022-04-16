@@ -8,6 +8,7 @@
 <ul id="navi">
             
             <?php
+                error_reporting(E_ALL ^ E_WARNING); 
                 if($_SESSION["loggedIn"] == true) echo '<li><a href="' . $_SESSION["uType"] .'_home.php">Your Home</a></li>';
                 else echo '<li><a href="index.php">Home</a></li>';
 

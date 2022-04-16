@@ -142,8 +142,72 @@
                 
                 );
 
-            
-            
+            CREATE TABLE IF NOT EXISTS timetable (
+                id int(11) NOT NULL,
+                courseID int(11) NOT NULL,
+                time text NOT NULL,
+                monday varchar(225) NOT NULL,
+                tuesday varchar(225) NOT NULL,
+                wednesday varchar(225) NOT NULL,
+                thursday varchar(255) NOT NULL,
+                friday varchar(225) NOT NULL
+            );
+
+            INSERT INTO timetable (id, courseID, time, monday, tuesday, wednesday, thursday, friday) VALUES
+                (1, 1, '09:00', 'LT1-Lecture', '-', 'LT2-Lecture', '-', '-'),
+                (2, 1, '10:00', 'F1R3-Seminar', '-', 'F1R2-Seminar', '-', 'F2R5-Tutorial'),
+                (3, 1, '11:00', '-', '-', 'F3R1-Tutorial', '-', '-'),
+                (4, 1, '12:00', '-', '-', '-', '-', '-'),
+                (5, 1, '13:00', '-', 'LT3-Lecture', '-', '-', '-'),
+                (6, 1, '14:00', 'LT1-Lecture', 'F3R3-Seminar', '-', 'LT2-Lecture', '-'),
+                (7, 1, '15:00', 'F3R3-Seminar', '-', '-', 'F1R4-Seminar', '-'),
+                (8, 1, '16:00', '-', 'F1R4-Tutorial', '-', '-', '-'),
+                (9, 2, '09:00', '-', 'LT3-Lecture', '-', '-', 'F3R1-Tutorial'),
+                (10, 2, '10:00', 'LT2-Lecture', 'F2R4-Seminar', '-', '-', '-'),
+                (11, 2, '11:00', 'F1R5-Seminar', '-', '-', 'LT3-Lecture', '-'),
+                (12, 2, '12:00', '-', '-', 'F1R2-Tutorial', 'F3R2-Seminar', '-'),
+                (13, 2, '13:00', '-', '-', '-', 'LT2-Lecture', '-'),
+                (14, 2, '14:00', 'LT3-Lecture', '-', '-', 'F3R2-Seminar', '-'),
+                (15, 2, '15:00', 'F2R3-Tutorial', '-', '-', '-', '-'),
+                (16, 2, '16:00', '-', '-', '-', '-', '-'),
+                (17, 3, '09:00', '-', 'LT2-Lecture', '-', '-', '-'),
+                (18, 3, '10:00', '-', 'F3R3-Seminar', 'LT1-Lecture', '-', 'LT2-Lecture'),
+                (19, 3, '11:00', '-', 'LT2-Lecture', 'F3R3-Seminar', '-', 'F4R1-Seminar'),
+                (20, 3, '12:00', '-', 'F4R1-Seminar', '-', 'LT2-Lecture', '-'),
+                (21, 3, '13:00', 'F1R2-Tutorial', '-', '-', 'F4R1-Seminar', '-'),
+                (22, 3, '14:00', '-', '-', '-', 'LT2-Lecture', '-'),
+                (23, 3, '15:00', '-', 'F3R2-Tutorial', '-', 'F3R3-Seminar', '-'),
+                (24, 3, '16:00', '-', '-', '-', '-', '-'),
+                (25, 4, '09:00', 'LT2-Lecture', 'LT1-Lecture', '-', 'F1R8-Tutorial', 'LT3-Lecture'),
+                (26, 4, '10:00', 'F4R6-Seminar', 'F2R3-Seminar', '-', '-', 'F2R3-Seminar'),
+                (27, 4, '11:00', 'LT3-Lecture', '-', '-', '-', 'LT1-Lecture'),
+                (28, 4, '12:00', 'F2R3-Seminar', 'LT2-Lecture', '-', '-', 'F4R6-Seminar'),
+                (29, 4, '13:00', '-', 'F4R6-Seminar', '-', '-', '-'),
+                (30, 4, '14:00', 'F1R8-Tutorial', '-', '-', '-', '-'),
+                (31, 4, '15:00', '-', '-', '-', '-', '-'),
+                (32, 4, '16:00', '-', '-', '-', '-', '-'),
+                (33, 5, '09:00', '-', 'LT3-Lecture', '-', '-', '-'),
+                (34, 5, '10:00', '-', 'F2R3-Seminar', '-', '-', '-'),
+                (35, 5, '11:00', 'LT2-Lecture', '-', '-', '-', 'LT2-Lecture'),
+                (36, 5, '12:00', 'F2R3-Seminar', 'LT1-Lecture', '-', '-', 'F3R5-Seminar'),
+                (37, 5, '13:00', '-', 'F3R5-Seminar', '-', '-', 'F4R2-Tutorial'),
+                (38, 5, '14:00', '-', 'F1R7-Tutorial', '-', '-', 'LT1-Lecture'),
+                (39, 5, '15:00', 'LT2-Lecture', '-', '-', '-', 'F2R3-Seminar'),
+                (40, 5, '16:00', 'F3R5-Seminar', '-', '-', '-', '-'),
+                (41, 6, '09:00', '-', '-', '-', '-', '-'),
+                (42, 6, '10:00', 'F1R4-Tutorial', '-', 'LT3-Lecture', '-', '-'),
+                (43, 6, '11:00', '-', '-', 'F243-Seminar', 'LT2-Lecture', '-'),
+                (44, 6, '12:00', 'LT1-Lecture', '-', 'LT3-Lecture', 'F1R3-Seminar', '-'),
+                (45, 6, '13:00', 'F2R4-Seminar', '-', 'F2R4-Seminar', '-', '-'),
+                (46, 6, '14:00', '-', '-', '-', '-', '-'),
+                (47, 6, '15:00', 'LT2-Lecture', '-', '-', 'LT1-Lecture', '-'),
+                (48, 6, '16:00', 'F1R3-Seminar', '-', '-', 'F1R3-Seminar', 'F2R4-Tutorial');
+
+            ALTER TABLE timetable
+            ADD PRIMARY KEY (id);
+
+            ALTER TABLE timetable
+            MODIFY id int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
             
             ";
 
