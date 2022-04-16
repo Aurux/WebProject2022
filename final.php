@@ -3,7 +3,6 @@
     include("includes/header.php");
     include("includes/nav.php");
  ?>
-<?php session_start(); ?>
 
 <main>
     <div class="container">
