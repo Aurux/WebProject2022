@@ -168,13 +168,61 @@ function showTutorHome($conn) {
         echo '<tr><td>'. htmlspecialchars($row['courseName']) .'</td>
         <td>'. htmlspecialchars($row['courseCredits']) . '</td>
         <td><input type="button" class="tutorButtons" value="View Students" name="'.$row["courseID"].'" onclick="viewStudents('.$row["courseID"].')"></td>
-        <td><input type="button" class="tutorButtons" value="Upload Material" onclick="uploadMaterial.php"></td>
         </tr>';
     }
 
     echo "</table>";
+
+    $sql = "SELECT * from courses ORDER BY courseName DESC;";
+    $courseResult = mysqli_query($conn, $sql);
+
+    
+
+    
+    echo '
+        <table><caption>Upload Course Material</caption>
+        <form method="POST" action="" enctype="multipart/form-data">
+            <tr><td>Course</td><td>
+            <select name="course" required>';
+            while($row = mysqli_fetch_array($courseResult)){
+                echo '<option value="'.$row["courseID"].'">'.htmlspecialchars($row["courseName"]).'</option>';
+            }
+    echo '</select></td></tr>
+            <tr><td>Week Number</td><td>
+            <input name="week" type="number" min="1" max="15" required></td></tr>
+            <tr><td>File</td><td><input type="file" name="fileUpload" required></td></tr>
+            <tr><td></td><td><input type="submit" value="Upload"></td></tr>
+        </form></table>
+    
+    ';
 }
 
+function uploadFile() {
+    if(isset($_FILES["fileUpload"])) {
+        $file = $_FILES["fileUpload"];
+        $fileName = $file["name"];
+        $week = $_POST["week"];
+        $courseID = $_POST["course"];
+        $folderPath = 'uploads/' . $_POST["course"] . "/week" . $_POST["week"];
+
+        consoleLog($folderPath);
+        mkdir(dirname(__DIR__,1) ."/". $folderPath, 0755, true);
+        
+        $savePath = $folderPath . "/" . $fileName;
+        consoleLog($savePath);
+        if ($file["size"] <= 100000000) {
+            if (move_uploaded_file($file["tmp_name"], $savePath)) {
+                echo "$fileName uploaded successfully!";
+            }
+            else {
+                echo "File upload failed.";
+            }
+        }
+        else {
+            echo "File too large - must be under 100Mb";
+        }
+    }
+}
 
 function consoleLog($message) {
     echo '<script>console.log("' . $message . '");</script>';
