@@ -1,11 +1,11 @@
 <?php
     session_start();
     require("scripts/functions.php");
+    //require("scripts/ajax.php");
     $conn = connectDatabase(true);
 
-    
+
     $courseID = $_POST["courseID"];
-    
     $sql = "SELECT courseName FROM courses WHERE courseID = '$courseID'";
     $result = mysqli_query($conn, $sql);
 
@@ -43,7 +43,8 @@
         }
     }
     else {
-        echo "<br><br><br>There are no students on this course.";
+        echo "<tr><td>There are no students on this course.</td></tr>";
     }
-    echo "</table><input style='text-align:center;' class='backButton' type='button' onclick='window.location.reload();' value='Go back'>";
+    echo "<tr><td><input class='backButton' type='button' onclick='window.location.reload();' value='Go back'></td><td><input type='number' placeholder='Student ID' id='studentID'><input type='button' value='Add Student' onclick='addStudent(". $courseID . ")'></td></tr></table>";
+    mysqli_close($conn);
 ?>

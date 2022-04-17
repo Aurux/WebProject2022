@@ -17,23 +17,10 @@
         <th>Friday</th>
     </tr>
     <?php
-    if ($_SESSION["loggedIn"] && $_SESSION["uType"] == "student") echo "<h1>Your Timetable</h1><br>";
+    if ($_SESSION["loggedIn"] && $_SESSION["uType"] == "student") echo "<h1>Your Timetable</h1><br>", showTimetable($conn,$_SESSION["username"]);
     else echo "<h1>403 Forbidden - You don't have permission to access this.</h1>";
-    
-    $sql ="SELECT courseID, time, monday, tuesday, wednesday, thursday, friday FROM timetable WHERE courseID='4'";
-    $result = $conn->query($sql);
 
-    if($result -> num_rows > 0) {
-        while ($row = $result -> fetch_assoc()){
-            echo "<tr><td>". $row["courseID"]."</td><td>".$row["time"]."</td><td>".$row["monday"]."</td><td>".$row["tuesday"]
-            ."</td><td>".$row["wednesday"]."</td><td>".$row["thursday"]."</td><td>".$row["friday"]."</td></tr>";
 
-        }
-        echo "</table>";
-    }
-    else{
-        echo "0 result";
-    }
 
     ?>
 
