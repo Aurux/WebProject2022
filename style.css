@@ -57,8 +57,10 @@ header {
     color: white;
     background-color: rgb(6, 72, 102);
     border: none;
-    width: 40%;
-
+    border-radius: 5px;
+    width: fit-content;
+    padding: 5px;
+    margin: 2px;
 }
 
 #enroll p {
