@@ -14,16 +14,14 @@
 
                 if($_SESSION["loggedIn"] != true) echo '<li><a href="enroll.php">Enroll</a></li>';
 
-                if ($_SESSION["loggedIn"] == true){
+                if($_SESSION["loggedIn"] == true) {
+                    echo '<li><a href="assessments.php">Assessments</a></li>';
+                    
                     if ($_SESSION["uType"] == "student") {
-                        echo '<li><a href="calendar.php">Calendar</a></li>
-                              <li><a href="assessments.php">Assessments</a></li>
-                              <li><a href="studentTimetable.php">Timetable</a></li>
-                              <li><a href="QuizIndex.php">Quiz</a></li>'
-                              ;
+                        echo '<li><a href="studentTimetable.php">Timetable</a></li>';
                     }
                     if ($_SESSION["uType"] == "tutor") {
-                        echo '<li><a href="tutorTimetable.php">View Timetables</a></li>';
+                        echo '<li><a href="tutorTimetable.php">Timetable</a></li>';
                     }
                 }
 
