@@ -36,7 +36,7 @@
     echo "<table id='courseTable'><caption>$courseName Students</caption>";
 
     if ($numrows >= 1){
-        echo "<th>Name</th><th>ID</th>";
+        echo "<th>Name</th><th>Student ID</th>";
         while($row = mysqli_fetch_array($result)){
             echo '<tr><td>'. htmlspecialchars($row['forename']) .' '.htmlspecialchars($row['surname']).'</td>
             <td>'. htmlspecialchars($row['username']) . '</td></tr>';
