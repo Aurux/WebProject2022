@@ -224,6 +224,37 @@ function uploadFile() {
     }
 }
 
+function showTimetable($conn,$username){
+    $sql = "SELECT courseID FROM studentCourses WHERE username = '$username';";
+    $result = mysqli_query($conn, $sql); 
+
+    while($row = mysqli_fetch_array($result)) {
+        $courseRow[] = $row["courseID"];
+    }
+    try {
+        $sql = "SELECT * FROM courses WHERE courseID IN(" . implode(',', $courseRow) . ")";
+        $sql ="SELECT courseID, time, monday, tuesday, wednesday, thursday, friday FROM timetable WHERE courseID IN(" . implode(',', $courseRow) . ")";
+    }
+    catch (TypeError $e){
+        consoleLog($e);
+    }
+    
+    $result = mysqli_query($conn, $sql);
+    $numrows = mysqli_num_rows($result);
+
+    if ($numrows >= 1) {
+        while($row = mysqli_fetch_array($result)){
+            echo "<tr><td>". $row["courseID"]."</td><td>".$row["time"]."</td><td>".$row["monday"]."</td><td>".$row["tuesday"]
+            ."</td><td>".$row["wednesday"]."</td><td>".$row["thursday"]."</td><td>".$row["friday"]."</td></tr>";
+
+        }
+        echo "</table>";
+    }
+    else{
+        echo "0 result";
+    }
+}
+
 function consoleLog($message) {
     echo '<script>console.log("' . $message . '");</script>';
 }
