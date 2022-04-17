@@ -224,7 +224,7 @@ function uploadFile() {
     }
 }
 
-function showTimetable($conn,$username){
+function showStudentTimetable($conn,$username){
     $sql = "SELECT courseID FROM studentCourses WHERE username = '$username';";
     $result = mysqli_query($conn, $sql); 
 
@@ -243,8 +243,9 @@ function showTimetable($conn,$username){
     $numrows = mysqli_num_rows($result);
 
     if ($numrows >= 1) {
+        echo "<tr><th>Time</th><th>Monday</th><th>Tuesday</th><th>Wednesday</th><th>Thursday</th><th>Friday</th></tr>";
         while($row = mysqli_fetch_array($result)){
-            echo "<tr><td>". $row["courseID"]."</td><td>".$row["time"]."</td><td>".$row["monday"]."</td><td>".$row["tuesday"]
+            echo "<td>".$row["time"]."</td><td>".$row["monday"]."</td><td>".$row["tuesday"]
             ."</td><td>".$row["wednesday"]."</td><td>".$row["thursday"]."</td><td>".$row["friday"]."</td></tr>";
 
         }
