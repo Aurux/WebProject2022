@@ -1,5 +1,5 @@
 <?php
-
+error_reporting(E_ALL ^ E_WARNING); 
 function connectDatabase($dbExists) {
     //create connnection credentials
     $db_host = 'localhost';
@@ -232,7 +232,6 @@ function showStudentTimetable($conn,$username){
         $courseRow[] = $row["courseID"];
     }
     try {
-        $sql = "SELECT * FROM courses WHERE courseID IN(" . implode(',', $courseRow) . ")";
         $sql ="SELECT courseID, time, monday, tuesday, wednesday, thursday, friday FROM timetable WHERE courseID IN(" . implode(',', $courseRow) . ")";
     }
     catch (TypeError $e){
@@ -253,6 +252,103 @@ function showStudentTimetable($conn,$username){
     }
     else{
         echo "0 result";
+    }
+}
+
+function showTutorTimetable1($conn){
+    $sql ="SELECT courseID, time, monday, tuesday, wednesday, thursday, friday FROM timetable WHERE courseID='1'";
+
+    $result = mysqli_query($conn, $sql);
+    $numrows = mysqli_num_rows($result);
+
+    if ($numrows >= 1) {
+        echo "<tr><th>Time</th><th>Monday</th><th>Tuesday</th><th>Wednesday</th><th>Thursday</th><th>Friday</th></tr>";
+        while($row = mysqli_fetch_array($result)){
+            echo "<td>".$row["time"]."</td><td>".$row["monday"]."</td><td>".$row["tuesday"]
+            ."</td><td>".$row["wednesday"]."</td><td>".$row["thursday"]."</td><td>".$row["friday"]."</td></tr>";
+
+        }
+        echo "</table>";
+    }
+}
+function showTutorTimetable2($conn){
+    $sql ="SELECT courseID, time, monday, tuesday, wednesday, thursday, friday FROM timetable WHERE courseID='2'";
+
+    $result = mysqli_query($conn, $sql);
+    $numrows = mysqli_num_rows($result);
+
+    if ($numrows >= 1) {
+        echo "<tr><th>Time</th><th>Monday</th><th>Tuesday</th><th>Wednesday</th><th>Thursday</th><th>Friday</th></tr>";
+        while($row = mysqli_fetch_array($result)){
+            echo "<td>".$row["time"]."</td><td>".$row["monday"]."</td><td>".$row["tuesday"]
+            ."</td><td>".$row["wednesday"]."</td><td>".$row["thursday"]."</td><td>".$row["friday"]."</td></tr>";
+
+        }
+        echo "</table>";
+    }
+}
+function showTutorTimetable3($conn){
+    $sql ="SELECT courseID, time, monday, tuesday, wednesday, thursday, friday FROM timetable WHERE courseID='3'";
+
+    $result = mysqli_query($conn, $sql);
+    $numrows = mysqli_num_rows($result);
+
+    if ($numrows >= 1) {
+        echo "<tr><th>Time</th><th>Monday</th><th>Tuesday</th><th>Wednesday</th><th>Thursday</th><th>Friday</th></tr>";
+        while($row = mysqli_fetch_array($result)){
+            echo "<td>".$row["time"]."</td><td>".$row["monday"]."</td><td>".$row["tuesday"]
+            ."</td><td>".$row["wednesday"]."</td><td>".$row["thursday"]."</td><td>".$row["friday"]."</td></tr>";
+
+        }
+        echo "</table>";
+    }
+}
+function showTutorTimetable4($conn){
+    $sql ="SELECT courseID, time, monday, tuesday, wednesday, thursday, friday FROM timetable WHERE courseID='4'";
+
+    $result = mysqli_query($conn, $sql);
+    $numrows = mysqli_num_rows($result);
+
+    if ($numrows >= 1) {
+        echo "<tr><th>Time</th><th>Monday</th><th>Tuesday</th><th>Wednesday</th><th>Thursday</th><th>Friday</th></tr>";
+        while($row = mysqli_fetch_array($result)){
+            echo "<td>".$row["time"]."</td><td>".$row["monday"]."</td><td>".$row["tuesday"]
+            ."</td><td>".$row["wednesday"]."</td><td>".$row["thursday"]."</td><td>".$row["friday"]."</td></tr>";
+
+        }
+        echo "</table>";
+    }
+}
+function showTutorTimetable5($conn){
+    $sql ="SELECT courseID, time, monday, tuesday, wednesday, thursday, friday FROM timetable WHERE courseID='5'";
+
+    $result = mysqli_query($conn, $sql);
+    $numrows = mysqli_num_rows($result);
+
+    if ($numrows >= 1) {
+        echo "<tr><th>Time</th><th>Monday</th><th>Tuesday</th><th>Wednesday</th><th>Thursday</th><th>Friday</th></tr>";
+        while($row = mysqli_fetch_array($result)){
+            echo "<td>".$row["time"]."</td><td>".$row["monday"]."</td><td>".$row["tuesday"]
+            ."</td><td>".$row["wednesday"]."</td><td>".$row["thursday"]."</td><td>".$row["friday"]."</td></tr>";
+
+        }
+        echo "</table>";
+    }
+}
+function showTutorTimetable6($conn){
+    $sql ="SELECT courseID, time, monday, tuesday, wednesday, thursday, friday FROM timetable WHERE courseID='6'";
+
+    $result = mysqli_query($conn, $sql);
+    $numrows = mysqli_num_rows($result);
+
+    if ($numrows >= 1) {
+        echo "<tr><th>Time</th><th>Monday</th><th>Tuesday</th><th>Wednesday</th><th>Thursday</th><th>Friday</th></tr>";
+        while($row = mysqli_fetch_array($result)){
+            echo "<td>".$row["time"]."</td><td>".$row["monday"]."</td><td>".$row["tuesday"]
+            ."</td><td>".$row["wednesday"]."</td><td>".$row["thursday"]."</td><td>".$row["friday"]."</td></tr>";
+
+        }
+        echo "</table>";
     }
 }
 
