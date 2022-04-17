@@ -205,8 +205,10 @@ a.reset{
     table-layout: fixed;
   }
   
-  .timetable THEAD{
-    color: #FFFFFF;
+  .timetable th{
+    background-color: #f83434;
+    font-weight: bolder;
+    color:#ffffff;
   }
   
   .timetable TBODY {
@@ -221,6 +223,7 @@ a.reset{
   .timetable TBODY TR TD:first-child {
     background-color: #1b7199;
     font-weight: bold;
+    color:#ffffff;
   } 
 
 html, body, div, span, applet, object, iframe,
