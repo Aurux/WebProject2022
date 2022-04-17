@@ -105,6 +105,7 @@ function processLogin($conn) {
         }
         else {
             $returnVar = "<p>Something seems to be incorrect with the details you have provided. Please try again.<br>If you are a new student please enroll before attempting to login.</p>";
+            header("refresh:2; url=index.php");
         }
 
         

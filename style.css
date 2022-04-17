@@ -246,7 +246,7 @@ time, mark, audio, video {
 
 #userInfo {
     
-    position: fixed;
+    position: absolute;
     float: left;
     font-size: small;
     border: 5px solid #f83434;
