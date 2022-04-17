@@ -24,7 +24,32 @@
             success: function() {
                 viewStudents(courseID);
             }
-        }); 
+        });
     }
+
+    function viewMat() {
+        var course = document.getElementsByName("course")[0].value;
+        var week = document.getElementsByName("week")[0].value;
+        $.ajax({
+            method: 'POST',
+            data: {courseID: course, week: week},
+            url:'getMaterial.php',
+            dataType: 'html',
+            success: function(response) {
+                $('#fileBox').replaceWith(response);
+            }
+        });
+    }
+
+    function uploadFile() {
+        var formData = new FormData($('#uploadForm'));
+    }
+
+    window.onload = viewMat();
+
+
+
+
+
 
 </script>

@@ -1,5 +1,6 @@
 <?php
 
+
 function connectDatabase($dbExists) {
     //create connnection credentials
     $db_host = 'localhost';
@@ -176,22 +177,34 @@ function showTutorHome($conn) {
     $sql = "SELECT * from courses ORDER BY courseName DESC;";
     $courseResult = mysqli_query($conn, $sql);
 
-    
+    if (isset($_POST["week"])) {
+        $week = $_POST["week"];
+    }
+    else $week = 1;
 
     
+    
     echo '
-        <table><caption>Upload Course Material</caption>
-        <form method="POST" action="" enctype="multipart/form-data">
+        <table><caption>Manage Course Material</caption>
+        <form method="POST" action="" id="uploadForm" enctype="multipart/form-data">
             <tr><td>Course</td><td>
             <select name="course" required>';
             while($row = mysqli_fetch_array($courseResult)){
-                echo '<option value="'.$row["courseID"].'">'.htmlspecialchars($row["courseName"]).'</option>';
+                if (isset($_POST["course"]) && $row["courseID"] == $_POST["course"]) {
+                    echo '<option selected value="'.$row["courseID"].'">'.htmlspecialchars($row["courseName"]).'</option>';
+                }
+                else echo '<option value="'.$row["courseID"].'">'.htmlspecialchars($row["courseName"]).'</option>';
+                
             }
+    
     echo '</select></td></tr>
             <tr><td>Week Number</td><td>
-            <input name="week" type="number" min="1" max="15" required></td></tr>
-            <tr><td>File</td><td><input type="file" name="fileUpload" required></td></tr>
-            <tr><td></td><td><input type="submit" value="Upload"></td></tr>
+            <input name="week" type="number" min="1" max="15" value="'.$week.'" placeholder="Enter week number..."required></td></tr>
+            <tr><td>Upload File</td><td><input type="file" name="fileUpload" required></td></tr>
+            <tr><td>Course Material</td><td id="fileBox">';
+            uploadFile();
+            echo '</td></tr>
+                    <tr><td></td><td><input type="button" id="viewMaterial" value="View Material" onclick="viewMat()"><input type="submit" value="Upload"></td></tr>
         </form></table>
     
     ';
@@ -212,7 +225,7 @@ function uploadFile() {
         consoleLog($savePath);
         if ($file["size"] <= 100000000) {
             if (move_uploaded_file($file["tmp_name"], $savePath)) {
-                echo "$fileName uploaded successfully!";
+                echo "$fileName uploaded successfully!<script>setTimeout(viewMat(),2000);</script>";
             }
             else {
                 echo "File upload failed.";

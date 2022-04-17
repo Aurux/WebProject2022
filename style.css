@@ -82,7 +82,7 @@ li {
     float: left;
 }
 
-li a {
+#navi li a {
     display: inline-block;
     color: white;
     text-align: center;
@@ -90,7 +90,7 @@ li a {
     text-decoration: none;
 }
 
-li a:hover:not(.active) {
+#navi li a:hover:not(.active) {
     background-color: #2e294e;
 }
 
@@ -327,4 +327,7 @@ time, mark, audio, video {
     border: none;
     border-radius: 5px;
     width: fit-content;
+    padding: 5px;
+    margin: 2px;
+
 }

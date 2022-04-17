@@ -9,7 +9,7 @@
 
 <div id="tutorHomeContent">
     <?php
-        uploadFile();
+        
         if ($_SESSION["loggedIn"] && $_SESSION["uType"] == "tutor") showTutorHome($conn);
         else echo "<h1>403 Forbidden - You don't have permission to access this.</h1>";
     ?>
