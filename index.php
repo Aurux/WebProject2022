@@ -1,7 +1,6 @@
 <?php
     $title = "Bowling Moodle";
     include("includes/header.php");
-    include("includes/body.php");
     include("includes/nav.php");
 
     if ($_SESSION["loggedIn"] == true){
