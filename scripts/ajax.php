@@ -27,6 +27,19 @@
         });
     }
 
+    function removeStudent(username, courseID){
+        $.ajax({
+            method: 'POST',
+            data: {studentID: username, courseID: courseID},
+            url:'removeStudent.php',
+            dataType: 'html',
+            success: function() {
+                viewStudents(courseID);
+            }
+        });
+
+    }
+
     function viewMat() {
         var course = document.getElementsByName("course")[0].value;
         var week = document.getElementsByName("week")[0].value;
