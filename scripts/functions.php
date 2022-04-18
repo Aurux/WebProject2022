@@ -142,7 +142,7 @@ function showStudentHome($conn, $username) {
 
     echo "<h1>Your Student Home Page</h1><br>";
 
-    echo "<aside><table><caption>Your Courses</caption>";
+    echo "<table><caption>Your Courses</caption>";
 
     if ($numrows >= 1){
         echo "<th>Course</th><th>Credits</th>";
@@ -154,7 +154,57 @@ function showStudentHome($conn, $username) {
     else {
         echo "<tr><td>You have not been assigned to any courses.</td></tr>";
     }
-    echo "</table></aside>";
+    echo "</table>";
+
+    $username = $_SESSION["username"];
+    $sql = "SELECT courseID FROM studentCourses WHERE username = '$username'";
+    $result = mysqli_query($conn, $sql);
+
+    while($row = mysqli_fetch_array($result)) {
+        consoleLog($row["courseID"]);
+        $courseRow[] = $row["courseID"];
+    }
+
+    
+    try {
+        $sql = "SELECT * from courses WHERE courseID IN(" . implode(',', $courseRow) . ")";
+    }
+    catch (TypeError $e){
+        consoleLog($e);
+    }
+    
+    
+    $courseResult = mysqli_query($conn, $sql);
+
+    if (isset($_POST["week"])) {
+        $week = $_POST["week"];
+    }
+    else $week = 1;
+
+    echo '
+        <table><caption>View Course Material</caption>
+        <form method="POST" action="" id="uploadForm" enctype="multipart/form-data">
+            <tr><td>Course</td><td>
+            <select name="course" required>';
+            while($row = mysqli_fetch_array($courseResult)){
+                if (isset($_POST["course"]) && $row["courseID"] == $_POST["course"]) {
+                    echo '<option selected value="'.$row["courseID"].'">'.htmlspecialchars($row["courseName"]).'</option>';
+                }
+                else echo '<option value="'.$row["courseID"].'">'.htmlspecialchars($row["courseName"]).'</option>';
+                
+            }
+    
+    echo '</select></td></tr>
+            <tr><td>Week Number</td><td>
+            <input name="week" type="number" min="1" max="15" value="'.$week.'" placeholder="Enter week number..."required></td></tr>
+            
+            <tr><td>Course Material</td><td id="fileBox">';
+            uploadFile();
+            echo '</td></tr>
+                    <tr><td></td><td><input type="button" id="viewMaterial" value="View Material" onclick="viewMat()"></td></tr>
+        </form></table>
+    
+    ';
 }
 
 function showTutorHome($conn) {

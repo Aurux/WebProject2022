@@ -7,7 +7,7 @@
 ?>
 
 
-<div id="tutorHomeContent">
+<div id="HomeContent">
     <?php
         
         if ($_SESSION["loggedIn"] && $_SESSION["uType"] == "tutor") showTutorHome($conn);

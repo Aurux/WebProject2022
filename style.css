@@ -261,42 +261,16 @@ time, mark, audio, video {
     padding: 10px;
 }
 
-#studentHomeContent {
-    color: white;
-}
-
-#homeContent h1 {
-    text-align: center;
-}
-
-#studentHomeContent h1 {
-    text-align: center;
-}
 
 
-#studentHomeContent caption {
-    text-align: center;
-    font-weight: bold;
-    font-size: medium;
-    color: white;
-}
-
-#studentHomeContent table {
-    width: 20%;
-    text-align: center;
-    border: 5px solid #f83434;
-    border-radius: 10px;
-    background-color: white;
-}
-
-#tutorHomeContent h1 {
+#HomeContent h1 {
     text-align: center;
     color: white;
 }
 
 
 
-#tutorHomeContent caption {
+#HomeContent caption {
     font-weight: bold;
     font-size: medium;
     color: black;
@@ -308,7 +282,7 @@ time, mark, audio, video {
     width: fit-content;
 }
 
-#tutorHomeContent table {
+#HomeContent table {
     width: 40%;
     float:right;
     text-align: center;
@@ -319,11 +293,11 @@ time, mark, audio, video {
     margin-right: 5%;
 }
 
-#tutorHomeContent td {
+#HomeContent td {
     padding: 10px;
 }
 
-#tutorHomeContent input[type=button], input[type=submit] {
+#HomeContent input[type=button], input[type=submit] {
     color: white;
     background-color: rgb(6, 72, 102);
     border: none;
