@@ -208,7 +208,7 @@
 
             ALTER TABLE timetable
             MODIFY id int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
-            
+
             ";
 
     if ($conn->multi_query($sql) === TRUE) consoleLog("Table creation successful!");

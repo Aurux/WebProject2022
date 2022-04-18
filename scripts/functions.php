@@ -145,10 +145,26 @@ function showStudentHome($conn, $username) {
     echo "<table><caption>Your Courses</caption>";
 
     if ($numrows >= 1){
-        echo "<th>Course</th><th>Credits</th>";
+        echo "<th>Course</th><th>Credits</th><th>Completion</th>";
         while($row = mysqli_fetch_array($result)){
             echo '<tr><td>'. htmlspecialchars($row['courseName']) .'</td>
-            <td>'. htmlspecialchars($row['courseCredits']) . '</td></tr>';
+            <td>'. htmlspecialchars($row['courseCredits']) . '</td>';
+            $id = $row['courseID'];
+            $compsql = "SELECT completion FROM studentCourses WHERE username = '$username' AND courseID = '$id'";
+            $compresult = mysqli_query($conn, $compsql); 
+
+            while($row = mysqli_fetch_array($compresult)) {
+                $courseRow = $row["completion"];
+            }
+    
+            $fullCircleCount = round($courseRow * 10);
+            $emptyCircleCount = 10 - $fullCircleCount;
+            $fullCircle = str_repeat('🟩', $fullCircleCount);
+            $emptyCircle =  str_repeat('⬜', $emptyCircleCount);
+            $courseRow = 100 * $courseRow;
+
+            echo "<td>$fullCircle$emptyCircle $courseRow%</td></tr>";
+           
         }
     }
     else {
@@ -162,7 +178,7 @@ function showStudentHome($conn, $username) {
 
     while($row = mysqli_fetch_array($result)) {
         consoleLog($row["courseID"]);
-        $courseRow[] = $row["courseID"];
+        $courseRow = $row["courseID"];
     }
 
     
@@ -183,16 +199,28 @@ function showStudentHome($conn, $username) {
 
     echo '
         <table><caption>View Course Material</caption>
-        <form method="POST" action="" id="uploadForm" enctype="multipart/form-data">
+        <form>
             <tr><td>Course</td><td>
-            <select name="course" required>';
-            while($row = mysqli_fetch_array($courseResult)){
-                if (isset($_POST["course"]) && $row["courseID"] == $_POST["course"]) {
-                    echo '<option selected value="'.$row["courseID"].'">'.htmlspecialchars($row["courseName"]).'</option>';
+            <select name="course">';
+            if (mysqli_num_rows($courseResult) > 0){
+                while($row = mysqli_fetch_array($courseResult)){
+                    $id = $row["courseID"];
+                    $sql = "SELECT courseName FROM courses WHERE courseID = '$id'";
+                    $result = mysqli_query($conn, $sql);
+                    while($row = mysqli_fetch_array($result)) {
+                        consoleLog($row["courseName"]);
+                        $nameRow = $row["courseName"];
+                    }
+
+                    if (isset($_POST["course"]) && $row["courseID"] == $_POST["course"]) {
+                        
+                        echo '<option selected value="'.$id.'">'.$nameRow.'</option>';
+                    }
+                    else echo '<option value="'.$id.'">'.$nameRow.'</option>';
+                    
                 }
-                else echo '<option value="'.$row["courseID"].'">'.htmlspecialchars($row["courseName"]).'</option>';
-                
             }
+            else echo '<option value="No courses">No courses</option>';
     
     echo '</select></td></tr>
             <tr><td>Week Number</td><td>
