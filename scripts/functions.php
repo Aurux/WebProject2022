@@ -341,6 +341,7 @@ function showTimetable($conn, $courseID){
         }
         echo "</table><br>";
     }
+    else echo "<tr><td>You have not been assigned to any courses.</td></tr></table>";
 }
 
 
