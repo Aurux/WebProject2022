@@ -7,7 +7,9 @@
 <body>
 	<div class="content"><br><Br>
     <?php
-       echo draw_calendar($month,$year);
+        if ($_SESSION["loggedIn"] == true) echo draw_calendar($month,$year);
+        else echo "<h1>403 Forbidden - You don't have permission to access this.</h1>";
+       
     ?>
 	</div>
     <br><Br>

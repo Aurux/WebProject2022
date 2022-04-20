@@ -16,7 +16,8 @@
 
                 if($_SESSION["loggedIn"] == true) {
                     echo '<li><a href="assessments.php">Assessments</a></li>
-                        <li><a href="timetable.php">Timetables</a></li>';
+                        <li><a href="timetable.php">Timetables</a></li>
+                        <li><a href="calendar.php">Calendar</a></li>';
                     
                    
                 }
