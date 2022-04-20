@@ -19,12 +19,11 @@
             if (strlen($file) > 2) {
                 echo "<li><a href='". $dirPath . $file . "'>$file</a></li><br>";
             }
-            
         }
         echo "</ul>";
     }
 
-    
 
 
-?>
+
+?> 

@@ -4,14 +4,11 @@
     include("includes/nav.php");
 ?>
 
-
-<div id="homeContent">
+<body>
+	<div class="content"><br><Br>
     <?php
-        if ($_SESSION["loggedIn"]) echo "<h1>Your Calendar</h1>";
-        else echo "<h1>403 Forbidden - You don't have permission to access this.</h1>";
+       echo draw_calendar($month,$year);
     ?>
-</div>
-
-<?php
-include("includes/footer.php");
-?>
+	</div>
+    <br><Br>
+</body>

@@ -1,6 +1,5 @@
 <?php
-
-
+error_reporting(E_ALL ^ E_WARNING); 
 function connectDatabase($dbExists) {
     //create connnection credentials
     $db_host = 'localhost';
