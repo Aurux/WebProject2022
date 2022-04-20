@@ -14,17 +14,13 @@
 
                 if($_SESSION["loggedIn"] != true) echo '<li><a href="enroll.php">Enroll</a></li>';
 
-                if ($_SESSION["loggedIn"] == true){
-                    if ($_SESSION["uType"] == "student") {
-                        echo '<li><a href="calendar.php">Calendar</a></li>
-                              <li><a href="assessments.php">Assessments</a></li>
-                              <li><a href="studentTimetable.php">Timetable</a></li>
-                              <li><a href="QuizIndex.php">Quiz</a></li>'
-                              ;
-                    }
-                    if ($_SESSION["uType"] == "tutor") {
-                        echo '<li><a href="tutorTimetable.php">View Timetables</a></li>';
-                    }
+                if($_SESSION["loggedIn"] == true) {
+                    echo '<li><a href="assessments.php">Assessments</a></li>
+                        <li><a href="timetable.php">Timetable</a></li>
+                        <li><a href="calendar.php">Calendar</a></li>
+                        <li><a href="quizIndex.php">Quiz</a></li>
+                        ';
+                    
                 }
 
                 if($_SESSION["loggedIn"] == true) echo "<li style=\"float:right;\"><a href=\"logout.php\">Logout</a></li>";
