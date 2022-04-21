@@ -16,7 +16,7 @@
                 email VARCHAR(255) NOT NULL,
                 uType ENUM('student', 'tutor') NOT NULL,
                 pass VARCHAR(255) NOT NULL,
-                authorised TINYINT,
+                authorised boolean,
                 PRIMARY KEY (username)
                 );
             
