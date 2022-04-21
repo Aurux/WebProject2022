@@ -254,7 +254,7 @@ function showTutorHome($conn) {
     while($row = mysqli_fetch_array($result)){
         echo '<tr><td>'. htmlspecialchars($row['courseName']) .'</td>
         <td>'. htmlspecialchars($row['courseCredits']) . '</td>
-        <td><input type="button" class="tutorButtons" value="View Students" name="'.$row["courseID"].'" onclick="viewStudents('.$row["courseID"].')"></td>
+        <td><input type="button" class="tutorButtons" value="View Students" name="'.$row["courseID"].'" onclick="viewStudents('.$row["courseID"].')"><input type="button" class="tutorButtons" value="View Assessments" name="'.$row["courseID"].'" onclick="viewAssessments('.$row["courseID"].')"></td>
         </tr>';
     }
 

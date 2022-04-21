@@ -211,17 +211,26 @@
 
             CREATE TABLE IF NOT EXISTS assessments (
                 id int NOT NULL AUTO_INCREMENT,
-                username int,
+                title VARCHAR(255),
+                info TEXT,
+                deadline DATE,
                 courseID int,
-                completed boolean default false,
-                completion decimal(3,2) DEFAULT 0,
                 PRIMARY KEY (id),
-                FOREIGN KEY(username) REFERENCES users(username)
-                ON UPDATE CASCADE ON DELETE RESTRICT,
                 FOREIGN KEY(courseID) REFERENCES courses(courseID)
                 ON UPDATE CASCADE ON DELETE RESTRICT
                 
                 );
+
+            CREATE TABLE IF NOT EXISTS studentAssessments (
+                username int,
+                id int,
+                completed boolean default false,
+                completion decimal(3,2) DEFAULT 0,
+                FOREIGN KEY(username) REFERENCES users(username)
+                ON UPDATE CASCADE ON DELETE RESTRICT,
+                FOREIGN KEY(id) REFERENCES assessments(id)
+                ON UPDATE CASCADE ON DELETE RESTRICT
+                )
 
             
             ";
