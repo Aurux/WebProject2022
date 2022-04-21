@@ -15,9 +15,9 @@
                 if($_SESSION["loggedIn"] != true) echo '<li><a href="enroll.php">Enroll</a></li>';
 
                 if($_SESSION["loggedIn"] == true) {
-                    echo '<li><a href="assessments.php">Assessments</a></li>
-                        <li><a href="timetable.php">Timetables</a></li>
+                    echo '<li><a href="timetable.php">Timetables</a></li>
                         <li ><a href="calendar.php">Calendar</a></li>';
+                    if ($_SESSION["uType"] == "student") echo '<li><a href="assessments.php">Assessments</a></li>';
                     
                    
                 }

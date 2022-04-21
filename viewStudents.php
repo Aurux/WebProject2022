@@ -56,7 +56,7 @@
             $courseRow = 100 * $courseRow;
 
             echo "<td>$fullCircle$emptyCircle $courseRow%</td>";
-            echo '<td><input type="button" value="Remove" onclick="removeStudent('.$username.','.$courseID.')"></td></tr>';
+            echo '<td><input type="button" value="Submissions" onclick="viewSubmissions('. htmlspecialchars($row['username']) . ')"><input style="background-color: red;" type="button" value="Remove" onclick="removeStudent('.$username.','.$courseID.')"></td></tr>';
         }
     }
     else {

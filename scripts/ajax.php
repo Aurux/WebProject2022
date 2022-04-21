@@ -13,6 +13,19 @@
         });   
     }
 
+    function viewSubmissions(username) {
+        console.log(courseID);
+        $.ajax({
+            method: 'POST',
+            data: {username: username},
+            url:'viewSubmissions.php',
+            dataType: 'html',
+            success: function(response) {
+                $('#courseTable').replaceWith(response); // Update HTML course table. 
+            }
+        });   
+    }
+
     function viewAssessments(courseID) {
         console.log(courseID);
         $.ajax({
@@ -43,9 +56,10 @@
         var title = document.getElementById("title").value;
         var info = document.getElementById("desc").value;
         var deadline = document.getElementById("deadline").value;
+        var weight = document.getElementById("weight").value;
         $.ajax({
             method: 'POST',
-            data: {courseID: courseID, title: title, info: info, deadline: deadline},
+            data: {courseID: courseID, title: title, info: info, deadline: deadline, weight: weight},
             url:'addAssessment.php',
             dataType: 'html',
             success: function() {

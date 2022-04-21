@@ -4,8 +4,9 @@
     $conn = connectDatabase(true);
     consoleLog("here");
     extract($_POST);
+    $weight = $weight / 100;
 
-    $sql = "INSERT INTO assessments (title, info, deadline, courseID) VALUES ('$title', '$info', '$deadline', '$courseID');";
+    $sql = "INSERT INTO assessments (title, info, deadline, courseID, creditWeight) VALUES ('$title', '$info', '$deadline', '$courseID', '$weight');";
     $result = mysqli_query($conn, $sql);
 
     $sql = "SELECT id FROM assessments WHERE title = '$title' AND courseID = '$courseID'";

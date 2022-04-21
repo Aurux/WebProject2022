@@ -214,6 +214,7 @@
                 title VARCHAR(255),
                 info TEXT,
                 deadline DATE,
+                creditWeight DECIMAL(3,2),
                 courseID int,
                 PRIMARY KEY (id),
                 FOREIGN KEY(courseID) REFERENCES courses(courseID)

@@ -6,7 +6,8 @@
     $conn = connectDatabase(true);
 
 
-    $courseID = $_POST["courseID"];
+    $username = $_POST["username"];
+    
     $sql = "SELECT courseName FROM courses WHERE courseID = '$courseID'";
     $result = mysqli_query($conn, $sql);
 
