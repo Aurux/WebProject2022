@@ -258,7 +258,7 @@ function showTutorHome($conn) {
         </tr>';
     }
 
-    echo "</table>";
+    echo "<tr><td><input type='button' value='Create Course' onclick='createCourseForm()'></td></tr></table>";
 
     $sql = "SELECT * from courses ORDER BY courseName DESC;";
     $courseResult = mysqli_query($conn, $sql);

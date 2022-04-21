@@ -54,6 +54,31 @@
         });   
     }
 
+    function createCourseForm() {
+        $.ajax({
+            method: 'GET',
+            url:'createCourseForm.php',
+            dataType: 'html',
+            success: function(response) {
+                $('#courseTable').replaceWith(response); // Update HTML course table. 
+            }
+        });
+    }
+
+    function addCourse() {
+        var name = document.getElementById("name").value;
+        var credits = document.getElementById("credits").value;
+        $.ajax({
+            method: 'POST',
+            data: {name: name, credits: credits},
+            url:'createCourse.php',
+            dataType: 'html',
+            success: function() {
+                window.location.reload();
+            }
+        });
+    }
+
     function deleteAssessment(id, courseID) {
         console.log(courseID);
         $.ajax({
