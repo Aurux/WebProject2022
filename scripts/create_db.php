@@ -209,12 +209,27 @@
             ALTER TABLE timetable
             MODIFY id int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
 
+            CREATE TABLE IF NOT EXISTS assessments (
+                id int NOT NULL AUTO_INCREMENT,
+                username int,
+                courseID int,
+                completed boolean default false,
+                completion decimal(3,2) DEFAULT 0,
+                PRIMARY KEY (id),
+                FOREIGN KEY(username) REFERENCES users(username)
+                ON UPDATE CASCADE ON DELETE RESTRICT,
+                FOREIGN KEY(courseID) REFERENCES courses(courseID)
+                ON UPDATE CASCADE ON DELETE RESTRICT
+                
+                );
+
+            
             ";
 
     if ($conn->multi_query($sql) === TRUE) consoleLog("Table creation successful!");
     else {
       consoleLog("TABLE(s) FAILED TO BE CREATED: " . mysqli_error($conn));
     }
-
+  
     mysqli_close($conn);
 ?>
