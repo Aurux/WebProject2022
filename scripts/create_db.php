@@ -231,9 +231,14 @@
                 ON UPDATE CASCADE ON DELETE RESTRICT,
                 FOREIGN KEY(id) REFERENCES assessments(id)
                 ON UPDATE CASCADE ON DELETE RESTRICT
-                )
+                );
 
-            
+            CREATE TABLE IF NOT EXISTS events (
+                courseID int(11) NOT NULL,
+                title varchar(225) NOT NULL,
+                event_date date NOT NULL
+                
+                );
             ";
 
     if ($conn->multi_query($sql) === TRUE) consoleLog("Table creation successful!");

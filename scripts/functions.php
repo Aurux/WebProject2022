@@ -2,7 +2,7 @@
 error_reporting(E_ALL ^ E_WARNING); 
 function connectDatabase($dbExists) {
     //create connnection credentials
-    $db_host = 'localhost';
+    $db_host = 'localhost:3307';
     $db_name = 'bowlingDB';
     $db_user = 'root';
     $db_pass = 'traffic-surprise-pungent';
@@ -650,6 +650,28 @@ function addQuestion($conn){
             echo 'Question has been added';
         }
     }
+    $sql = "SELECT * FROM questions";
+    $questions =  $conn->query($sql) or die($conn->error.__LINE__);
+    $total = $questions->num_rows;
+    $next = $total+1;
+
+    echo'<form method="POST">
+    <label>Question number: </label>
+    <input value ="'.$next.'"name="question_number"/><br><br>
+    <label>Question text: </label>
+    <input type="text" name="question_text"/><br><br>
+    <label>Add choice 1:  </label>
+    <input type="text" name="choice1"/><br><br>
+    <label>Add choice 2:  </label>
+    <input type="text" name="choice2"/><br><br>
+    <label>Add choice 3:  </label>
+    <input type="text" name="choice3"/><br><br>
+    <label>Add choice 4:  </label>
+    <input type="text" name="choice4"/><br><br>
+    <label>Correct choice: </label>
+    <input type="number" name="correct_choice"/><br><br>
+    <input type="submit" name="submit" value="submit"/>
+</form>';
 }
 
 function consoleLog($message) {
