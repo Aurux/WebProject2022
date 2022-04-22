@@ -17,8 +17,13 @@
                 if($_SESSION["loggedIn"] == true) {
                     echo '<li><a href="timetable.php">Timetables</a></li>
                         <li ><a href="calendar.php">Calendar</a></li>';
+
                     if ($_SESSION["uType"] == "student") echo '<li><a href="assessments.php">Assessments</a></li><li><a href="quizIndex.php">Quiz</a></li>';
                     if ($_SESSION["uType"] == "tutor") echo '<li><a href="addQuestion.php">Quiz</a></li>';
+
+                    if ($_SESSION["uType"] == "student") echo '<li><a href="assessments.php">Assessments</a></li>';
+                    
+
                    
                 }
 
