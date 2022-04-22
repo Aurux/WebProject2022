@@ -2,7 +2,7 @@
 error_reporting(E_ALL ^ E_WARNING); 
 function connectDatabase($dbExists) {
     //create connnection credentials
-    $db_host = 'localhost:';
+    $db_host = 'localhost';
     $db_name = 'bowlingDB';
     $db_user = 'root';
     $db_pass = 'traffic-surprise-pungent';
@@ -362,15 +362,25 @@ function showTimetable($conn, $courseID){
     else echo "<tr><td>You have not been assigned to any courses.</td></tr></table>";
 }
 
-function draw_calendar($month,$year){
-	$calendar = '<table cellpadding="10" cellspacing="1" class="calendar">';
-	$headings = array('Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday');
-	$calendar.= '<tr class="calendar-row"><td class="calendar-day-head">'.implode('</td><td class="calendar-day-head">',$headings).'</td></tr>';
-	$running_day = date('w',mktime(0,0,0,$month,1,$year));
-	$days_in_month = date('t',mktime(0,0,0,$month,1,$year));
-	$days_in_this_week = 1;
-	$day_counter = 0;
-	$calendar.= '<tr class="calendar-row">';
+function draw_calendar($conn,$month,$year,$events,$courseID){
+
+    $sql = "SELECT courseID, title, event_date FROM events WHERE courseID ='$courseID'";
+    $result = mysqli_query($conn, $sql);
+
+    $sql = "SELECT courseName FROM courses WHERE courseID = '$courseID'";
+    mysqli_query($conn, $sql);
+
+    while($row = mysqli_fetch_assoc($result)) {
+	    $events[$row['event_date']][] = $row;
+    }
+    $calendar = '<table cellpadding="10" cellspacing="1" class="calendar">';
+    $headings = array('Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday');
+    $calendar.= '<tr class="calendar-row"><td class="calendar-day-head">'.implode('</td><td class="calendar-day-head">',$headings).'</td></tr>';
+    $running_day = date('w',mktime(0,0,0,$month,1,$year));
+    $days_in_month = date('t',mktime(0,0,0,$month,1,$year));
+    $days_in_this_week = 1;
+    $day_counter = 0;
+    $calendar.= '<tr class="calendar-row">';
 
 	for($x = 0; $x < $running_day; $x++):
 		$calendar.= '<td class="calendar-day-np">&nbsp;</td>';
@@ -380,6 +390,16 @@ function draw_calendar($month,$year){
 	for($list_day = 1; $list_day <= $days_in_month; $list_day++):
 		$calendar.= '<td class="calendar-day">';
 		$calendar.= '<div class="day-number">'.$list_day.'</div>';
+
+        $event_day = $year.'-'.$month.'-'.$list_day;
+        if(isset($events[$event_day])) {
+            foreach($events[$event_day] as $event) {
+                $calendar.= ''.	$event['title'].'';
+            }
+        } else {
+            $calendar.= str_repeat(' ',2);
+        }
+
 		$calendar.= '</td>';
 		if($running_day == 6):
 			$calendar.= '</tr>';
@@ -400,7 +420,29 @@ function draw_calendar($month,$year){
 
 	$calendar.= '</tr>';
 	$calendar.= '</table>';
-	return $calendar;
+	echo $calendar;
+
+}
+
+function addCalendarEvent($conn){
+    if (isset($_POST['submit'])){
+        $event_date = $_POST['event_date'];
+        $title = $_POST['title'];
+        $courseID =$_POST['courseID'];
+
+        $sql = "INSERT INTO events(event_date, title, courseID)
+                VALUES('$event_date','$title','$courseID')";
+        $conn->query($sql) or die($conn->error.__LINE__);
+    }
+    echo'<form method="POST">
+    <label>Event date: </label>
+    <input type="date" name="event_date"/><br><br>
+    <label>Title: </label>
+    <input type="text" name="title"/><br><br>
+    <label>Course ID: </label>
+    <input type="number" name="courseID"/><br><br>
+    <input type="submit" name="submit" value="submit"/>
+    </form>';
 }
 
 function showAssessments($conn, $username){
