@@ -501,7 +501,6 @@ function addQuestion($conn){
 
         $sql = "INSERT INTO questions(question_number, question_text)
                 VALUES('$question_number','$question_text')";
-
         $insert_row = $conn->query($sql) or die($conn->error.__LINE__);
 
         if($insert_row){
