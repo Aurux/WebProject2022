@@ -339,6 +339,7 @@ td.calendar-day, td.calendar-day-np {
     position:relative;height:100px;
 	width:120px; 
 	padding:5px 25px 5px 5px; 
+
 }
 
 #questionContent input[type=text]{
@@ -350,5 +351,5 @@ td.calendar-day, td.calendar-day-np {
 
 #questionContent h1{
     text-align: center;
-    padding-bottom: 20px;
+
 }
