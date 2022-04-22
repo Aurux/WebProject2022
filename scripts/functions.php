@@ -363,15 +363,14 @@ function showTimetable($conn, $courseID){
 }
 
 function draw_calendar($conn,$month,$year,$events,$courseID){
-
     $sql = "SELECT courseID, title, event_date FROM events WHERE courseID ='$courseID'";
     $result = mysqli_query($conn, $sql);
-
+    
     $sql = "SELECT courseName FROM courses WHERE courseID = '$courseID'";
     mysqli_query($conn, $sql);
-
+    
     while($row = mysqli_fetch_assoc($result)) {
-	    $events[$row['event_date']][] = $row;
+        $events[$row['event_date']][] = $row;
     }
     $calendar = '<table cellpadding="10" cellspacing="1" class="calendar">';
     $headings = array('Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday');
@@ -381,16 +380,16 @@ function draw_calendar($conn,$month,$year,$events,$courseID){
     $days_in_this_week = 1;
     $day_counter = 0;
     $calendar.= '<tr class="calendar-row">';
-
-	for($x = 0; $x < $running_day; $x++):
-		$calendar.= '<td class="calendar-day-np">&nbsp;</td>';
-		$days_in_this_week++;
-	endfor;
-
-	for($list_day = 1; $list_day <= $days_in_month; $list_day++):
-		$calendar.= '<td class="calendar-day">';
-		$calendar.= '<div class="day-number">'.$list_day.'</div>';
-
+    
+    for($x = 0; $x < $running_day; $x++):
+        $calendar.= '<td class="calendar-day-np">&nbsp;</td>';
+        $days_in_this_week++;
+    endfor;
+    
+    for($list_day = 1; $list_day <= $days_in_month; $list_day++):
+        $calendar.= '<td class="calendar-day">';
+        $calendar.= '<div class="day-number">'.$list_day.'</div>';
+    
         $event_day = $year.'-'.$month.'-'.$list_day;
         if(isset($events[$event_day])) {
             foreach($events[$event_day] as $event) {
@@ -399,37 +398,37 @@ function draw_calendar($conn,$month,$year,$events,$courseID){
         } else {
             $calendar.= str_repeat(' ',2);
         }
-
-		$calendar.= '</td>';
-		if($running_day == 6):
-			$calendar.= '</tr>';
-			if(($day_counter+1) != $days_in_month):
-				$calendar.= '<tr class="calendar-row">';
-			endif;
-			$running_day = -1;
-			$days_in_this_week = 0;
-		endif;
-		$days_in_this_week++; $running_day++; $day_counter++;
-	endfor;
-
-	if($days_in_this_week < 8):
-		for($x = 1; $x <= (8 - $days_in_this_week); $x++):
-			$calendar.= '<td class="calendar-day-np">&nbsp;</td>';
-		endfor;
-	endif;
-
-	$calendar.= '</tr>';
-	$calendar.= '</table>';
-	echo $calendar;
-
+    
+        $calendar.= '</td>';
+        if($running_day == 6):
+            $calendar.= '</tr>';
+            if(($day_counter+1) != $days_in_month):
+                $calendar.= '<tr class="calendar-row">';
+            endif;
+            $running_day = -1;
+            $days_in_this_week = 0;
+        endif;
+        $days_in_this_week++; $running_day++; $day_counter++;
+    endfor;
+    
+    if($days_in_this_week < 8):
+        for($x = 1; $x <= (8 - $days_in_this_week); $x++):
+            $calendar.= '<td class="calendar-day-np">&nbsp;</td>';
+        endfor;
+    endif;
+    
+    $calendar.= '</tr>';
+    $calendar.= '</table>';
+    echo $calendar;
+    
 }
-
+    
 function addCalendarEvent($conn){
     if (isset($_POST['submit'])){
         $event_date = $_POST['event_date'];
         $title = $_POST['title'];
         $courseID =$_POST['courseID'];
-
+    
         $sql = "INSERT INTO events(event_date, title, courseID)
                 VALUES('$event_date','$title','$courseID')";
         $conn->query($sql) or die($conn->error.__LINE__);
@@ -502,6 +501,90 @@ function showAssessments($conn, $username){
     
 }
 
+function showAssessmentsTutor($conn){
+    
+    $sql = "SELECT * FROM assessments";
+    $result = mysqli_query($conn, $sql);
+    $numrows = mysqli_num_rows($result);
+
+
+    
+    if ($numrows >= 1){
+        
+        
+        while ($row = mysqli_fetch_array($result)){
+            $courseID = $row["courseID"];
+            $title = $row["title"];
+            $deadline = $row["deadline"];
+            $sql = "SELECT courseName FROM courses WHERE courseID = '$courseID'";
+            $nameResult = mysqli_query($conn, $sql);
+            while($singleRow = mysqli_fetch_array($nameResult)) {
+                $courseName = $singleRow["courseName"];
+            }
+            echo "<br><table id='assessmentTable' style='width: 60%; margin-left: auto; margin-right: auto; float:none;'><caption>$courseName - $title - $deadline</caption>";
+            echo "<th>Student</th><th>Student ID</th><th>Submission</th><th>Marking</th>";
+            $id = $row["id"];
+           
+            $sql = "SELECT * FROM studentAssessments WHERE id = '$id'";
+            $studentResult = mysqli_query($conn, $sql);
+            $numStudents = mysqli_num_rows($studentResult);
+
+            if ($numStudents >= 1){
+                while($nextRow = mysqli_fetch_array($studentResult)) {
+                    
+                        $username = $nextRow["username"];
+                        $usrSql = "SELECT * FROM users WHERE username = '$username';";
+                        $usrResult = mysqli_query($conn, $usrSql);
+                        while ($usrRow = mysqli_fetch_array($usrResult)){
+                            $name = $usrRow["forename"] ." ". $usrRow["surname"];
+                        }
+                        echo "<tr><td>$name</td><td>$username</td><td>";
+
+                        $dirPath = "uploads/assessments/" . $id . "/" . $username . "/";
+
+                        $contents = scandir($dirPath);
+                        
+                        if ($contents == "") {
+                            echo "No files.";
+                        }
+                        else {
+                            echo "<ul style='list-style-type: square;'>";
+                            foreach ($contents as $file) {
+                                if (strlen($file) > 2) {
+                                    echo "<li><a href='". $dirPath . $file . "'>$file</a></li><br>";
+                                }
+                            }
+                            echo "</ul>";
+                        }
+                        echo "</td><td id='markingButtons'>";
+                        if ($nextRow["completed"] == 0){
+                            echo "<input style='background-color: red;' type='button' value='Fail' onclick='failStudent($id, $username, $courseID)'><input type='button' style='background-color: green;' value='Pass' onclick='passStudent($id, $username, $courseID)'>";
+                        }
+                        if ($nextRow["completed"] == 1){
+                            if ($nextRow["completion"] == 0){
+                                echo "Student Failed";
+                            }
+                            else echo "Student Passed";
+                        }
+                        echo "</td></tr>";
+                    
+                    
+                }
+                echo "</table><br>";
+            }
+            else echo "<tr><td>There are no students on this course!</td></tr></table><br>";
+            
+            
+            
+            
+
+        }
+    }
+    else echo "<tr><td>There are no assessments currently.</td></tr>";
+
+    
+}
+
 function uploadSubmission($id,$username) {
     if(isset($_FILES["fileUpload$id"])) {
         $file = $_FILES["fileUpload$id"];
@@ -512,7 +595,6 @@ function uploadSubmission($id,$username) {
         mkdir(dirname(__DIR__,1) ."/". $folderPath, 0755, true);
         
         $savePath = $folderPath . "/" . $fileName;
-        consoleLog($savePath);
         if ($file["size"] <= 100000000) {
             consoleLog($savePath);
             consoleLog($file["tmp_name"]);
