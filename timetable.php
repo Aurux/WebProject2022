@@ -1,6 +1,5 @@
-
 <?php
-    $title = "imetables";
+    $title = "Timetables";
     require_once("includes/header.php");
     include("includes/nav.php");
 ?>
@@ -14,7 +13,7 @@
             showTimetable($conn, $row["courseID"]);
         }
     }
-    if ($_SESSION["loggedIn"] && $_SESSION["uType"] == "student") {
+    else if ($_SESSION["loggedIn"] && $_SESSION["uType"] == "student") {
         $username = $_SESSION["username"];
         $sql = "SELECT courseID FROM studentCourses WHERE username = $username";
         $result = mysqli_query($conn, $sql);
@@ -25,4 +24,4 @@
     else echo "<h1>403 Forbidden - You don't have permission to access this.</h1>";
     ?>
 
-</div> 
+</div>

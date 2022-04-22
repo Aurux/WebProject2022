@@ -265,6 +265,7 @@ time, mark, audio, video {
 
 #HomeContent h1 {
     text-align: center;
+    font-size: large;
     color: white;
 }
 
@@ -294,7 +295,7 @@ time, mark, audio, video {
 }
 
 #HomeContent td {
-    padding: 10px;
+    padding: 15px;
 }
 
 #HomeContent input[type=button], input[type=submit] {
@@ -306,14 +307,6 @@ time, mark, audio, video {
     padding: 5px;
     margin: 2px;
 
-}
-
-* {
-    box-sizing: border-box;
-    font-family: -apple-system, BlinkMacSystemFont, "segoe ui", roboto, oxygen, ubuntu, cantarell, "fira sans", "droid sans", "helvetica neue", Arial, sans-serif;
-    font-size: 16px;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
 }
 
 .content {
@@ -346,4 +339,16 @@ td.calendar-day, td.calendar-day-np {
     position:relative;height:100px;
 	width:120px; 
 	padding:5px 25px 5px 5px; 
+}
+
+#questionContent input[type=text]{
+    width: 20%;
+    padding: 12px 20px;
+    border: 3px solid #f83434;
+    box-sizing: border-box;
+}
+
+#questionContent h1{
+    text-align: center;
+    padding-bottom: 20px;
 }

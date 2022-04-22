@@ -15,12 +15,11 @@
                 if($_SESSION["loggedIn"] != true) echo '<li><a href="enroll.php">Enroll</a></li>';
 
                 if($_SESSION["loggedIn"] == true) {
-                    echo '<li><a href="assessments.php">Assessments</a></li>
-                        <li><a href="timetable.php">Timetable</a></li>
-                        <li><a href="calendar.php">Calendar</a></li>
-                        <li><a href="quizIndex.php">Quiz</a></li>
-                        ';
-                    
+                    echo '<li><a href="timetable.php">Timetables</a></li>
+                        <li ><a href="calendar.php">Calendar</a></li>';
+                    if ($_SESSION["uType"] == "student") echo '<li><a href="assessments.php">Assessments</a></li><li><a href="quizIndex.php">Quiz</a></li>';
+                    if ($_SESSION["uType"] == "tutor") echo '<li><a href="addQuestion.php">Quiz</a></li>';
+                   
                 }
 
                 if($_SESSION["loggedIn"] == true) echo "<li style=\"float:right;\"><a href=\"logout.php\">Logout</a></li>";

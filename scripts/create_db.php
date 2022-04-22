@@ -16,7 +16,7 @@
                 email VARCHAR(255) NOT NULL,
                 uType ENUM('student', 'tutor') NOT NULL,
                 pass VARCHAR(255) NOT NULL,
-                authorised TINYINT,
+                authorised boolean,
                 PRIMARY KEY (username)
                 );
             
@@ -208,6 +208,31 @@
 
             ALTER TABLE timetable
             MODIFY id int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
+
+            CREATE TABLE IF NOT EXISTS assessments (
+                id int NOT NULL AUTO_INCREMENT,
+                title VARCHAR(255),
+                info TEXT,
+                deadline DATE,
+                creditWeight DECIMAL(3,2),
+                courseID int,
+                PRIMARY KEY (id),
+                FOREIGN KEY(courseID) REFERENCES courses(courseID)
+                ON UPDATE CASCADE ON DELETE RESTRICT
+                
+                );
+
+            CREATE TABLE IF NOT EXISTS studentAssessments (
+                username int,
+                id int,
+                completed boolean default false,
+                completion decimal(3,2) DEFAULT 0,
+                FOREIGN KEY(username) REFERENCES users(username)
+                ON UPDATE CASCADE ON DELETE RESTRICT,
+                FOREIGN KEY(id) REFERENCES assessments(id)
+                ON UPDATE CASCADE ON DELETE RESTRICT
+                )
+
             
             ";
 
@@ -215,6 +240,6 @@
     else {
       consoleLog("TABLE(s) FAILED TO BE CREATED: " . mysqli_error($conn));
     }
-
+  
     mysqli_close($conn);
 ?>

@@ -9,7 +9,7 @@
     $dirPath = "uploads/" . $courseID . "/week" . $week . "/";
 
     $contents = scandir($dirPath);
-
+    
     if ($contents == "") {
         echo "No files for this week.";
     }
@@ -19,7 +19,6 @@
             if (strlen($file) > 2) {
                 echo "<li><a href='". $dirPath . $file . "'>$file</a></li><br>";
             }
-
         }
         echo "</ul>";
     }

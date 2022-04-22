@@ -1,24 +1,18 @@
+<?php
+    $title = "Asessments";
+    require_once("includes/header.php");
+    include("includes/nav.php");
+    require("scripts/ajax.php");
+?>
 
-  
-<!DOCTYPE html>
 
-<html>
-    <head>
-        <link rel="stylesheet" type="text/css" href="style.css"/>
-    </head>
-    <title>Moodle Login</title>
-    <body>
-        <header>
-          <img src="images/logo.png" alt="Trulli" width="100" height="80">
-          Bowling University Moodle
-        </header>
-        <ul id="navi">
-            <li><a href="index.html">Home</a></li>
-            <li><a href="enroll.html">Enroll</a></li>
-            <li><a href="help.html">Help</a></li>
-            <li><a href="QuizIndex.php">Quiz</a></li>
-            <li><a href="calendar.php">Calendar</a></li>
-            <li><a class="active" href="assessments.php">Assessments</a></li>
-            <li><a href="timetable.php">Timetable</a></li>
-        </ul>
-</html>
+<div id="HomeContent">
+    <?php
+        if ($_SESSION["loggedIn"] && $_SESSION["uType"] == "student") showAssessments($conn, $_SESSION["username"]);
+        else echo "<h1>403 Forbidden - You don't have permission to access this.</h1>";
+    ?>
+</div>
+
+<?php
+include("includes/footer.php");
+?>

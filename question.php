@@ -13,17 +13,21 @@ $query = "SELECT * FROM `questions` WHERE question_number = $number";
 $result = $conn->query($query) or die($conn->error.__LINE__);
 $question = $result->fetch_assoc();
 
-
 $number = (int) $_GET['n'];
 $query = "SELECT * FROM `choices` WHERE question_number = $number";
 $choices = $conn->query($query) or die($conn->error.__LINE__);
+
+$sql = "SELECT * FROM questions";
+$questions =  $conn->query($sql) or die($conn->error.__LINE__);
+$total = $questions->num_rows;
+$next = $total;
 
 if ($_SESSION["loggedIn"] && $_SESSION["uType"] == "student");
     else echo "<h1>403 Forbidden - You don't have permission to access this.</h1>";?>
 
 <main>
     <div class="container">
-        <div class="current">Question <?php echo $question['question_number']; ?> of 15</div><br>
+        <div class="current">Question <?php echo $question['question_number']; ?> of <?php echo $next?></div><br>
         <p class="question">
             <?php echo $question['question_text']; ?>
         </p><br>

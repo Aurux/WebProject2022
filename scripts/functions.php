@@ -2,7 +2,7 @@
 error_reporting(E_ALL ^ E_WARNING); 
 function connectDatabase($dbExists) {
     //create connnection credentials
-    $db_host = 'localhost';
+    $db_host = 'localhost:';
     $db_name = 'bowlingDB';
     $db_user = 'root';
     $db_pass = 'traffic-surprise-pungent';
@@ -43,8 +43,13 @@ function showEnrollForm() {
 function processEnroll($conn) {
     extract($_POST);
     $password = password_hash($frmPassword, PASSWORD_DEFAULT);
+
+    if ($frmType == "tutor"){
+        $sql = "INSERT INTO users (forename, surname, uType, email, pass, authorised) VALUES('$frmForename', '$frmSurname', '$frmType', '$frmEmail', '$password', 0)";
+    }
+    else $sql = "INSERT INTO users (forename, surname, uType, email, pass) VALUES('$frmForename', '$frmSurname', '$frmType', '$frmEmail', '$password')";
     
-    $sql = "INSERT INTO users (forename, surname, uType, email, pass) VALUES('$frmForename', '$frmSurname', '$frmType', '$frmEmail', '$password')";
+    
 
     if (mysqli_query($conn, $sql)) $result = True;
     else $result = False;
@@ -92,16 +97,29 @@ function processLogin($conn) {
 
         
         if (password_verify($userPass, $pass)) {
-            
-            
-            $_SESSION["loggedIn"] = true;
-            $_SESSION["username"] = $username;
-            $_SESSION["forename"] = $forename;
-            $_SESSION["surname"] = $surname;
-            $_SESSION["uType"] = $uType;
 
-            $returnVar = "<p>Welcome to the lanes, $forename! <br> You will be automatically redirected to the $uType home. If this doesn't work, please click <a href='{$uType}_home.php'>here.</a></p>";
-            header("refresh:2; url={$uType}_home.php");
+            if ($uType == "student"){
+                $_SESSION["loggedIn"] = true;
+                $_SESSION["username"] = $username;
+                $_SESSION["forename"] = $forename;
+                $_SESSION["surname"] = $surname;
+                $_SESSION["uType"] = $uType;
+
+                $returnVar = "<p>Welcome to the lanes, $forename! <br> You will be automatically redirected to the $uType home. If this doesn't work, please click <a href='{$uType}_home.php'>here.</a></p>";
+                header("refresh:2; url={$uType}_home.php");
+            }
+            
+            if ($uType == "tutor" && $authorised == 1){
+                $_SESSION["loggedIn"] = true;
+                $_SESSION["username"] = $username;
+                $_SESSION["forename"] = $forename;
+                $_SESSION["surname"] = $surname;
+                $_SESSION["uType"] = $uType;
+
+                $returnVar = "<p>Welcome to the lanes, $forename! <br> You will be automatically redirected to the $uType home. If this doesn't work, please click <a href='{$uType}_home.php'>here.</a></p>";
+                header("refresh:2; url={$uType}_home.php");
+            }
+            if ($uType == "tutor" && $authorised == 0) $returnVar = "<p>Your tutor account has not yet been approved by an admin!</p>";
         }
         else {
             $returnVar = "<p>Something seems to be incorrect with the details you have provided. Please try again.<br>If you are a new student please enroll before attempting to login.</p>";
@@ -144,10 +162,26 @@ function showStudentHome($conn, $username) {
     echo "<table><caption>Your Courses</caption>";
 
     if ($numrows >= 1){
-        echo "<th>Course</th><th>Credits</th>";
+        echo "<th>Course</th><th>Credits</th><th>Completion</th>";
         while($row = mysqli_fetch_array($result)){
             echo '<tr><td>'. htmlspecialchars($row['courseName']) .'</td>
-            <td>'. htmlspecialchars($row['courseCredits']) . '</td></tr>';
+            <td>'. htmlspecialchars($row['courseCredits']) . '</td>';
+            $id = $row['courseID'];
+            $compsql = "SELECT completion FROM studentCourses WHERE username = '$username' AND courseID = '$id'";
+            $compresult = mysqli_query($conn, $compsql); 
+
+            while($row = mysqli_fetch_array($compresult)) {
+                $courseRow = $row["completion"];
+            }
+    
+            $fullCircleCount = round($courseRow * 10);
+            $emptyCircleCount = 10 - $fullCircleCount;
+            $fullCircle = str_repeat('🟩', $fullCircleCount);
+            $emptyCircle =  str_repeat('⬜', $emptyCircleCount);
+            $courseRow = 100 * $courseRow;
+
+            echo "<td>$fullCircle$emptyCircle $courseRow%</td></tr>";
+           
         }
     }
     else {
@@ -161,7 +195,7 @@ function showStudentHome($conn, $username) {
 
     while($row = mysqli_fetch_array($result)) {
         consoleLog($row["courseID"]);
-        $courseRow[] = $row["courseID"];
+        $courseRow = $row["courseID"];
     }
 
     
@@ -182,16 +216,28 @@ function showStudentHome($conn, $username) {
 
     echo '
         <table><caption>View Course Material</caption>
-        <form method="POST" action="" id="uploadForm" enctype="multipart/form-data">
+        <form>
             <tr><td>Course</td><td>
-            <select name="course" required>';
-            while($row = mysqli_fetch_array($courseResult)){
-                if (isset($_POST["course"]) && $row["courseID"] == $_POST["course"]) {
-                    echo '<option selected value="'.$row["courseID"].'">'.htmlspecialchars($row["courseName"]).'</option>';
+            <select name="course">';
+            if (mysqli_num_rows($courseResult) > 0){
+                while($row = mysqli_fetch_array($courseResult)){
+                    $id = $row["courseID"];
+                    $sql = "SELECT courseName FROM courses WHERE courseID = '$id'";
+                    $result = mysqli_query($conn, $sql);
+                    while($row = mysqli_fetch_array($result)) {
+                        consoleLog($row["courseName"]);
+                        $nameRow = $row["courseName"];
+                    }
+
+                    if (isset($_POST["course"]) && $row["courseID"] == $_POST["course"]) {
+                        
+                        echo '<option selected value="'.$id.'">'.$nameRow.'</option>';
+                    }
+                    else echo '<option value="'.$id.'">'.$nameRow.'</option>';
+                    
                 }
-                else echo '<option value="'.$row["courseID"].'">'.htmlspecialchars($row["courseName"]).'</option>';
-                
             }
+            else echo '<option value="No courses">No courses</option>';
     
     echo '</select></td></tr>
             <tr><td>Week Number</td><td>
@@ -214,16 +260,16 @@ function showTutorHome($conn) {
     
     echo "<h1>Your Tutor Home Page</h1><br>";
 
-    echo "<table id='courseTable'><caption>Courses</caption><th>Course</th><th>Credits</th>";
+    echo "<table style='width: 50%;' id='courseTable'><caption>Courses</caption><th>Course</th><th>Credits</th>";
 
     while($row = mysqli_fetch_array($result)){
         echo '<tr><td>'. htmlspecialchars($row['courseName']) .'</td>
         <td>'. htmlspecialchars($row['courseCredits']) . '</td>
-        <td><input type="button" class="tutorButtons" value="View Students" name="'.$row["courseID"].'" onclick="viewStudents('.$row["courseID"].')"></td>
+        <td><input type="button" class="tutorButtons" value="View Students" name="'.$row["courseID"].'" onclick="viewStudents('.$row["courseID"].')"><input type="button" class="tutorButtons" value="View Assessments" name="'.$row["courseID"].'" onclick="viewAssessments('.$row["courseID"].')"></td>
         </tr>';
     }
 
-    echo "</table>";
+    echo "<tr><td><input type='button' value='Create Course' onclick='createCourseForm()'></td></tr></table>";
 
     $sql = "SELECT * from courses ORDER BY courseName DESC;";
     $courseResult = mysqli_query($conn, $sql);
@@ -236,7 +282,7 @@ function showTutorHome($conn) {
     
     
     echo '
-        <table><caption>Manage Course Material</caption>
+        <table style="width: 30%;"><caption>Manage Course Material</caption>
         <form method="POST" action="" id="uploadForm" enctype="multipart/form-data">
             <tr><td>Course</td><td>
             <select name="course" required>';
@@ -313,6 +359,7 @@ function showTimetable($conn, $courseID){
         }
         echo "</table><br>";
     }
+    else echo "<tr><td>You have not been assigned to any courses.</td></tr></table>";
 }
 
 function draw_calendar($month,$year){
@@ -354,6 +401,132 @@ function draw_calendar($month,$year){
 	$calendar.= '</tr>';
 	$calendar.= '</table>';
 	return $calendar;
+}
+
+function showAssessments($conn, $username){
+    $sql = "SELECT id FROM studentAssessments WHERE username = '$username'";
+    $result = mysqli_query($conn, $sql);
+    $numrows = mysqli_num_rows($result);
+
+
+    echo "<br><table id='assessmentTable' style='width: 90%; margin-left: auto; margin-right: auto; float:none;'><caption>Assessments</caption>";
+    if ($numrows >= 1){
+        
+        echo "<th>Course</th><th>Assessment</th><th>Info</th><th>Value</th><th>Deadline</th><th>Your Submission</th>";
+        while ($row = mysqli_fetch_array($result)){
+            $id = $row["id"];
+            $sql = "SELECT * FROM assessments WHERE id = '$id'";
+            $assResult = mysqli_query($conn, $sql);
+            while($singleRow = mysqli_fetch_array($assResult)) {
+                $courseID = $singleRow["courseID"];
+                $title = $singleRow["title"];
+                $info = $singleRow["info"];
+                $value = $singleRow["creditWeight"] * 100;
+                $deadline = $singleRow["deadline"];
+            }
+            $sql = "SELECT courseName FROM courses WHERE courseID = '$courseID'";
+            $nameResult = mysqli_query($conn, $sql);
+            while($singleRow = mysqli_fetch_array($nameResult)) {
+                $courseName = $singleRow["courseName"];
+            }
+            
+            echo "<tr><td>$courseName</td><td>$title</td><td>$info</td><td>$value%</td><td>$deadline</td><td>";
+            
+            $dirPath = "uploads/assessments/" . $id . "/" . $username . "/";
+
+            $contents = scandir($dirPath);
+            
+            if ($contents == "") {
+                echo "No files.";
+            }
+            else {
+                echo "<ul style='list-style-type: square;'>";
+                foreach ($contents as $file) {
+                    if (strlen($file) > 2) {
+                        echo "<li><a href='". $dirPath . $file . "'>$file</a></li><br>";
+                    }
+                }
+                echo "</ul>";
+            }
+            echo "</td>";
+            uploadSubmission($id, $username);
+            echo "<td><form method='POST' action='' id='uploadForm$id' enctype='multipart/form-data'><input name='fileUpload$id' type='file'><input type='submit' value='Add Submission'></form></td></tr>";
+
+        }
+    }
+    else echo "<tr><td>You have no assessments currently.</td></tr>";
+
+    echo "</table>";
+    
+}
+
+function uploadSubmission($id,$username) {
+    if(isset($_FILES["fileUpload$id"])) {
+        $file = $_FILES["fileUpload$id"];
+        $fileName = $file["name"];
+        $folderPath = 'uploads/assessments/' . $id . "/" . $username;
+
+        consoleLog($folderPath);
+        mkdir(dirname(__DIR__,1) ."/". $folderPath, 0755, true);
+        
+        $savePath = $folderPath . "/" . $fileName;
+        consoleLog($savePath);
+        if ($file["size"] <= 100000000) {
+            consoleLog($savePath);
+            consoleLog($file["tmp_name"]);
+            if (move_uploaded_file($file["tmp_name"], $savePath)) {
+                consoleLog("$fileName uploaded successfully!");
+            }
+            else {
+                consoleLog("File upload failed.");
+            }
+        }
+        else {
+            echo '<script>alert("File too large - must be under 100Mb");</script>';
+        }
+    }
+}
+
+function addQuestion($conn){
+    if (isset($_POST['submit'])){
+        $question_number = $_POST['question_number'];
+        $question_text = $_POST['question_text'];
+        $correct_choice = $_POST['correct_choice'];
+
+        $choices = array();
+        $choices[1] = $_POST['choice1'];
+        $choices[2] = $_POST['choice2'];
+        $choices[3] = $_POST['choice3'];
+        $choices[4] = $_POST['choice4'];
+
+        $sql = "INSERT INTO questions(question_number, question_text)
+                VALUES('$question_number','$question_text')";
+
+        $insert_row = $conn->query($sql) or die($conn->error.__LINE__);
+
+        if($insert_row){
+            foreach($choices as $choice => $value){
+                if($value != ''){
+                    if($correct_choice == $choice){
+                        $is_correct = 1;
+                    }else{
+                        $is_correct = 0;
+                    }
+                    $sql = "INSERT INTO choices(question_number, is_correct, choices_text)
+                            VALUES('$question_number','$is_correct','$value')";
+
+                    $insert_row = $conn->query($sql) or die($conn->error.__LINE__);
+
+                    if($insert_row){
+                        continue;
+                    }else{
+                        die;
+                    }  
+                }
+            }
+            echo 'Question has been added';
+        }
+    }
 }
 
 function consoleLog($message) {
