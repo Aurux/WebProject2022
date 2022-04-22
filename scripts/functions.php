@@ -2,7 +2,7 @@
 error_reporting(E_ALL ^ E_WARNING); 
 function connectDatabase($dbExists) {
     //create connnection credentials
-    $db_host = 'localhost:';
+    $db_host = 'localhost';
     $db_name = 'bowlingDB';
     $db_user = 'root';
     $db_pass = 'traffic-surprise-pungent';
