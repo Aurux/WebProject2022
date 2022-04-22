@@ -2,7 +2,7 @@
 error_reporting(E_ALL ^ E_WARNING); 
 function connectDatabase($dbExists) {
     //create connnection credentials
-    $db_host = 'localhost';
+    $db_host = 'localhost:';
     $db_name = 'bowlingDB';
     $db_user = 'root';
     $db_pass = 'traffic-surprise-pungent';
@@ -335,6 +335,7 @@ function uploadFile() {
 }
 
 
+
 function showTimetable($conn, $courseID){
     $sql ="SELECT courseID, time, monday, tuesday, wednesday, thursday, friday FROM timetable WHERE courseID='$courseID'";
 
@@ -466,6 +467,124 @@ function uploadSubmission($id,$username) {
         $fileName = $file["name"];
         $folderPath = 'uploads/assessments/' . $id . "/" . $username;
 
+function showTimetable($conn, $courseID){
+    $sql ="SELECT courseID, time, monday, tuesday, wednesday, thursday, friday FROM timetable WHERE courseID='$courseID'";
+
+    $result = mysqli_query($conn, $sql);
+    $numrows = mysqli_num_rows($result);
+
+    $sql = "SELECT courseName FROM courses WHERE courseID = '$courseID'";
+    $nameResult = mysqli_query($conn, $sql);
+
+    while($row = mysqli_fetch_array($nameResult)) {
+        $courseName = $row["courseName"];
+    }
+    consoleLog("Showing timetable: ". $courseID);
+    echo "<h1>$courseName - course ID: $courseID</h1><br>";
+    echo "<table class='timetable'>";
+    if ($numrows >= 1) {
+        echo "<tr><th>Time</th><th>Monday</th><th>Tuesday</th><th>Wednesday</th><th>Thursday</th><th>Friday</th></tr>";
+        while($row = mysqli_fetch_array($result)){
+            echo "<td>".$row["time"]."</td><td>".$row["monday"]."</td><td>".$row["tuesday"]
+            ."</td><td>".$row["wednesday"]."</td><td>".$row["thursday"]."</td><td>".$row["friday"]."</td></tr>";
+
+        }
+        echo "</table><br>";
+    }
+    else echo "<tr><td>You have not been assigned to any courses.</td></tr></table>";
+}
+
+function draw_calendar($month,$year){
+	$calendar = '<table cellpadding="10" cellspacing="1" class="calendar">';
+	$headings = array('Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday');
+	$calendar.= '<tr class="calendar-row"><td class="calendar-day-head">'.implode('</td><td class="calendar-day-head">',$headings).'</td></tr>';
+	$running_day = date('w',mktime(0,0,0,$month,1,$year));
+	$days_in_month = date('t',mktime(0,0,0,$month,1,$year));
+	$days_in_this_week = 1;
+	$day_counter = 0;
+	$calendar.= '<tr class="calendar-row">';
+
+	for($x = 0; $x < $running_day; $x++):
+		$calendar.= '<td class="calendar-day-np">&nbsp;</td>';
+		$days_in_this_week++;
+	endfor;
+
+	for($list_day = 1; $list_day <= $days_in_month; $list_day++):
+		$calendar.= '<td class="calendar-day">';
+		$calendar.= '<div class="day-number">'.$list_day.'</div>';
+		$calendar.= '</td>';
+		if($running_day == 6):
+			$calendar.= '</tr>';
+			if(($day_counter+1) != $days_in_month):
+				$calendar.= '<tr class="calendar-row">';
+			endif;
+			$running_day = -1;
+			$days_in_this_week = 0;
+		endif;
+		$days_in_this_week++; $running_day++; $day_counter++;
+	endfor;
+
+	if($days_in_this_week < 8):
+		for($x = 1; $x <= (8 - $days_in_this_week); $x++):
+			$calendar.= '<td class="calendar-day-np">&nbsp;</td>';
+		endfor;
+	endif;
+
+	$calendar.= '</tr>';
+	$calendar.= '</table>';
+	return $calendar;
+}
+
+function showAssessments($conn, $username){
+    $sql = "SELECT id FROM studentAssessments WHERE username = '$username'";
+    $result = mysqli_query($conn, $sql);
+    $numrows = mysqli_num_rows($result);
+
+
+    echo "<br><table id='assessmentTable' style='width: 90%; margin-left: auto; margin-right: auto; float:none;'><caption>Assessments</caption>";
+    if ($numrows >= 1){
+        
+        echo "<th>Course</th><th>Assessment</th><th>Info</th><th>Value</th><th>Deadline</th><th>Your Submission</th>";
+        while ($row = mysqli_fetch_array($result)){
+            $id = $row["id"];
+            $sql = "SELECT * FROM assessments WHERE id = '$id'";
+            $assResult = mysqli_query($conn, $sql);
+            while($singleRow = mysqli_fetch_array($assResult)) {
+                $courseID = $singleRow["courseID"];
+                $title = $singleRow["title"];
+                $info = $singleRow["info"];
+                $value = $singleRow["creditWeight"] * 100;
+                $deadline = $singleRow["deadline"];
+            }
+            $sql = "SELECT courseName FROM courses WHERE courseID = '$courseID'";
+            $nameResult = mysqli_query($conn, $sql);
+            while($singleRow = mysqli_fetch_array($nameResult)) {
+                $courseName = $singleRow["courseName"];
+            }
+            
+            echo "<tr><td>$courseName</td><td>$title</td><td>$info</td><td>$value%</td><td>$deadline</td><td>";
+            
+            $dirPath = "uploads/assessments/" . $id . "/" . $username . "/";
+
+            $contents = scandir($dirPath);
+            
+            if ($contents == "") {
+                echo "No files.";
+            }
+            else {
+                echo "<ul style='list-style-type: square;'>";
+                foreach ($contents as $file) {
+                    if (strlen($file) > 2) {
+                        echo "<li><a href='". $dirPath . $file . "'>$file</a></li><br>";
+                    }
+                }
+                echo "</ul>";
+            }
+            echo "</td>";
+            uploadSubmission($id, $username);
+            echo "<td><form method='POST' action='' id='uploadForm$id' enctype='multipart/form-data'><input name='fileUpload$id' type='file'><input type='submit' value='Add Submission'></form></td></tr>";
+
+
         consoleLog($folderPath);
         mkdir(dirname(__DIR__,1) ."/". $folderPath, 0755, true);
         
@@ -483,6 +602,80 @@ function uploadSubmission($id,$username) {
         }
         else {
             echo '<script>alert("File too large - must be under 100Mb");</script>';
+        }
+    }
+
+}
+
+function addQuestion($conn){
+    if (isset($_POST['submit'])){
+        $question_number = $_POST['question_number'];
+        $question_text = $_POST['question_text'];
+        $correct_choice = $_POST['correct_choice'];
+
+        $choices = array();
+        $choices[1] = $_POST['choice1'];
+        $choices[2] = $_POST['choice2'];
+        $choices[3] = $_POST['choice3'];
+        $choices[4] = $_POST['choice4'];
+
+        $sql = "INSERT INTO questions(question_number, question_text)
+                VALUES('$question_number','$question_text')";
+
+        $insert_row = $conn->query($sql) or die($conn->error.__LINE__);
+
+        if($insert_row){
+            foreach($choices as $choice => $value){
+                if($value != ''){
+                    if($correct_choice == $choice){
+                        $is_correct = 1;
+                    }else{
+                        $is_correct = 0;
+                    }
+                    $sql = "INSERT INTO choices(question_number, is_correct, choices_text)
+                            VALUES('$question_number','$is_correct','$value')";
+
+                    $insert_row = $conn->query($sql) or die($conn->error.__LINE__);
+
+                    if($insert_row){
+                        continue;
+                    }else{
+                        die;
+                    }  
+                }
+            }
+            echo 'Question has been added';
+
+    else echo "<tr><td>You have no assessments currently.</td></tr>";
+
+    echo "</table>";
+    
+}
+
+function uploadSubmission($id,$username) {
+    if(isset($_FILES["fileUpload$id"])) {
+        $file = $_FILES["fileUpload$id"];
+        $fileName = $file["name"];
+        $folderPath = 'uploads/assessments/' . $id . "/" . $username;
+
+        consoleLog($folderPath);
+        mkdir(dirname(__DIR__,1) ."/". $folderPath, 0755, true);
+        
+        $savePath = $folderPath . "/" . $fileName;
+        consoleLog($savePath);
+        if ($file["size"] <= 100000000) {
+            consoleLog($savePath);
+            consoleLog($file["tmp_name"]);
+            if (move_uploaded_file($file["tmp_name"], $savePath)) {
+                consoleLog("$fileName uploaded successfully!");
+            }
+            else {
+                consoleLog("File upload failed.");
+            }
+        }
+        else {
+            echo '<script>alert("File too large - must be under 100Mb");</script>';
+
         }
     }
 }
