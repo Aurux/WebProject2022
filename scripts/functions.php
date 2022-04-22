@@ -460,6 +460,90 @@ function showAssessments($conn, $username){
     
 }
 
+function showAssessmentsTutor($conn){
+    
+    $sql = "SELECT * FROM assessments";
+    $result = mysqli_query($conn, $sql);
+    $numrows = mysqli_num_rows($result);
+
+
+    
+    if ($numrows >= 1){
+        
+        
+        while ($row = mysqli_fetch_array($result)){
+            $courseID = $row["courseID"];
+            $title = $row["title"];
+            $deadline = $row["deadline"];
+            $sql = "SELECT courseName FROM courses WHERE courseID = '$courseID'";
+            $nameResult = mysqli_query($conn, $sql);
+            while($singleRow = mysqli_fetch_array($nameResult)) {
+                $courseName = $singleRow["courseName"];
+            }
+            echo "<br><table id='assessmentTable' style='width: 60%; margin-left: auto; margin-right: auto; float:none;'><caption>$courseName - $title - $deadline</caption>";
+            echo "<th>Student</th><th>Student ID</th><th>Submission</th><th>Marking</th>";
+            $id = $row["id"];
+           
+            $sql = "SELECT * FROM studentAssessments WHERE id = '$id'";
+            $studentResult = mysqli_query($conn, $sql);
+            $numStudents = mysqli_num_rows($studentResult);
+
+            if ($numStudents >= 1){
+                while($nextRow = mysqli_fetch_array($studentResult)) {
+                    
+                        $username = $nextRow["username"];
+                        $usrSql = "SELECT * FROM users WHERE username = '$username';";
+                        $usrResult = mysqli_query($conn, $usrSql);
+                        while ($usrRow = mysqli_fetch_array($usrResult)){
+                            $name = $usrRow["forename"] ." ". $usrRow["surname"];
+                        }
+                        echo "<tr><td>$name</td><td>$username</td><td>";
+
+                        $dirPath = "uploads/assessments/" . $id . "/" . $username . "/";
+
+                        $contents = scandir($dirPath);
+                        
+                        if ($contents == "") {
+                            echo "No files.";
+                        }
+                        else {
+                            echo "<ul style='list-style-type: square;'>";
+                            foreach ($contents as $file) {
+                                if (strlen($file) > 2) {
+                                    echo "<li><a href='". $dirPath . $file . "'>$file</a></li><br>";
+                                }
+                            }
+                            echo "</ul>";
+                        }
+                        echo "</td><td id='markingButtons'>";
+                        if ($nextRow["completed"] == 0){
+                            echo "<input style='background-color: red;' type='button' value='Fail' onclick='failStudent($id, $username, $courseID)'><input type='button' style='background-color: green;' value='Pass' onclick='passStudent($id, $username, $courseID)'>";
+                        }
+                        if ($nextRow["completed"] == 1){
+                            if ($nextRow["completion"] == 0){
+                                echo "Student Failed";
+                            }
+                            else echo "Student Passed";
+                        }
+                        echo "</td></tr>";
+                    
+                    
+                }
+                echo "</table><br>";
+            }
+            else echo "<tr><td>There are no students on this course!</td></tr></table><br>";
+            
+            
+            
+            
+
+        }
+    }
+    else echo "<tr><td>There are no assessments currently.</td></tr>";
+
+    
+}
+
 function uploadSubmission($id,$username) {
     if(isset($_FILES["fileUpload$id"])) {
         $file = $_FILES["fileUpload$id"];
@@ -470,7 +554,6 @@ function uploadSubmission($id,$username) {
         mkdir(dirname(__DIR__,1) ."/". $folderPath, 0755, true);
         
         $savePath = $folderPath . "/" . $fileName;
-        consoleLog($savePath);
         if ($file["size"] <= 100000000) {
             consoleLog($savePath);
             consoleLog($file["tmp_name"]);
