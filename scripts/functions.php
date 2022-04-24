@@ -1,4 +1,5 @@
 <?php
+
 error_reporting(E_ALL ^ E_WARNING); 
 function connectDatabase($dbExists) {
     //create connnection credentials
@@ -362,16 +363,8 @@ function showTimetable($conn, $courseID){
     else echo "<tr><td>You have not been assigned to any courses.</td></tr></table>";
 }
 
-function draw_calendar($conn,$month,$year,$events,$courseID){
-    $sql = "SELECT courseID, title, event_date FROM events WHERE courseID ='$courseID'";
-    $result = mysqli_query($conn, $sql);
-    
-    $sql = "SELECT courseName FROM courses WHERE courseID = '$courseID'";
-    mysqli_query($conn, $sql);
-    
-    while($row = mysqli_fetch_assoc($result)) {
-        $events[$row['event_date']][] = $row;
-    }
+function draw_calendar($month,$year){
+
     $calendar = '<table cellpadding="10" cellspacing="1" class="calendar">';
     $headings = array('Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday');
     $calendar.= '<tr class="calendar-row"><td class="calendar-day-head">'.implode('</td><td class="calendar-day-head">',$headings).'</td></tr>';
@@ -389,16 +382,7 @@ function draw_calendar($conn,$month,$year,$events,$courseID){
     for($list_day = 1; $list_day <= $days_in_month; $list_day++):
         $calendar.= '<td class="calendar-day">';
         $calendar.= '<div class="day-number">'.$list_day.'</div>';
-    
-        $event_day = $year.'-'.$month.'-'.$list_day;
-        if(isset($events[$event_day])) {
-            foreach($events[$event_day] as $event) {
-                $calendar.= ''.	$event['title'].'';
-            }
-        } else {
-            $calendar.= str_repeat(' ',2);
-        }
-    
+
         $calendar.= '</td>';
         if($running_day == 6):
             $calendar.= '</tr>';
@@ -427,10 +411,9 @@ function addCalendarEvent($conn){
     if (isset($_POST['submit'])){
         $event_date = $_POST['event_date'];
         $title = $_POST['title'];
-        $courseID =$_POST['courseID'];
     
-        $sql = "INSERT INTO events(event_date, title, courseID)
-                VALUES('$event_date','$title','$courseID')";
+        $sql = "INSERT INTO events(event_date, title)
+                VALUES('$event_date','$title')";
         $conn->query($sql) or die($conn->error.__LINE__);
     }
     echo'<form method="POST">
@@ -438,8 +421,6 @@ function addCalendarEvent($conn){
     <input type="date" name="event_date"/><br><br>
     <label>Title: </label>
     <input type="text" name="title"/><br><br>
-    <label>Course ID: </label>
-    <input type="number" name="courseID"/><br><br>
     <input type="submit" name="submit" value="submit"/>
     </form>';
 }
@@ -639,7 +620,7 @@ function addQuestion($conn){
                             VALUES('$question_number','$is_correct','$value')";
 
                     $insert_row = $conn->query($sql) or die($conn->error.__LINE__);
-
+                    
                     if($insert_row){
                         continue;
                     }else{
@@ -647,7 +628,7 @@ function addQuestion($conn){
                     }  
                 }
             }
-            echo 'Question has been added';
+            echo '<p>Question has been added</p>';
         }
     }
     $sql = "SELECT * FROM questions";
@@ -669,10 +650,32 @@ function addQuestion($conn){
     <label>Add choice 4:  </label>
     <input type="text" name="choice4"/><br><br>
     <label>Correct choice: </label>
-    <input type="number" name="correct_choice"/><br><br>
-    <input type="submit" name="submit" value="submit"/>
+    <input type="number" name="correct_choice"/>
+    <input type="submit" name="submit" value="Submit"/>
 </form>';
 }
+
+function deleteQuestion($conn, $delete_question_number){
+    if (isset($_POST['delete'])){
+        $delete_question_number = $_POST['question_number'];
+
+        $sql="DELETE FROM questions WHERE question_number='$delete_question_number'";
+        $delete_row = $conn->query($sql);
+
+        if($delete_row){
+            $sql = "DELETE FROM choices WHERE question_number='$delete_question_number'";
+            $delete_row = $conn->query($sql);
+        }
+        echo '<p1>Question deleted</p1>';
+    }
+    echo'<form method="POST">
+    <br><label>Delete question: </label>
+    <input type="number" name="question_number"/>
+    <input type="submit" name="delete" value="Delete"/>
+    </form>';
+}
+
+
 
 function consoleLog($message) {
     echo '<script>console.log("' . $message . '");</script>';

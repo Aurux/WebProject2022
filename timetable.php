@@ -4,7 +4,7 @@
     include("includes/nav.php");
 ?>
 
-<div class="container">
+<div id="timetableContainer">
     <?php
     if ($_SESSION["loggedIn"] && $_SESSION["uType"] == "tutor") {
         $sql = "SELECT courseID FROM courses";

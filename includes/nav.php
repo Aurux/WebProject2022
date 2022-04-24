@@ -6,7 +6,6 @@
 </script>
 
 <ul id="navi">
-            
             <?php
                 error_reporting(E_ALL ^ E_WARNING); 
                 if($_SESSION["loggedIn"] == true) echo '<li><a href="' . $_SESSION["uType"] .'_home.php">Your Home</a></li>';
@@ -19,12 +18,8 @@
                         <li ><a href="calendar.php">Calendar</a></li>';
 
                     if ($_SESSION["uType"] == "student") echo '<li><a href="assessments.php">Assessments</a></li><li><a href="quizIndex.php">Quiz</a></li>';
-                    if ($_SESSION["uType"] == "tutor") echo '<li><a href="addQuestion.php">Quiz</a></li>';
-
-                    if ($_SESSION["uType"] == "student") echo '<li><a href="assessments.php">Assessments</a></li>';
-                    
-
-                   
+                    if ($_SESSION["uType"] == "tutor") echo '<li><a href="addQuestion.php">Quiz content</a></li>';
+                      
                 }
 
                 if($_SESSION["loggedIn"] == true) echo "<li style=\"float:right;\"><a href=\"logout.php\">Logout</a></li>";

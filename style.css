@@ -45,7 +45,6 @@ header {
     padding: 10px;
 }
 
-
 #enroll input[type=text] {
     width: 100%;
     padding: 12px 20px;
@@ -117,11 +116,11 @@ footer {
 .container{
     background-color:rgba(0,0,0,0.5);
     color:#fff;
-    padding: 150px 100px 500px 100px;
-    overflow:auto;
-    margin:0 auto;
+    padding:50px;
+    padding-top: 50px;
+    height:100%;
+    margin:auto;
     width: 1200px;
-    margin: 0px auto 0px auto;
     border-radius: 2px;
 }
   
@@ -198,6 +197,17 @@ a.reset{
     color:#fff;
     border:1px;
     padding:100px;
+}
+
+#timetableContainer{
+    background-color:rgba(0,0,0,0.5);
+    color:#fff;
+    padding:50px;
+    padding-top: 50px;
+    padding-bottom: 100px;
+    margin:auto;
+    width: 1200px;
+    border-radius: 2px;
 }
 
 
@@ -306,7 +316,30 @@ time, mark, audio, video {
     width: fit-content;
     padding: 5px;
     margin: 2px;
+}
+#calendar{
+    background-color:rgba(0,0,0,0.5);
+    color:#fff;
+    padding-top: 10px;
+    padding-bottom: 100px;
+    margin:auto;
+    width: 1200px;
+    border-radius: 2px;
+}
 
+#calendar input{
+    position:absolute;
+    left:500px;
+    box-sizing: border-box;
+}
+#calendar input[type=submit]{
+    position:absolute;
+    top: 257px;
+    left:675px;
+}
+#Calendar label{
+    position: absolute;
+    left:360px;
 }
 
 .content {
@@ -342,14 +375,67 @@ td.calendar-day, td.calendar-day-np {
 
 }
 
+
+#questionContent{
+    background-color:rgba(0,0,0,0.5);
+    color:#fff;
+    padding-top: 50px;
+    padding-bottom: 100px;
+    margin:auto;
+    width: 1200px;
+    border-radius: 2px;
+}
+
 #questionContent input[type=text]{
     width: 20%;
+    border-radius: 15px;
     padding: 12px 20px;
     border: 3px solid #f83434;
     box-sizing: border-box;
+    position:relative;
+    left:50px;
+}
+#questionContent input[type=number]{
+    border: 2px solid #f83434;
+    border-radius: 15px;
+    box-sizing: border-box;
+    position:absolute;
+    left:690px;
 }
 
+#questionContent input[type=submit]{
+    position:relative;
+    left:20px;
+}
+#questionContent input{
+    position:relative;
+    left:10px;
+    border: 2px solid #f83434;
+    box-sizing: border-box;
+}
+
+#questionContent label{
+    position: absolute;
+    left:550px;
+}
+#questionContent p{
+    position: absolute;
+    right:520px;
+    top:670px;
+}
+#questionContent p1{
+    position: absolute;
+    right:580px;
+    top:724px;
+}
 #questionContent h1{
     text-align: center;
 
+}
+
+#questionContent input[type=number]{
+    width: 50px;
+    padding: 6px;
+    border: 3px solid #f83434;
+    box-sizing: border-box;
 }
