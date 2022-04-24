@@ -3,6 +3,10 @@
     $title = "Moodle Quiz";
     include("includes/header.php");
     include("includes/nav.php");  
+    $sql = "SELECT * FROM questions";
+    $questions =  $conn->query($sql) or die($conn->error.__LINE__);
+    $total = $questions->num_rows;
+    $next = $total;
 ?>
 
 <body>
@@ -12,9 +16,8 @@
       <br>
       <p id ="quizP1">
         In this quiz you will be assessed on your knowledge about bowling. This quiz will consist
-        of a series of multiple choice questions. You will have one attempt to complete the quiz. <br><br> Results will be recorded.
-        The quiz will consist of 10 questions on the subject of bowling, and will take about 5-10 minutes to complete. 
-        In order to pass you must score over 40% or over of the total marks.<br><br>The estimated time to complete the quiz will be: 20-30 minutes.</p>      
+        of a series of multiple choice questions. You will have unlimited attempts to complete this quiz. <br><br> Results will be recorded at the end of the quiz.
+        The quiz will consist of <?php echo $next?> questions on the general subject of bowling. Questions have been set by tutors. This is a fun, simple quiz that can be accessed by all students.<br><br> Results will not count towards your grade.<br><br></p>      
         <div class="center">
           <a href="question.php?n=1" class="start">Start Quiz</a>
         </div>
