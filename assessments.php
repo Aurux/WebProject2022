@@ -8,7 +8,16 @@
 
 <div id="HomeContent">
     <?php
-        if ($_SESSION["loggedIn"] && $_SESSION["uType"] == "student") showAssessments($conn, $_SESSION["username"]);
+        if ($_SESSION["loggedIn"]) {
+            if ($_SESSION["uType"] == "student") {
+                showAssessments($conn, $_SESSION["username"]);
+            }
+            if ($_SESSION["uType"] == "tutor") {
+                showAssessmentsTutor($conn);
+            }
+        }
+        
+
         else echo "<h1>403 Forbidden - You don't have permission to access this.</h1>";
     ?>
 </div>

@@ -26,6 +26,32 @@
         });   
     }
 
+    function passStudent(id, username, courseID) {
+       
+        $.ajax({
+            method: 'POST',
+            data: {id: id, username: username, courseID: courseID},
+            url:'passStudent.php',
+            dataType: 'html',
+            success: function(response) {
+                window.location.reload();
+            }
+        });   
+    }
+
+    function failStudent(id, username, courseID) {
+       
+        $.ajax({
+            method: 'POST',
+            data: {id: id, username: username, courseID: courseID},
+            url:'failStudent.php',
+            dataType: 'html',
+            success: function(response) {
+                window.location.reload(); // Update HTML course table. 
+            }
+        });   
+    }
+
     function viewAssessments(courseID) {
         console.log(courseID);
         $.ajax({
@@ -88,7 +114,7 @@
             url:'createCourse.php',
             dataType: 'html',
             success: function() {
-                window.location.reload();
+                
             }
         });
     }
@@ -147,11 +173,7 @@
         });
     }
 
-    function uploadFile() {
-        var formData = new FormData($('#uploadForm'));
-    }
-
-    window.onload = viewMat();
+    
 
 
 

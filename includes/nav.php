@@ -1,10 +1,3 @@
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js">
-    function logout(){
-
-    }
-
-</script>
-
 <ul id="navi">
             <?php
                 error_reporting(E_ALL ^ E_WARNING); 
@@ -18,8 +11,17 @@
                         <li ><a href="calendar.php">Calendar</a></li>';
 
                     if ($_SESSION["uType"] == "student") echo '<li><a href="assessments.php">Assessments</a></li><li><a href="quizIndex.php">Quiz</a></li>';
+
                     if ($_SESSION["uType"] == "tutor") echo '<li><a href="addQuestion.php">Quiz content</a></li>';
                       
+
+                    if ($_SESSION["uType"] == "tutor") echo '<li><a href="addQuestion.php">Quiz</a></li>';
+
+                   
+                    
+
+                   
+
                 }
 
                 if($_SESSION["loggedIn"] == true) echo "<li style=\"float:right;\"><a href=\"logout.php\">Logout</a></li>";
