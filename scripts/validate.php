@@ -1,8 +1,10 @@
+<script>
+
 fullPass = false;
             
-function validate(event)
+function validate()
 {   
-    event.preventDefault();
+    
     let currentDate = new Date();
     // Regex 
     var nameRe = /^[a-zA-Z]{2,64}$/;
@@ -63,7 +65,7 @@ function validate(event)
                             {
                                 document.getElementById("pword").style.display = "none";
                                 fullPass = true;
-                                alert("Successfully registered!")
+                                
                                 window.onbeforeunload = null;
                                 return true;
                             }
@@ -157,3 +159,5 @@ window.onbeforeunload = function() {
     
     
 }
+
+</script>

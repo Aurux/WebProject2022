@@ -2,6 +2,7 @@
     $title = "Enroll";
     require_once("includes/header.php");
     include("includes/nav.php");
+    include("scripts/validate.php");
 ?>
 
 

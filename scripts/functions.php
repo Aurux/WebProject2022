@@ -18,7 +18,7 @@ function connectDatabase($dbExists) {
 function showEnrollForm() {
     echo '
     
-    <form name="frmRegister" id="frmRegister" method="POST" action="enroll.php" onsubmit=" return validate(event)"  >
+    <form name="frmRegister" id="frmRegister" method="POST" action="enroll.php" onsubmit="return validate()"  >
         
     <table>
         <tr><td>Forename<br><input name="frmForename" type="textbox" placeholder="Your first name..." required/><br><p1 id="fname" style="display:none">Must be 2-64 characters long<br>using only upper and lowercase letters.</p1></td>
