@@ -150,15 +150,67 @@ a.start{
 }
 
 .current{
-    font-size:20px;
-    padding:10px;
-    border:#f83434 double 1px;
-    margin:20px 0 10px 0;
+    font-size:30px;
+    background-color: #ffffff;
+    border: 5px solid #f83434;
+    border-radius: 10px 10px 10px 10px;
+    margin-top:40px;
+    width:40%;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    text-align: center;
+    margin-left: 30%;
+    margin-right: 30%;
 }
 
 .choices{
-    line-height: 1.6em;
     font-size:20px;
+    transform: scale(2);
+    margin-right: 10%;
+}
+
+#choicesTable td{
+    padding: 8px;
+}
+
+#choicesTable   {
+    width: 40%;
+    float: left;
+    text-align: center;
+    border: 5px solid #f83434;
+    border-radius: 0 10px 10px 10px;
+    background-color: white;
+    margin-left: 30%;
+    margin-right: 30%;
+    padding:20px;
+}
+
+#choicesTable caption {
+    font-weight: bold;
+    font-size: medium;
+    color: black;
+    border: 5px solid #f83434;
+    background-color: white;
+    border-radius: 10px 10px 0 0;
+    border-bottom: 0;
+    padding: 2px;
+    width: fit-content;
+}
+#submitChoice    {
+    font-weight: bold;
+    font-size: medium;
+    color: black;
+    border: 5px solid #f83434;
+    background-color: white;
+    border-radius: 10px 10px 10px 10px;
+    margin-top: 10px;
+    padding: 2px;
+    width: fit-content;
+}
+
+
+.choices li{
+    list-style-type: none;
 }
 
 div.font{
@@ -189,14 +241,6 @@ a.reset{
     border:1px;
     padding:6px 13px;
     text-decoration: none;
-}
-
-.button{
-    display:inline-block;
-    width:15%;
-    color:#fff;
-    border:1px;
-    padding:100px;
 }
 
 #timetableContainer{
@@ -329,17 +373,23 @@ time, mark, audio, video {
 
 #calendar input{
     position:absolute;
-    left:500px;
+    left:650px;
     box-sizing: border-box;
 }
-#calendar input[type=submit]{
+#calendar input[name=submit]{
     position:absolute;
-    top: 257px;
-    left:675px;
+    top: 262px;
+    left:850px;
+}
+
+#calendar input[name=delete]{
+    position:absolute;
+    top: 320px;
+    left:850px;
 }
 #Calendar label{
     position: absolute;
-    left:360px;
+    left:550px;
 }
 
 .content {
@@ -377,13 +427,17 @@ td.calendar-day, td.calendar-day-np {
 
 
 #questionContent{
-    background-color:rgba(0,0,0,0.5);
-    color:#fff;
-    padding-top: 50px;
-    padding-bottom: 100px;
-    margin:auto;
-    width: 1200px;
-    border-radius: 2px;
+    width: 40%;
+    float: left;
+    margin-top: 50px;
+    border: 5px solid #f83434;
+    border-radius: 10px 10px 10px 10px;
+    background-color: white;
+    margin-left: 30%;
+    margin-right: 30%;
+    padding:20px;
+    padding-top: 30px;
+    padding-bottom: 50px;
 }
 
 #questionContent input[type=text]{
@@ -393,35 +447,34 @@ td.calendar-day, td.calendar-day-np {
     border: 3px solid #f83434;
     box-sizing: border-box;
     position:relative;
-    left:50px;
+    right:80px;
 }
 #questionContent input[type=number]{
     border: 2px solid #f83434;
     border-radius: 15px;
     box-sizing: border-box;
-    position:absolute;
-    left:690px;
+    position: relative;
+    right: 100px;
 }
 
-#questionContent input[type=submit]{
+#questionContent input[name=submit]{
     position:relative;
-    left:20px;
+    right:100px;
+}
+#questionContent input[name=delete]{
+    position:relative;
+    right:100px;
 }
 #questionContent input{
     position:relative;
-    left:10px;
+    right: 75px;
     border: 2px solid #f83434;
     box-sizing: border-box;
 }
 
 #questionContent label{
     position: absolute;
-    left:550px;
-}
-#questionContent p{
-    position: absolute;
-    right:520px;
-    top:670px;
+    left:650px;
 }
 #questionContent p1{
     position: absolute;
@@ -439,3 +492,22 @@ td.calendar-day, td.calendar-day-np {
     border: 3px solid #f83434;
     box-sizing: border-box;
 }
+
+#finalContent{
+    width: 40%;
+    float: left;
+    margin-top: 50px;
+    border: 5px solid #f83434;
+    border-radius: 10px 10px 10px 10px;
+    background-color: white;
+    margin-left: 30%;
+    margin-right: 30%;
+    padding:20px;
+    padding-top: 30px;
+    padding-bottom: 50px;
+}
+
+
+
+
+

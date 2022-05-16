@@ -26,23 +26,20 @@ if ($_SESSION["loggedIn"] && $_SESSION["uType"] == "student");
     else echo "<h1>403 Forbidden - You don't have permission to access this.</h1>";?>
 
 <main>
-    <div class="container">
         <div class="current">Question <?php echo $question['question_number']; ?> of <?php echo $next?></div><br>
-        <p class="question">
-            <?php echo $question['question_text']; ?>
-        </p><br>
+        <br>
         <form method="post" action="process.php">
-            <ul class="choices">
+            
+            <table id="choicesTable">
+                <caption><?php echo $question['question_text']; ?></caption>
                 <?php while($row = $choices->fetch_assoc()): ?>
-                    <li><input name="choice" type="radio" value="<?php echo $row['id']; ?>" /><?php echo $row['choices_text']; ?></li><br>
-                <?php endwhile; ?>
-            </ul>
+                    <tr><td><input name="choice" class="choices" type="radio" required value="<?php echo $row['id']; ?>" /></td><td><?php echo $row['choices_text']; ?></td></tr>
+                <?php endwhile;?>
+                </table>
 
-            <div class = "button">
-                <input type="submit" value="Submit"/>
-                <input type="hidden" name="number" value="<?php echo $number; ?>" />
-            </div>
+                <input type="submit" id="submitChoice" value="Submit"/>
+                <input type="hidden" name="number" value="<?php echo $number; ?>" />    
+            
         </form>
-        </div>
-    </div>
+        
 </main>

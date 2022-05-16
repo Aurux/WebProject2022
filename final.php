@@ -10,14 +10,11 @@
  ?>
 
 <main>
-    <div class="container">
-        <div class="final">
-            <h2>You're done!</h2>
-            <p>Congrats</p>
-            <P>Final score: <?php echo $_SESSION['score']; ?>/<?php echo $next?></P>
-            <div class = "restart">
-                <a href="question.php?n=1" class="reset" value ="<?php unset($_SESSION['score']); ?>">Take again</a>
-            </div>
-        </div>
+    <div id="finalContent">
+            <h2>You're done!</h2><br>
+            <p>Congratulations on completing the quiz!</p><br>
+            <P>Final score: <?php echo $_SESSION['score']; ?>/<?php echo $next?></P><br><br>
+            <a href="student_home.php" class="reset" value ="<?php ($_SESSION['score']); ?>">Finish attempt</a>
+
     </div>
 </main>
