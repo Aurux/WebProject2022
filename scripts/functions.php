@@ -45,8 +45,10 @@ function processEnroll($conn) {
     extract($_POST);
     $password = password_hash($frmPassword, PASSWORD_DEFAULT);
 
-    $sql = "SELECT FROM users WHERE email = '$frmEmail'";
-    if (mysqli_query($conn, $sql)){
+    $sql = "SELECT * FROM users WHERE email = '$frmEmail'";
+    $result = mysqli_query($conn, $sql);
+    consoleLog(mysqli_num_rows($result));
+    if (mysqli_num_rows($result) == 0){
 
         if ($frmType == "tutor"){
             $sql = "INSERT INTO users (forename, surname, uType, email, pass, authorised) VALUES('$frmForename', '$frmSurname', '$frmType', '$frmEmail', '$password', 0)";
