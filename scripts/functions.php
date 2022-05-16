@@ -45,29 +45,33 @@ function processEnroll($conn) {
     extract($_POST);
     $password = password_hash($frmPassword, PASSWORD_DEFAULT);
 
-    if ($frmType == "tutor"){
-        $sql = "INSERT INTO users (forename, surname, uType, email, pass, authorised) VALUES('$frmForename', '$frmSurname', '$frmType', '$frmEmail', '$password', 0)";
+    $sql = "SELECT FROM users WHERE email = '$frmEmail'";
+    if (mysqli_query($conn, $sql)){
+
+        if ($frmType == "tutor"){
+            $sql = "INSERT INTO users (forename, surname, uType, email, pass, authorised) VALUES('$frmForename', '$frmSurname', '$frmType', '$frmEmail', '$password', 0)";
+        }
+        else $sql = "INSERT INTO users (forename, surname, uType, email, pass) VALUES('$frmForename', '$frmSurname', '$frmType', '$frmEmail', '$password')";
+        
+        
+
+        if (mysqli_query($conn, $sql)) $result = True;
+        else $result = False;
+
+        $sql = "SELECT username FROM users WHERE email = '$frmEmail'";
+        $sql_result = mysqli_query($conn, $sql);
+
+        while($row = mysqli_fetch_array($sql_result)) {
+            $show_result = $row["username"];
+        }
+        
+        if ($result == True) {
+            $result = "<br><br><br><br><p>You have enrolled succesfully! Your login ID is: " . $show_result . "</p>";
+            $_SESSION["username"] = $show_result;
+        }
+        else $result = "<p>Enrollment failed, please try again in a little while.</p>";
     }
-    else $sql = "INSERT INTO users (forename, surname, uType, email, pass) VALUES('$frmForename', '$frmSurname', '$frmType', '$frmEmail', '$password')";
-    
-    
-
-    if (mysqli_query($conn, $sql)) $result = True;
-    else $result = False;
-
-    $sql = "SELECT username FROM users WHERE email = '$frmEmail'";
-    $sql_result = mysqli_query($conn, $sql);
-
-    while($row = mysqli_fetch_array($sql_result)) {
-        $show_result = $row["username"];
-    }
-    
-    if ($result == True) {
-        $result = "<br><br><br><br><p>You have enrolled succesfully! Your login ID is: " . $show_result . "</p>";
-        $_SESSION["username"] = $show_result;
-    }
-    else $result = "<p>Enrollment failed, please try again in a little while.</p>";
-
+    else $result = "<p>An account with this email has already been created!</p>";
     return $result;
 }
 
