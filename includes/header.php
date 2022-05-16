@@ -7,7 +7,7 @@
 <head>
         <?php echo "<title>" . $title . "</title>"; ?>
         <link rel="stylesheet" type="text/css" href="style.css"/>
-        <link rel="icon" type="image/x-icon" href="/images/logo.png">
+        <link rel="icon" type="image/x-icon" href="/images/logo.png" alt="university logo">
 </head>
 <header>
     <?php
@@ -17,6 +17,6 @@
         User ID: '. $_SESSION["username"] .
     '</div>';
     ?>
-<img src="images/logo.png"  width="100" height="80">
+<img src="images/logo.png"  width="100" height="80" alt="bowling ball background">
 Bowling University Moodle
 </header>
