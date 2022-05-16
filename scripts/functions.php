@@ -3,7 +3,7 @@
 error_reporting(E_ALL ^ E_WARNING); 
 function connectDatabase($dbExists) {
     //create connnection credentials
-    $db_host = 'localhost:3307';
+    $db_host = 'localhost';
     $db_name = 'bowlingDB';
     $db_user = 'root';
     $db_pass = 'traffic-surprise-pungent';
@@ -425,6 +425,25 @@ function addCalendarEvent($conn){
     </form>';
 }
 
+function deleteCalendarEvent($conn, $delete_event){
+    if (isset($_POST['delete'])){
+        $delete_event = $_POST['title'];
+
+        $sql="DELETE FROM events WHERE title='$delete_event'";
+        $delete_row = $conn->query($sql);
+
+        if($delete_row){
+            $delete_row = $conn->query($sql);
+        }
+        echo '<p1>Event deleted</p1>';
+    }
+    echo'<form method="POST">
+    <br><label>Delete event: </label>
+    <input type="text" name="title"/>
+    <input type="submit" name="delete" value="Delete"/>
+    </form><br><br>';
+}
+
 function showAssessments($conn, $username){
     $sql = "SELECT id FROM studentAssessments WHERE username = '$username'";
     $result = mysqli_query($conn, $sql);
@@ -642,15 +661,15 @@ function addQuestion($conn){
     <label>Question text: </label>
     <input type="text" name="question_text"/><br><br>
     <label>Add choice 1:  </label>
-    <input type="text" name="choice1"/><br><br>
+    <input type="text" name="choice1" required/><br><br>
     <label>Add choice 2:  </label>
-    <input type="text" name="choice2"/><br><br>
+    <input type="text" name="choice2" required/><br><br>
     <label>Add choice 3:  </label>
     <input type="text" name="choice3"/><br><br>
     <label>Add choice 4:  </label>
     <input type="text" name="choice4"/><br><br>
     <label>Correct choice: </label>
-    <input type="number" name="correct_choice"/>
+    <input type="number" name="correct_choice" required/>
     <input type="submit" name="submit" value="Submit"/>
 </form>';
 }
@@ -670,9 +689,18 @@ function deleteQuestion($conn, $delete_question_number){
     }
     echo'<form method="POST">
     <br><label>Delete question: </label>
-    <input type="number" name="question_number"/>
+    <input type="number" name="question_number" required/>
     <input type="submit" name="delete" value="Delete"/>
     </form>';
+}
+
+function seeQuestion($conn){
+    $sql = "SELECT * FROM questions";
+    $questions =  $conn->query($sql) or die($conn->error.__LINE__);
+    $total = $questions->num_rows;
+    $next = $total;
+
+    echo '<p>There are currently '.$next.' questions</p><br><br>';
 }
 
 

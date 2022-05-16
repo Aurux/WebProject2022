@@ -8,8 +8,11 @@
 	<div class="content"><br><Br>
     <?php 
         if ($_SESSION["uType"] == "tutor") echo addCalendarEvent($conn, $courseID);
+        if ($_SESSION["uType"] == "tutor") echo deleteCalendarEvent($conn,$delete_event);
         include('calendarControls.php');
         if ($_SESSION["loggedIn"] == true) echo draw_calendar($month,$year);
+        
+
         else echo "<h1>403 Forbidden - You don't have permission to access this.</h1>";
     ?>
 	</div>
