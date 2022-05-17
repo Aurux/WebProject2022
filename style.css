@@ -507,6 +507,17 @@ td.calendar-day, td.calendar-day-np {
     padding-bottom: 50px;
 }
 
+.control{
+    font-weight: bold;
+    font-size: medium;
+    color: black;
+    border: 3px solid #f83434;
+    background-color: white;
+    border-radius: 10px 10px 10px 10px;
+    margin-top: 10px;
+    padding: 2px;
+    width: fit-content;
+}
 
 
 
