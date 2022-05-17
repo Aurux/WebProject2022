@@ -703,6 +703,78 @@ function seeQuestion($conn){
     echo '<p>There are currently '.$next.' questions</p><br><br>';
 }
 
+function uploadScore($conn){
+    $score = $_SESSION['score'];
+    $username = $_SESSION['username'];
+    if (isset($_POST['addscore'])){
+        $sql = "INSERT INTO quizScore(username, quizscore) VALUES($username, $score)";
+        $conn->query($sql) or die($conn->error.__LINE__);
+    }else{
+        consoleLog("failed to add quiz score");
+    }
+    echo '<form method="POST"><input type="submit" name="addscore" value="Finish attempt"/></form>';
+}
+
+function showQuizScore($conn,$username){
+    $sql = "SELECT * FROM questions";
+    $questions =  $conn->query($sql) or die($conn->error.__LINE__);
+    $total = $questions->num_rows;
+    $next = $total;
+
+    $sql ="SELECT username, quizscore FROM quizScore WHERE username ='$username'";
+
+    $result = mysqli_query($conn, $sql);
+    $numrows = mysqli_num_rows($result);
+
+    consoleLog("Showing quiz score: ". $username);
+    if ($numrows >= 1) {
+        while($row = mysqli_fetch_array($result)){
+            $finalScore = $row['quizscore'];
+            echo "Final score: ".$finalScore."/".$next."<br><br>";
+        }
+    }
+    else echo "Click the button below to review score";
+}
+
+function showQuizIndex($conn, $username){
+    $sql ="SELECT username, quizscore FROM quizScore WHERE username ='$username'";
+
+    $result = mysqli_query($conn, $sql);
+    $numrows = mysqli_num_rows($result);
+
+    if ($numrows >= 1) {
+        while($row = mysqli_fetch_array($result)){
+            $finalScore = $row['quizscore'];
+            if($finalScore > 0){
+                header("Location: final.php");
+                exit();
+            } else {
+                header("Location: question.php?n=1");
+            }
+        }
+    }else{
+        consoleLog("Quiz index not loaded");
+    }
+}
+
+function resetQuizScores($conn){
+    if (isset($_POST['reset'])){
+        $sql ="TRUNCATE TABLE quizScore";
+        $delete_row = $conn->query($sql);
+
+        if($delete_row){
+            echo '<p1>Scores have been reset</p1>';
+        }else{
+            consoleLog("cant delete scores");
+        }
+    }
+    echo'<form method="POST">
+    <br><label>Reset quiz score for students: </label>
+    <input type="submit" name="reset" value="Reset"/>
+    </form>';
+
+}
+
 
 
 function consoleLog($message) {

@@ -1,3 +1,4 @@
+
 <ul id="navi">
             <?php
                 error_reporting(E_ALL ^ E_WARNING); 
@@ -12,11 +13,8 @@
 
                     if ($_SESSION["uType"] == "student") {
                         echo '<li><a href="assessments.php">Assessments</a></li>';
-                        if ($_SESSION['score'] >= 1) {
-                            echo '<li><a href="final.php">Quiz</a></li>';
-                        }else{
+
                             echo '<li><a href="quizIndex.php">Quiz</a></li>';
-                        }
                     }
 
                     if ($_SESSION["uType"] == "tutor") echo '<li><a href="addQuestion.php">Quiz content</a></li>';

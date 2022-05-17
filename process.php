@@ -8,13 +8,13 @@
         $selected_choice = $_POST['choice'];
         $next = $number+1;
         //get total
-        $query = "SELECT * FROM `questions`";
+        $sql = "SELECT * FROM `questions`";
         //results
-        $results = $conn->query($query) or die($conn->error.__LINE__);
+        $results = $conn->query($sql) or die($conn->error.__LINE__);
         $total = $results->num_rows;
         //get correct choice
-        $query = "SELECT * FROM `choices` WHERE question_number = $number AND is_correct = 1";
-        $result = $conn->query($query) or die($conn->error.__LINE__);
+        $sql = "SELECT * FROM `choices` WHERE question_number = $number AND is_correct = 1";
+        $result = $conn->query($sql) or die($conn->error.__LINE__);
         $row = $result->fetch_assoc();
         $correct_choice = $row['id'];
         if($correct_choice == $selected_choice) {

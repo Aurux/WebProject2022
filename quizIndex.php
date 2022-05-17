@@ -3,12 +3,19 @@
     $title = "Moodle Quiz";
     include("includes/header.php");
     include("includes/nav.php");  
+
     $sql = "SELECT * FROM questions";
     $questions =  $conn->query($sql) or die($conn->error.__LINE__);
     $total = $questions->num_rows;
     $next = $total;
-?>
 
+    $username = $_SESSION["username"];
+    $sql = "SELECT username FROM users WHERE username = $username";
+    $result = mysqli_query($conn, $sql);
+    while($row = mysqli_fetch_array($result)) {
+        showQuizIndex($conn, $row["username"]);
+    }
+?>
 <body>
     <div class ="container">
       <h1 id ="h1">
