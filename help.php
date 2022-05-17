@@ -10,3 +10,4 @@
 <label>Phone number: <a href="">+44 1632 960816</a></label>
 
 </div>
+<?php include("includes/footer.php")?>

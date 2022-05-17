@@ -18,3 +18,4 @@
         echo uploadScore($conn);?>
     </div>
 </main>
+<?php include("includes/footer.php")?>
