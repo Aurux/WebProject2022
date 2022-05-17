@@ -173,6 +173,20 @@
         });
     }
 
+    function addquizScore() {
+        var studentID = document.getElementById("studentID").value;
+        var courseID = courseID;
+        $.ajax({
+            method: 'POST',
+            data: {courseID: courseID, studentID: studentID},
+            url:'addStudent.php',
+            dataType: 'html',
+            success: function() {
+                viewStudents(courseID);
+            }
+        });
+    }
+
     
 
 

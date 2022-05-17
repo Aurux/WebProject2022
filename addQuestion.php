@@ -11,17 +11,7 @@
     echo seeQuestion($conn);
     echo addQuestion($conn);
     echo deleteQuestion($conn,$delete_question_number);
-
-    $score = $_SESSION['score'];
-
-    if (isset($_POST['reset'])){
-        $score = 0;
-        echo '<p1>Scores have been reset</p1>';
-    }
-    echo'<form method="POST">
-    <br><label>Reset quiz score for students: </label>
-    <input type="submit" name="reset" value="Reset"/>
-    </form>';
+    echo resetQuizScores($conn);
     ?>
     </div>
 </main>

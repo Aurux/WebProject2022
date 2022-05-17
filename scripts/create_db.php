@@ -237,7 +237,16 @@
                 title varchar(225) NOT NULL,
                 event_date date NOT NULL
                 );
+
+            CREATE TABLE IF NOT EXISTS quizScore (
+                username int,
+                quizscore int,
+                PRIMARY KEY (username),
+                FOREIGN KEY(username) REFERENCES users(username)
+                ON UPDATE CASCADE ON DELETE RESTRICT
+            );
             ";
+
 
     if ($conn->multi_query($sql) === TRUE) consoleLog("Table creation successful!");
     else {
