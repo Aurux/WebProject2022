@@ -8,6 +8,12 @@
         <?php echo "<title>" . $title . "</title>"; ?>
         <link rel="stylesheet" type="text/css" href="style.css"/>
         <link rel="icon" type="image/x-icon" href="/images/logo.png" alt="university logo">
+
+        <meta charset="UTF-8">
+        <meta name="description" content="Nationally Accredited Univeristy for the indoor bowling sport">
+        <meta name="keywords" content="Univeristy, Bowling, Lanes, Degree, Sport, Alley, Courses">
+        <meta name="author" content="Ben Wilson, Dan Glancy">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <header>
     <?php
