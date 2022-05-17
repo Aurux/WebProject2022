@@ -43,3 +43,4 @@ if ($_SESSION["loggedIn"] && $_SESSION["uType"] == "student");
         </form>
         
 </main>
+<?php include("includes/footer.php")?>
