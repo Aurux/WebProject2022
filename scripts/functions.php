@@ -661,21 +661,21 @@ function addQuestion($conn){
     $total = $questions->num_rows;
     $next = $total+1;
 
-    echo'<form method="POST">
+    echo'<form id="questionForm" method="POST">
     <label>Question number: </label>
-    <input value ="'.$next.'"name="question_number"/><br><br>
+    <input onchange="getQuestion()" id="qNumField" value ="'.$next.'"name="question_number"/><br><br>
     <label>Question text: </label>
-    <input type="text" name="question_text"/><br><br>
+    <input style="width: 70ch; transform: translateX(180px);" type="text" name="question_text" id="question_text"/><br><br>
     <label>Add choice 1:  </label>
-    <input type="text" name="choice1" required/><br><br>
+    <input type="text" name="choice1" id="choice1" required/><br><br>
     <label>Add choice 2:  </label>
-    <input type="text" name="choice2" required/><br><br>
+    <input type="text" name="choice2" id="choice2" required/><br><br>
     <label>Add choice 3:  </label>
-    <input type="text" name="choice3"/><br><br>
+    <input type="text" name="choice3" id="choice3" "/><br><br>
     <label>Add choice 4:  </label>
-    <input type="text" name="choice4"/><br><br>
+    <input type="text" name="choice4" id="choice4" "/><br><br>
     <label>Correct choice: </label>
-    <input type="number" name="correct_choice" required/>
+    <input type="number" name="correct_choice" id="correct_choice" required/>
     <input type="submit" name="submit" value="Submit"/>
 </form>';
 }

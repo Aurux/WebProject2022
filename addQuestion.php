@@ -2,7 +2,8 @@
     $title = "Moodle Quiz";
     include("includes/header.php");
     include("includes/nav.php"); 
-    include("includes/footer.php")  
+    include("includes/footer.php");
+    require("scripts/ajax.php");
 ?>
 <main>
     <div id="questionContent">

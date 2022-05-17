@@ -187,6 +187,26 @@
         });
     }
 
+    function getQuestion(){
+        var questionNum = document.getElementById("qNumField").value;
+        console.log(questionNum);
+        $.ajax({
+            method: 'POST',
+            data: {questionNum: questionNum},
+            url:'getQuestion.php',
+            dataType: 'json',
+            success: function(response) {
+                console.log(response);
+                document.getElementById("question_text").value = response.question_text;
+                document.getElementById("choice1").value = response.choice1;
+                document.getElementById("choice2").value = response.choice2;
+                document.getElementById("choice3").value = response.choice3;
+                document.getElementById("choice4").value = response.choice4;
+                document.getElementById("correct_choice").value = response.correctChoice;
+            }
+        });
+    }
+
     
 
 
