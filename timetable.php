@@ -17,8 +17,10 @@
         $username = $_SESSION["username"];
         $sql = "SELECT courseID FROM studentCourses WHERE username = $username";
         $result = mysqli_query($conn, $sql);
-        while($row = mysqli_fetch_array($result)) {
+        if($row = mysqli_fetch_array($result)) {
             showTimetable($conn, $row["courseID"]);
+        }else{
+            echo '<div id="noTimetable"> You have not been assigned to any courses.</div>';
         }
     }
     else echo "<h1>403 Forbidden - You don't have permission to access this.</h1>";

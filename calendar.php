@@ -10,7 +10,7 @@
         if ($_SESSION["uType"] == "tutor") echo addCalendarEvent($conn, $courseID);
         if ($_SESSION["uType"] == "tutor") echo deleteCalendarEvent($conn,$delete_event);
         include('calendarControls.php');
-        if ($_SESSION["loggedIn"] == true) echo draw_calendar($month,$year);
+        if ($_SESSION["loggedIn"] == true) echo draw_calendar($conn,$month,$year,$events);
         
 
         else echo "<h1>403 Forbidden - You don't have permission to access this.</h1>";

@@ -369,7 +369,14 @@ function showTimetable($conn, $courseID){
     else echo "<tr><td>You have not been assigned to any courses.</td></tr></table>";
 }
 
-function draw_calendar($month,$year){
+function draw_calendar($conn,$month,$year,$events = array()){
+
+    $events = array();
+    $sql = "SELECT title, DATE_FORMAT(event_date,'%Y-%m-%D') AS event_date FROM events WHERE event_date LIKE '$year-$month%'";
+    $result = mysqli_query($conn, $sql) or consoleLog('cannot get results!');
+    while($row = mysqli_fetch_assoc($result)) {
+	    $events[$row['event_date']][] = $row;
+    }
 
     $calendar = '<table cellpadding="10" cellspacing="1" class="calendar">';
     $headings = array('Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday');
@@ -389,6 +396,12 @@ function draw_calendar($month,$year){
         $calendar.= '<td class="calendar-day">';
         $calendar.= '<div class="day-number">'.$list_day.'</div>';
 
+        $event_day = $year.'-'.$month.'-'.$list_day;
+        if(isset($events[$event_day])) {
+            foreach($events[$event_day] as $event) {
+                $calendar.= '<div class="event">'.$event['title'].'</div>';
+            }
+        }
         $calendar.= '</td>';
         if($running_day == 6):
             $calendar.= '</tr>';
@@ -618,6 +631,13 @@ function uploadSubmission($id,$username) {
 }
 
 function addQuestion($conn){
+    $sql = "SELECT * FROM questions";
+    $questions =  $conn->query($sql) or die($conn->error.__LINE__);
+    $total = $questions->num_rows;
+    $next = $total;
+
+    echo '<p>There are currently '.$next.' questions</p><br><br>';
+
     if (isset($_POST['submit'])){
         $question_number = $_POST['question_number'];
         $question_text = $_POST['question_text'];
@@ -629,9 +649,10 @@ function addQuestion($conn){
         $choices[3] = $_POST['choice3'];
         $choices[4] = $_POST['choice4'];
 
-        $sql = "INSERT INTO questions(question_number, question_text)
-                VALUES('$question_number','$question_text')";
-        $insert_row = $conn->query($sql) or die($conn->error.__LINE__);
+        $sql = "REPLACE INTO questions(question_number, question_text)
+                VALUES('$question_number','$question_text')
+                ALTER TABLE questions MODIFY question_number int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1";
+        $insert_row = $conn->query($sql,) or die($conn->error.__LINE__);
 
         if($insert_row){
             foreach($choices as $choice => $value){
@@ -641,10 +662,10 @@ function addQuestion($conn){
                     }else{
                         $is_correct = 0;
                     }
-                    $sql = "INSERT INTO choices(question_number, is_correct, choices_text)
+                    $sql = "REPLACE INTO choices(question_number, is_correct, choices_text)
                             VALUES('$question_number','$is_correct','$value')";
 
-                    $insert_row = $conn->query($sql) or die($conn->error.__LINE__);
+                    $insert_row = $conn->query($sql,"ALTER TABLE choices MODIFY id int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1") or die($conn->error.__LINE__);
                     
                     if($insert_row){
                         continue;
@@ -653,7 +674,8 @@ function addQuestion($conn){
                     }  
                 }
             }
-            echo '<p>Question has been added</p>';
+            echo '<p1>Question has been added</p1>';
+            header("Location: addQuestion.php");
         }
     }
     $sql = "SELECT * FROM questions";
@@ -692,6 +714,7 @@ function deleteQuestion($conn, $delete_question_number){
             $delete_row = $conn->query($sql);
         }
         echo '<p1>Question deleted</p1>';
+        header("Location: addQuestion.php");
     }
     echo'<form method="POST">
     <br><label>Delete question: </label>
@@ -700,21 +723,13 @@ function deleteQuestion($conn, $delete_question_number){
     </form>';
 }
 
-function seeQuestion($conn){
-    $sql = "SELECT * FROM questions";
-    $questions =  $conn->query($sql) or die($conn->error.__LINE__);
-    $total = $questions->num_rows;
-    $next = $total;
-
-    echo '<p>There are currently '.$next.' questions</p><br><br>';
-}
-
 function uploadScore($conn){
     $score = $_SESSION['score'];
     $username = $_SESSION['username'];
     if (isset($_POST['addscore'])){
-        $sql = "INSERT INTO quizScore(username, quizscore) VALUES($username, $score)";
+        $sql = "REPLACE INTO quizScore(username, quizscore) VALUES($username, $score)";
         $conn->query($sql) or die($conn->error.__LINE__);
+        header("Location: final.php");
     }else{
         consoleLog("failed to add quiz score");
     }
@@ -755,7 +770,7 @@ function showQuizIndex($conn, $username){
                 header("Location: final.php");
                 exit();
             } else {
-                header("Location: question.php?n=1");
+                header("Location: quizIndex.php");
             }
         }
     }else{
@@ -773,6 +788,7 @@ function resetQuizScores($conn){
         }else{
             consoleLog("cant delete scores");
         }
+        header("Location: addQuestion.php");
     }
     echo'<form method="POST">
     <br><label>Reset quiz score for students: </label>

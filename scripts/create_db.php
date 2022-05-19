@@ -88,7 +88,7 @@
             ALTER TABLE choices
             ADD PRIMARY KEY (id);
             ALTER TABLE choices
-            MODIFY id int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=57;
+            MODIFY id int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
       
             CREATE TABLE IF NOT EXISTS questions (
                 question_number int(11) NOT NULL,
@@ -113,7 +113,7 @@
             
             ALTER TABLE questions ADD PRIMARY KEY (question_number);
 
-            ALTER TABLE questions MODIFY question_number int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+            ALTER TABLE questions MODIFY question_number int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
             
             CREATE TABLE IF NOT EXISTS courses (
                 courseID INT AUTO_INCREMENT,
@@ -207,7 +207,7 @@
             ADD PRIMARY KEY (id);
 
             ALTER TABLE timetable
-            MODIFY id int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
+            MODIFY id int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
 
             CREATE TABLE IF NOT EXISTS assessments (
                 id int NOT NULL AUTO_INCREMENT,

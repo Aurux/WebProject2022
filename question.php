@@ -5,17 +5,17 @@
 ?>
 <?php
 
-$query ="SELECT * FROM questions";
-$results = $conn->query($query) or die($conn->error.__LINE__);
+$sql ="SELECT * FROM questions";
+$results = $conn->query($sql) or die($conn->error.__LINE__);
 
 $number = (int) $_GET['n'];
-$query = "SELECT * FROM `questions` WHERE question_number = $number";
-$result = $conn->query($query) or die($conn->error.__LINE__);
+$sql = "SELECT * FROM `questions` WHERE question_number = $number";
+$result = $conn->query($sql) or die($conn->error.__LINE__);
 $question = $result->fetch_assoc();
 
 $number = (int) $_GET['n'];
-$query = "SELECT * FROM `choices` WHERE question_number = $number";
-$choices = $conn->query($query) or die($conn->error.__LINE__);
+$sql = "SELECT * FROM `choices` WHERE question_number = $number";
+$choices = $conn->query($sql) or die($conn->error.__LINE__);
 
 $sql = "SELECT * FROM questions";
 $questions =  $conn->query($sql) or die($conn->error.__LINE__);

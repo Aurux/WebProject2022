@@ -249,6 +249,7 @@ a.reset{
     padding:50px;
     padding-top: 50px;
     padding-bottom: 100px;
+    height: 100%;
     margin:auto;
     width: 1200px;
     border-radius: 2px;
@@ -481,8 +482,8 @@ td.calendar-day, td.calendar-day-np {
 }
 #questionContent p1{
     position: absolute;
-    right:580px;
-    top:724px;
+    right:700px;
+    top:770px;
 }
 #questionContent h1{
     text-align: center;
@@ -522,6 +523,20 @@ td.calendar-day, td.calendar-day-np {
     width: fit-content;
 }
 
+#noTimetable{
+    width: 40%;
+    text-align: center;
+    float: left;
+    margin-top: 50px;
+    border: 5px solid #f83434;
+    border-radius: 10px 10px 10px 10px;
+    background-color: white;
+    margin-left: 30%;
+    margin-right: 30%;
+    padding:20px;
+    padding-top: 30px;
+    padding-bottom: 50px;
+}
 
 
 
