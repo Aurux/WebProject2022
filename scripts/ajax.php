@@ -1,6 +1,7 @@
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <script>
     function viewStudents(courseID) {
+        // Get student list for given course for tutor home
         console.log(courseID);
         $.ajax({
             method: 'POST',
@@ -14,6 +15,7 @@
     }
 
     function viewSubmissions(username) {
+        // Get coursework submissions for given student
         console.log(courseID);
         $.ajax({
             method: 'POST',
@@ -27,7 +29,7 @@
     }
 
     function passStudent(id, username, courseID) {
-       
+       // Mark specific student coursework as passed
         $.ajax({
             method: 'POST',
             data: {id: id, username: username, courseID: courseID},
@@ -40,19 +42,20 @@
     }
 
     function failStudent(id, username, courseID) {
-       
+        // Mark specific student coursework as failed
         $.ajax({
             method: 'POST',
             data: {id: id, username: username, courseID: courseID},
             url:'failStudent.php',
             dataType: 'html',
             success: function(response) {
-                window.location.reload(); // Update HTML course table. 
+                window.location.reload(); 
             }
         });   
     }
 
     function viewAssessments(courseID) {
+        // Get assessments for given course
         console.log(courseID);
         $.ajax({
             method: 'POST',
@@ -66,6 +69,7 @@
     }
 
     function viewAddAssessment(courseID) {
+        // Get add assessment form
         console.log(courseID);
         $.ajax({
             method: 'POST',
@@ -79,6 +83,7 @@
     }
 
     function addAssessment(courseID) {
+        // Add assessment to database
         var title = document.getElementById("title").value;
         var info = document.getElementById("desc").value;
         var deadline = document.getElementById("deadline").value;
@@ -95,6 +100,7 @@
     }
 
     function createCourseForm() {
+        // Get create course form
         $.ajax({
             method: 'GET',
             url:'createCourseForm.php',
@@ -106,6 +112,7 @@
     }
 
     function addCourse() {
+        // Add course to database
         var name = document.getElementById("name").value;
         var credits = document.getElementById("credits").value;
         $.ajax({
@@ -120,6 +127,7 @@
     }
 
     function deleteAssessment(id, courseID) {
+        // Remove assessment
         console.log(courseID);
         $.ajax({
             method: 'POST',
@@ -133,6 +141,7 @@
     }
 
     function addStudent(courseID) {
+        // Add student to course
         var studentID = document.getElementById("studentID").value;
         var courseID = courseID;
         $.ajax({
@@ -147,6 +156,7 @@
     }
 
     function removeStudent(username, courseID){
+        // Remove student from course
         $.ajax({
             method: 'POST',
             data: {studentID: username, courseID: courseID},
@@ -160,6 +170,7 @@
     }
 
     function viewMat() {
+        // Get course material
         var course = document.getElementsByName("course")[0].value;
         var week = document.getElementsByName("week")[0].value;
         $.ajax({
@@ -173,21 +184,10 @@
         });
     }
 
-    function addquizScore() {
-        var studentID = document.getElementById("studentID").value;
-        var courseID = courseID;
-        $.ajax({
-            method: 'POST',
-            data: {courseID: courseID, studentID: studentID},
-            url:'addStudent.php',
-            dataType: 'html',
-            success: function() {
-                viewStudents(courseID);
-            }
-        });
-    }
+    
 
     function getQuestion(){
+        // Get question values to display in tutor edit screen.
         var questionNum = document.getElementById("qNumField").value;
         console.log(questionNum);
         $.ajax({

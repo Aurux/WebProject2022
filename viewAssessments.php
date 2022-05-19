@@ -1,5 +1,6 @@
 
 <?php
+    // Return assessments for given course
     session_start();
     require("scripts/functions.php");
     //require("scripts/ajax.php");

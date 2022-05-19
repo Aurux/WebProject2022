@@ -1,4 +1,5 @@
 <?php
+    // Pass student for given assessment
     session_start();
     require("scripts/functions.php");
     $conn = connectDatabase(true);

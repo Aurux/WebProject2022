@@ -1,4 +1,5 @@
 <?php
+    // Add course to DB
     session_start();
     require("scripts/functions.php");
     $conn = connectDatabase(true);

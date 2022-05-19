@@ -1,4 +1,5 @@
 <?php
+    // Get question data for tutor quiz editor
     session_start();
     require("scripts/functions.php");
     $conn = connectDatabase(true);

@@ -11,7 +11,7 @@
     <div id="questionContent">
     <h1>Add/delete questions for the student quiz</h1><br>
     <?php
-    // execute functnios
+    // execute functions
     echo addQuestion($conn);
     echo deleteQuestion($conn,$delete_question_number);
     echo resetQuizScores($conn);

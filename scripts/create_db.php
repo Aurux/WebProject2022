@@ -1,4 +1,6 @@
 <?php
+    // This file creates all tables, including example data.
+
     require_once("scripts/functions.php");
     $conn = connectDatabase(false);
 

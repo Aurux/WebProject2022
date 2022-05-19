@@ -1,4 +1,5 @@
 <?php
+    // Get course material
     session_start();
     require("scripts/functions.php");
     $conn = connectDatabase(true);

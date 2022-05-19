@@ -1,4 +1,5 @@
 <?php
+    // Remove student from course
     session_start();
     require("scripts/functions.php");
     $conn = connectDatabase(true);

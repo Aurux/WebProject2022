@@ -1,4 +1,5 @@
 <?php
+    // Delete assessment from DB
     session_start();
     require("scripts/functions.php");
     $conn = connectDatabase(true);

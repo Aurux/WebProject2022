@@ -1,5 +1,6 @@
 
 <?php
+    // Return add assessment form
     session_start();
     require("scripts/functions.php");
     //require("scripts/ajax.php");

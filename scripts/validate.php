@@ -4,7 +4,7 @@ fullPass = false;
             
 function validate()
 {   
-    
+    // Function adapted from my portfolio work
     let currentDate = new Date();
     // Regex 
     var nameRe = /^[a-zA-Z]{2,64}$/;

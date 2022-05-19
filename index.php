@@ -20,7 +20,7 @@
     
     include_once("includes/footer.php");
 
-    // Comment out after initial setup.
+    
     
     
 ?>

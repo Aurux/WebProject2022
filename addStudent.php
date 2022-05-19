@@ -1,4 +1,5 @@
 <?php
+    // Add student to course
     session_start();
     require("scripts/functions.php");
     $conn = connectDatabase(true);

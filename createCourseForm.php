@@ -1,4 +1,5 @@
 <?php
+    // Return course form
     session_start();
     require("scripts/functions.php");
     //require("scripts/ajax.php");

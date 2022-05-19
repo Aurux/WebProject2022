@@ -1,4 +1,5 @@
 <?php
+    // Add new assessment to DB
     session_start();
     require("scripts/functions.php");
     $conn = connectDatabase(true);

@@ -1,4 +1,5 @@
 <?php
+    // Mark student as failed for assessment
     session_start();
     require("scripts/functions.php");
     $conn = connectDatabase(true);

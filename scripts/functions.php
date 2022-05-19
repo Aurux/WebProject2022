@@ -2,7 +2,7 @@
 
 error_reporting(E_ALL ^ E_WARNING); 
 function connectDatabase($dbExists) {
-    //create connnection credentials
+    //connection details
     $db_host = 'localhost';
     $db_name = 'bowlingDB';
     $db_user = 'root';
@@ -16,6 +16,7 @@ function connectDatabase($dbExists) {
 }
 
 function showEnrollForm() {
+    // Display enrollent form
     echo '
     
     <form name="frmRegister" id="frmRegister" method="POST" action="enroll.php" onsubmit="return validate()"  >
@@ -43,11 +44,15 @@ function showEnrollForm() {
 
 function processEnroll($conn) {
     extract($_POST);
+
+    // Hash password 
     $password = password_hash($frmPassword, PASSWORD_DEFAULT);
 
     $sql = "SELECT * FROM users WHERE email = '$frmEmail'";
     $result = mysqli_query($conn, $sql);
     consoleLog(mysqli_num_rows($result));
+
+    // Check if user is already enrolled
     if (mysqli_num_rows($result) == 0){
 
         if ($frmType == "tutor"){
@@ -180,7 +185,7 @@ function showStudentHome($conn, $username) {
             while($row = mysqli_fetch_array($compresult)) {
                 $courseRow = $row["completion"];
             }
-    
+            // Unicode emoji chars used to make progress bar for student progress
             $fullCircleCount = round($courseRow * 10);
             $emptyCircleCount = 10 - $fullCircleCount;
             $fullCircle = str_repeat('🟩', $fullCircleCount);

@@ -1,5 +1,6 @@
 
 <?php
+    // Get submissions for course
     session_start();
     require("scripts/functions.php");
     //require("scripts/ajax.php");
