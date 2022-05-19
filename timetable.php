@@ -6,6 +6,7 @@
 
 <div id="timetableContainer">
     <?php
+    // DISPLAY STUDENT TIMETABLE
     if ($_SESSION["loggedIn"] && $_SESSION["uType"] == "tutor") {
         $sql = "SELECT courseID FROM courses";
         $result = mysqli_query($conn, $sql);
@@ -13,6 +14,7 @@
             showTimetable($conn, $row["courseID"]);
         }
     }
+    //DISPLAY ALL TIMETABLES 
     else if ($_SESSION["loggedIn"] && $_SESSION["uType"] == "student") {
         $username = $_SESSION["username"];
         $sql = "SELECT courseID FROM studentCourses WHERE username = $username";

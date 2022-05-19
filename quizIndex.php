@@ -4,11 +4,13 @@
     include("includes/header.php");
     include("includes/nav.php");  
 
+    //GET TOTAL QUESTIONS
     $sql = "SELECT * FROM questions";
     $questions =  $conn->query($sql) or die($conn->error.__LINE__);
     $total = $questions->num_rows;
     $next = $total;
 
+    //SHOW QUIZ INDEX
     $username = $_SESSION["username"];
     $sql = "SELECT username FROM users WHERE username = $username";
     $result = mysqli_query($conn, $sql);
@@ -26,6 +28,7 @@
         of a series of multiple choice questions. You will have one attempt to complete this quiz. <br><br> Results will be recorded and displayed at the end of the quiz.
         The quiz will consist of <?php echo $next?> questions are on the general subject of bowling. Questions have been set by tutors. This is a fun, simple quiz that can be accessed by all students.<br><br> Results will not count towards your grade.<br><br></p>      
         <div class="center">
+          <!-- LINK TO FIRST QUESTION -->
           <a href="question.php?n=1" class="start">Start Quiz</a>
         </div>
     </div>

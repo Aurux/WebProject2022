@@ -445,6 +445,7 @@ function addCalendarEvent($conn){
 }
 
 function deleteCalendarEvent($conn, $delete_event){
+    // EVENT FROM CALENDAR
     if (isset($_POST['delete'])){
         $delete_event = $_POST['title'];
 
@@ -529,8 +530,6 @@ function showAssessmentsTutor($conn){
 
     
     if ($numrows >= 1){
-        
-        
         while ($row = mysqli_fetch_array($result)){
             $courseID = $row["courseID"];
             $title = $row["title"];
@@ -635,37 +634,43 @@ function addQuestion($conn){
     $questions =  $conn->query($sql) or die($conn->error.__LINE__);
     $total = $questions->num_rows;
     $next = $total;
-
+    //DISPLAY CURRENT AMOUNT OF QUESTIONS IN QUIZ
     echo '<p>There are currently '.$next.' questions</p><br><br>';
 
     if (isset($_POST['submit'])){
+        //POST QUESTINO NUMBER//QUESTION TEXT//CORRECT CHIOCE
         $question_number = $_POST['question_number'];
         $question_text = $_POST['question_text'];
         $correct_choice = $_POST['correct_choice'];
+        header("Location: addQuestion.php");
 
+
+        //POST CHOICES AS ARRAY
         $choices = array();
         $choices[1] = $_POST['choice1'];
         $choices[2] = $_POST['choice2'];
         $choices[3] = $_POST['choice3'];
         $choices[4] = $_POST['choice4'];
-
+        
+        //INSERT QUESTION NUMBER AND TEST INTO QUESTIONS
         $sql = "REPLACE INTO questions(question_number, question_text)
-                VALUES('$question_number','$question_text')
-                ALTER TABLE questions MODIFY question_number int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1";
+                VALUES('$question_number','$question_text')";
         $insert_row = $conn->query($sql,) or die($conn->error.__LINE__);
 
         if($insert_row){
             foreach($choices as $choice => $value){
                 if($value != ''){
+                    //CHECK CORRECT CHOICE
                     if($correct_choice == $choice){
                         $is_correct = 1;
                     }else{
                         $is_correct = 0;
                     }
+                    //INSERT IN CHOICES
                     $sql = "REPLACE INTO choices(question_number, is_correct, choices_text)
                             VALUES('$question_number','$is_correct','$value')";
 
-                    $insert_row = $conn->query($sql,"ALTER TABLE choices MODIFY id int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1") or die($conn->error.__LINE__);
+                    $insert_row = $conn->query($sql) or die($conn->error.__LINE__);
                     
                     if($insert_row){
                         continue;
@@ -675,7 +680,6 @@ function addQuestion($conn){
                 }
             }
             echo '<p1>Question has been added</p1>';
-            header("Location: addQuestion.php");
         }
     }
     $sql = "SELECT * FROM questions";
@@ -703,6 +707,7 @@ function addQuestion($conn){
 }
 
 function deleteQuestion($conn, $delete_question_number){
+    //DELETE QUESTION
     if (isset($_POST['delete'])){
         $delete_question_number = $_POST['question_number'];
 
@@ -724,6 +729,7 @@ function deleteQuestion($conn, $delete_question_number){
 }
 
 function uploadScore($conn){
+    //INSERT QUIZ SCORE INTO QUIZSCORE
     $score = $_SESSION['score'];
     $username = $_SESSION['username'];
     if (isset($_POST['addscore'])){
@@ -737,16 +743,18 @@ function uploadScore($conn){
 }
 
 function showQuizScore($conn,$username){
+    //GET QUESTION TOTAL
     $sql = "SELECT * FROM questions";
     $questions =  $conn->query($sql) or die($conn->error.__LINE__);
     $total = $questions->num_rows;
     $next = $total;
 
+    //GET QUIZ SCORE
     $sql ="SELECT username, quizscore FROM quizScore WHERE username ='$username'";
 
     $result = mysqli_query($conn, $sql);
     $numrows = mysqli_num_rows($result);
-
+    //SHOW STUDENT QUIZSCORE
     consoleLog("Showing quiz score: ". $username);
     if ($numrows >= 1) {
         while($row = mysqli_fetch_array($result)){
@@ -758,8 +766,9 @@ function showQuizScore($conn,$username){
 }
 
 function showQuizIndex($conn, $username){
-    $sql ="SELECT username, quizscore FROM quizScore WHERE username ='$username'";
 
+    //GET USERNAME AND QUIZSCORE
+    $sql ="SELECT username, quizscore FROM quizScore WHERE username ='$username'";
     $result = mysqli_query($conn, $sql);
     $numrows = mysqli_num_rows($result);
 
@@ -779,6 +788,7 @@ function showQuizIndex($conn, $username){
 }
 
 function resetQuizScores($conn){
+    // DELETE QUIZSCORE
     if (isset($_POST['reset'])){
         $sql ="TRUNCATE TABLE quizScore";
         $delete_row = $conn->query($sql);
@@ -790,6 +800,7 @@ function resetQuizScores($conn){
         }
         header("Location: addQuestion.php");
     }
+    //CREATE RESET BUTTON
     echo'<form method="POST">
     <br><label>Reset quiz score for students: </label>
     <input type="submit" name="reset" value="Reset"/>

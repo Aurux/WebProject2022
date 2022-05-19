@@ -1,3 +1,4 @@
+<!--This will be displayed on 'quiz content' page -->
 <?php
     $title = "Calendar";
     require_once("includes/header.php");
@@ -7,6 +8,7 @@
     <div id="calendar">
 	<div class="content"><br><Br>
     <?php 
+    //display functions depending on user type
         if ($_SESSION["uType"] == "tutor") echo addCalendarEvent($conn, $courseID);
         if ($_SESSION["uType"] == "tutor") echo deleteCalendarEvent($conn,$delete_event);
         include('calendarControls.php');
