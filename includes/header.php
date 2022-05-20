@@ -1,6 +1,11 @@
 <?php
     require("scripts/functions.php");
-    $conn = connectDatabase(false);
+    try{
+        $conn = connectDatabase(true);
+    } catch (Exception $ex) {
+        $conn = connectDatabase(false);
+    }
+    
     session_start();
 ?>
 
