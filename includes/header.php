@@ -1,6 +1,6 @@
 <?php
     require("scripts/functions.php");
-    $conn = connectDatabase(true);
+    $conn = connectDatabase(false);
     session_start();
 ?>
 
